@@ -14,6 +14,11 @@ class Functions : public QWidget
 public:
     explicit Functions(QWidget *parent = 0);
     ~Functions();
+    void hideUnit(int pos);
+    void setLabel(QString text);
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::Functions *ui;

@@ -12,3 +12,73 @@ Functions::~Functions()
 {
     delete ui;
 }
+
+void Functions::hideUnit(int pos)
+{
+    switch (pos) {
+    case 1:
+        ui->widget->hide();
+        break;
+    case 2:
+        ui->widget_2->hide();
+        break;
+    case 3:
+        ui->widget_3->hide();
+        break;
+    case 4:
+        ui->widget_4->hide();
+        break;
+    case 5:
+        ui->widget_5->hide();
+        break;
+    case 6:
+        ui->widget_6->hide();
+        break;
+    case 7:
+        ui->widget_7->hide();
+        break;
+    case 8:
+        ui->widget_8->hide();
+        break;
+    case 9:
+        ui->widget_9->hide();
+        break;
+    case 10:
+        ui->widget_10->hide();
+        break;
+    default:
+        break;
+    }
+}
+
+void Functions::setLabel(QString text)
+{
+    ui->label->setText(text);
+}
+
+void Functions::on_pushButton_clicked()
+{
+    if (ui->widget->isHidden()) {
+        ui->widget->setVisible(true);
+    }
+    else if (ui->widget_2->isHidden()) {
+        ui->widget_2->setVisible(true);
+    }
+    else if (ui->widget_3->isHidden()) {
+        ui->widget_3->setVisible(true);
+    }else if (ui->widget_4->isHidden()) {
+        ui->widget_4->setVisible(true);
+    }else if (ui->widget_5->isHidden()) {
+        ui->widget_5->setVisible(true);
+    }else if (ui->widget_6->isHidden()) {
+        ui->widget_6->setVisible(true);
+    }else if (ui->widget_7->isHidden()) {
+        ui->widget_7->setVisible(true);
+    }else if (ui->widget_8->isHidden()) {
+        ui->widget_8->setVisible(true);
+    }else if (ui->widget_9->isHidden()) {
+        ui->widget_9->setVisible(true);
+    }else if (ui->widget_10->isHidden()) {
+        ui->widget_10->setVisible(true);
+    }
+}

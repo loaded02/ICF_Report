@@ -14,6 +14,7 @@ class FunctionForm : public QWidget
 public:
     explicit FunctionForm(QWidget *parent = 0);
     ~FunctionForm();
+    void setLabel(QString text);
 
 private:
     Ui::FunctionForm *ui;

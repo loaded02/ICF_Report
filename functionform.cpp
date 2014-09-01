@@ -12,3 +12,8 @@ FunctionForm::~FunctionForm()
 {
     delete ui;
 }
+
+void FunctionForm::setLabel(QString text)
+{
+    ui->label->setText(text);
+}
