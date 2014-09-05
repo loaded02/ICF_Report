@@ -18,7 +18,9 @@ public:
     void setLabel(QString text);
 
 private slots:
-    void on_pushButton_clicked();
+    void on_addButton_clicked();
+
+    void on_removeButton_clicked();
 
 private:
     Ui::Functions *ui;

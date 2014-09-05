@@ -15,12 +15,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     functions.cpp \
-    functionform.cpp
+    functionform.cpp \
+    newpatientform.cpp
 
 HEADERS  += mainwindow.h \
     functions.h \
-    functionform.h
+    functionform.h \
+    newpatientform.h
 
 FORMS    += mainwindow.ui \
     functions.ui \
-    functionform.ui
+    functionform.ui \
+    newpatientform.ui

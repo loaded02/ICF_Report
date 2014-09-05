@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
+#include <QInputDialog>
+#include "newpatientform.h"
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +20,12 @@ public:
 
 private slots:
     void on_cancelButton_clicked();
+
+    void on_actionAbout_triggered();
+
+    void on_actionNew_Therapist_triggered();
+
+    void on_actionNew_Patient_triggered();
 
 private:
     Ui::MainWindow *ui;

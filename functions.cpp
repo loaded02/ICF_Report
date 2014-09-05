@@ -56,7 +56,7 @@ void Functions::setLabel(QString text)
     ui->label->setText(text);
 }
 
-void Functions::on_pushButton_clicked()
+void Functions::on_addButton_clicked()
 {
     if (ui->widget->isHidden()) {
         ui->widget->setVisible(true);
@@ -80,5 +80,39 @@ void Functions::on_pushButton_clicked()
         ui->widget_9->setVisible(true);
     }else if (ui->widget_10->isHidden()) {
         ui->widget_10->setVisible(true);
+    }
+}
+
+void Functions::on_removeButton_clicked()
+{
+    if (ui->widget->isChecked()) {
+        ui->widget->setVisible(false);
+    }
+    if (ui->widget_2->isChecked()) {
+        ui->widget_2->setVisible(false);
+    }
+    if (ui->widget_3->isChecked()) {
+        ui->widget_3->setVisible(false);
+    }
+    if (ui->widget_4->isChecked()) {
+        ui->widget_4->setVisible(false);
+    }
+    if (ui->widget_5->isChecked()) {
+        ui->widget_5->setVisible(false);
+    }
+    if (ui->widget_6->isChecked()) {
+        ui->widget_6->setVisible(false);
+    }
+    if (ui->widget_7->isChecked()) {
+        ui->widget_7->setVisible(false);
+    }
+    if (ui->widget_8->isChecked()) {
+        ui->widget_8->setVisible(false);
+    }
+    if (ui->widget_9->isChecked()) {
+        ui->widget_9->setVisible(false);
+    }
+    if (ui->widget_10->isChecked()) {
+        ui->widget_10->setVisible(false);
     }
 }
