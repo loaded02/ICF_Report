@@ -14,16 +14,32 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    functions.cpp \
-    functionform.cpp \
-    newpatientform.cpp
+    newpatientform.cpp \
+    icfcontroller.cpp \
+    patient.cpp \
+    therapist.cpp \
+    report.cpp \
+    function.cpp \
+    context.cpp \
+    structure.cpp \
+    partizipation.cpp \
+    gui_function.cpp \
+    gui_functionform.cpp
 
 HEADERS  += mainwindow.h \
-    functions.h \
-    functionform.h \
-    newpatientform.h
+    newpatientform.h \
+    icfcontroller.h \
+    patient.h \
+    therapist.h \
+    report.h \
+    function.h \
+    context.h \
+    structure.h \
+    partizipation.h \
+    gui_function.h \
+    gui_functionform.h
 
 FORMS    += mainwindow.ui \
-    functions.ui \
-    functionform.ui \
-    newpatientform.ui
+    newpatientform.ui \
+    gui_function.ui \
+    gui_functionform.ui

@@ -1,19 +1,19 @@
-#ifndef FUNCTIONS_H
-#define FUNCTIONS_H
+#ifndef GUI_FUNCTION_H
+#define GUI_FUNCTION_H
 
 #include <QWidget>
 
 namespace Ui {
-class Functions;
+class GUI_Function;
 }
 
-class Functions : public QWidget
+class GUI_Function : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit Functions(QWidget *parent = 0);
-    ~Functions();
+    explicit GUI_Function(QWidget *parent = 0);
+    ~GUI_Function();
     void hideUnit(int pos);
     void setLabel(QString text);
 
@@ -23,7 +23,7 @@ private slots:
     void on_removeButton_clicked();
 
 private:
-    Ui::Functions *ui;
+    Ui::GUI_Function *ui;
 };
 
-#endif // FUNCTIONS_H
+#endif // GUI_FUNCTION_H

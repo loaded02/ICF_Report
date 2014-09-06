@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include "newpatientform.h"
+#include "icfcontroller.h"
 
 namespace Ui {
 class MainWindow;

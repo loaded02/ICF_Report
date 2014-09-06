@@ -1,19 +1,19 @@
-#include "functions.h"
-#include "ui_functions.h"
+#include "gui_function.h"
+#include "ui_gui_function.h"
 
-Functions::Functions(QWidget *parent) :
+GUI_Function::GUI_Function(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Functions)
+    ui(new Ui::GUI_Function)
 {
     ui->setupUi(this);
 }
 
-Functions::~Functions()
+GUI_Function::~GUI_Function()
 {
     delete ui;
 }
 
-void Functions::hideUnit(int pos)
+void GUI_Function::hideUnit(int pos)
 {
     switch (pos) {
     case 1:
@@ -51,12 +51,12 @@ void Functions::hideUnit(int pos)
     }
 }
 
-void Functions::setLabel(QString text)
+void GUI_Function::setLabel(QString text)
 {
     ui->label->setText(text);
 }
 
-void Functions::on_addButton_clicked()
+void GUI_Function::on_addButton_clicked()
 {
     if (ui->widget->isHidden()) {
         ui->widget->setVisible(true);
@@ -83,7 +83,7 @@ void Functions::on_addButton_clicked()
     }
 }
 
-void Functions::on_removeButton_clicked()
+void GUI_Function::on_removeButton_clicked()
 {
     if (ui->widget->isChecked()) {
         ui->widget->setVisible(false);

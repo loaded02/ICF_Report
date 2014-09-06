@@ -98,7 +98,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <widget class="Functions" name="functionsWidget" native="true"/>
+            <widget class="GUI_Function" name="functionsWidget" native="true"/>
            </item>
            <item>
             <spacer name="verticalSpacer_8">
@@ -114,7 +114,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="Functions" name="structuresWidget" native="true"/>
+            <widget class="GUI_Function" name="structuresWidget" native="true"/>
            </item>
            <item>
             <spacer name="verticalSpacer_10">
@@ -130,7 +130,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="Functions" name="partizipationWidget" native="true"/>
+            <widget class="GUI_Function" name="partizipationWidget" native="true"/>
            </item>
            <item>
             <spacer name="verticalSpacer_11">
@@ -288,9 +288,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>Functions</class>
+   <class>GUI_Function</class>
    <extends>QWidget</extends>
-   <header location="global">functions.h</header>
+   <header location="global">gui_function.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

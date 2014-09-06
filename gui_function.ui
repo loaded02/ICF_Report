@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Functions</class>
- <widget class="QWidget" name="Functions">
+ <class>GUI_Function</class>
+ <widget class="QWidget" name="GUI_Function">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -39,34 +39,34 @@
     </layout>
    </item>
    <item>
-    <widget class="FunctionForm" name="widget" native="true"/>
+    <widget class="GUI_FunctionForm" name="widget" native="true"/>
    </item>
    <item>
-    <widget class="FunctionForm" name="widget_2" native="true"/>
+    <widget class="GUI_FunctionForm" name="widget_2" native="true"/>
    </item>
    <item>
-    <widget class="FunctionForm" name="widget_3" native="true"/>
+    <widget class="GUI_FunctionForm" name="widget_3" native="true"/>
    </item>
    <item>
-    <widget class="FunctionForm" name="widget_4" native="true"/>
+    <widget class="GUI_FunctionForm" name="widget_4" native="true"/>
    </item>
    <item>
-    <widget class="FunctionForm" name="widget_5" native="true"/>
+    <widget class="GUI_FunctionForm" name="widget_5" native="true"/>
    </item>
    <item>
-    <widget class="FunctionForm" name="widget_10" native="true"/>
+    <widget class="GUI_FunctionForm" name="widget_10" native="true"/>
    </item>
    <item>
-    <widget class="FunctionForm" name="widget_7" native="true"/>
+    <widget class="GUI_FunctionForm" name="widget_7" native="true"/>
    </item>
    <item>
-    <widget class="FunctionForm" name="widget_9" native="true"/>
+    <widget class="GUI_FunctionForm" name="widget_9" native="true"/>
    </item>
    <item>
-    <widget class="FunctionForm" name="widget_6" native="true"/>
+    <widget class="GUI_FunctionForm" name="widget_6" native="true"/>
    </item>
    <item>
-    <widget class="FunctionForm" name="widget_8" native="true"/>
+    <widget class="GUI_FunctionForm" name="widget_8" native="true"/>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -103,9 +103,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>FunctionForm</class>
+   <class>GUI_FunctionForm</class>
    <extends>QWidget</extends>
-   <header location="global">functionform.h</header>
+   <header location="global">gui_functionform.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

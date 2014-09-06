@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>FunctionForm</class>
- <widget class="QWidget" name="FunctionForm">
+ <class>GUI_FunctionForm</class>
+ <widget class="QWidget" name="GUI_FunctionForm">
   <property name="geometry">
    <rect>
     <x>0</x>

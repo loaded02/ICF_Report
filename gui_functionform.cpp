@@ -1,30 +1,30 @@
-#include "functionform.h"
-#include "ui_functionform.h"
+#include "gui_functionform.h"
+#include "ui_gui_functionform.h"
 
-FunctionForm::FunctionForm(QWidget *parent) :
+GUI_FunctionForm::GUI_FunctionForm(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::FunctionForm)
+    ui(new Ui::GUI_FunctionForm)
 {
     ui->setupUi(this);
     ui->comboBox->addItems(QStringList() << "ID 12" << "ID 13" << "ID 14");
 }
 
-FunctionForm::~FunctionForm()
+GUI_FunctionForm::~GUI_FunctionForm()
 {
     delete ui;
 }
 
-void FunctionForm::setLabel(QString text)
+void GUI_FunctionForm::setLabel(QString text)
 {
     ui->label->setText(text);
 }
 
-bool FunctionForm::isChecked()
+bool GUI_FunctionForm::isChecked()
 {
     return ui->checkBox->isChecked();
 }
 
-int FunctionForm::getValue()
+int GUI_FunctionForm::getValue()
 {
     if (ui->radioButton->isChecked())
         return 0;
@@ -38,12 +38,12 @@ int FunctionForm::getValue()
         return 4;
 }
 
-QString FunctionForm::getDescription()
+QString GUI_FunctionForm::getDescription()
 {
     return ui->lineEdit->text();
 }
 
-void FunctionForm::on_comboBox_currentIndexChanged(const QString &arg1)
+void GUI_FunctionForm::on_comboBox_currentIndexChanged(const QString &arg1)
 {
 
 }
