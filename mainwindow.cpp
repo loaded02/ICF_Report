@@ -15,11 +15,13 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     ui->structuresWidget->setLabel("Körperstrukturen");
     ui->partizipationWidget->setLabel("Partizipation");
+    icfController = new ICFController();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete icfController;
 }
 
 void MainWindow::on_cancelButton_clicked()
@@ -44,4 +46,9 @@ void MainWindow::on_actionNew_Patient_triggered()
 {
     NewPatientForm* patient = new NewPatientForm();
     patient->show();
+}
+
+void MainWindow::on_saveButton_clicked()
+{
+    icfController->save();
 }

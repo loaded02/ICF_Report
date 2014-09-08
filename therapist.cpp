@@ -1,31 +1,14 @@
 #include "therapist.h"
 
 Therapist::Therapist()
-{
+    :Person(){
 
 }
 
 Therapist::Therapist(QString surname)
-    :surname(surname)
+    :Person(surname)
 {
-}
-QString Therapist::getSurname() const
-{
-    return surname;
 }
 
-void Therapist::setSurname(const QString &value)
-{
-    surname = value;
-}
-QString Therapist::getName() const
-{
-    return name;
-}
-
-void Therapist::setName(const QString &value)
-{
-    name = value;
-}
 
 

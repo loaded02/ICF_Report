@@ -1,23 +1,13 @@
 #ifndef THERAPIST_H
 #define THERAPIST_H
 
-#include <QString>
+#include "person.h"
 
-class Therapist
+class Therapist : public Person
 {
 public:
     Therapist();
     Therapist(QString surname);
-
-    QString getSurname() const;
-    void setSurname(const QString &value);
-
-    QString getName() const;
-    void setName(const QString &value);
-
-private:
-    QString surname;
-    QString name;
 };
 
 #endif // THERAPIST_H

@@ -28,8 +28,11 @@ private slots:
 
     void on_actionNew_Patient_triggered();
 
+    void on_saveButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    ICFController* icfController;
 };
 
 #endif // MAINWINDOW_H

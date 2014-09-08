@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -24,7 +25,8 @@ SOURCES += main.cpp\
     structure.cpp \
     partizipation.cpp \
     gui_function.cpp \
-    gui_functionform.cpp
+    gui_functionform.cpp \
+    person.cpp
 
 HEADERS  += mainwindow.h \
     newpatientform.h \
@@ -37,7 +39,9 @@ HEADERS  += mainwindow.h \
     structure.h \
     partizipation.h \
     gui_function.h \
-    gui_functionform.h
+    gui_functionform.h \
+    person.h \
+    domparser.h
 
 FORMS    += mainwindow.ui \
     newpatientform.ui \
