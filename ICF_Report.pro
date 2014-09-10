@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     partizipation.cpp \
     gui_function.cpp \
     gui_functionform.cpp \
-    person.cpp
+    person.cpp \
+    domparser.cpp
 
 HEADERS  += mainwindow.h \
     newpatientform.h \

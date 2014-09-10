@@ -4,9 +4,11 @@
 #include "report.h"
 #include "patient.h"
 #include "therapist.h"
+#include "domparser.h"
 #include <QDomDocument>
 #include <QFile>
 #include <QTextStream>
+#include <QDebug>
 
 class ICFController
 {
@@ -17,12 +19,12 @@ public:
     void addReport(Report rep);
     Report getReport(int pos);
     int sizeReports();
-    void createXMLFile(QList<Person> persons, QString filename);
+    void createXMLFile(QList<Person*> persons, QString filename);
     void save();
 private:
     QList<Report> reports;
     QList<Person> patients;
-    QList<Person> therapists;
+    QList<Person*> therapists;
 };
 
 #endif // ICFCONTROLLER_H
