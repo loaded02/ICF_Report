@@ -4,7 +4,8 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QInputDialog>
-#include "newpatientform.h"
+#include <ui_mainwindow.h>
+#include "newpersonform.h"
 #include "icfcontroller.h"
 
 namespace Ui {
@@ -31,6 +32,8 @@ private slots:
     void on_saveButton_clicked();
 
 private:
+    void fillTherComboBox();
+    void fillPatComboBox();
     Ui::MainWindow *ui;
     ICFController* icfController;
 };

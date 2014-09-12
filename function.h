@@ -3,6 +3,8 @@
 
 #include <QString>
 
+enum Art {function, structure, partizipation, context};
+
 class Function
 {
 public:
@@ -19,11 +21,15 @@ public:
     QString getText() const;
     void setText(const QString &value);
 
+    Art getArt() const;
+    void setArt(const Art &value);
+
 private:
     QString id;
     QString description;
     int value;
     QString text;
+    Art art;
 };
 
 #endif // FUNCTION_H

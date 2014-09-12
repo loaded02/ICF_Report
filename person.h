@@ -7,6 +7,7 @@ class Person
 {
 public:
     Person();
+    virtual ~Person();
     Person(QString surname);
     QString getSurname() const;
     void setSurname(const QString &value);

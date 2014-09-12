@@ -4,6 +4,11 @@ Person::Person()
 {
 }
 
+Person::~Person()
+{
+
+}
+
 Person::Person(QString surname)
     :surname(surname){
 

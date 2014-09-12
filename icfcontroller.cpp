@@ -2,18 +2,13 @@
 
 ICFController::ICFController()
 {
-    //Test
-//    Therapist* ther1 = new Therapist("Meier");
-//    ther1->setName("Max");
-//    therapists.append(ther1);
-//    Therapist* ther2 = new Therapist("Mueller");
-//    ther2->setName("Moritz");
-//    therapists.append(ther2);
-    DomParser parser(&therapists);
-    parser.readFile("therapists.xml");
+    DomParser therParser(&therapists);
+    therParser.readFile("therapists.xml");
+    DomParser patParser(&patients);
+    patParser.readFile("patients.xml");
 }
 
-void ICFController::createXMLFile(QList<Person*> persons, QString filename)
+void ICFController::createFile(QList<Person*> persons, QString filename)
 {
     const int Indent = 4;
 
@@ -22,30 +17,34 @@ void ICFController::createXMLFile(QList<Person*> persons, QString filename)
     doc.appendChild(root);
 
     foreach (Person* actPerson, persons) {
-        QDomElement person = doc.createElement("therapist");
-        person.setAttribute("surname",actPerson->getSurname());
-        person.setAttribute("name",actPerson->getName());
-//        QDomElement surname = doc.createElement("surname");
-//        QDomElement name = doc.createElement("name");
-//        QDomText actName = doc.createTextNode(actPerson.getName());
-//        QDomText actSurname = doc.createTextNode(actPerson.getSurname());
-        root.appendChild(person);
-//        person.appendChild(surname);
-//        person.appendChild(name);
-//        surname.appendChild(actSurname);
-//        name.appendChild(actName);
-        //dynamic_cast Patient
+        Therapist* ther = dynamic_cast<Therapist*>(actPerson);
+        Patient* pat = dynamic_cast<Patient*>(actPerson);
+        if (ther) {
+            QDomElement therDOM = doc.createElement("therapist");
+            therDOM.setAttribute("surname",ther->getSurname());
+            therDOM.setAttribute("name",ther->getName());
+            root.appendChild(therDOM);
+        }
+        if (pat) {
+            QDomElement patDOM = doc.createElement("patient");
+            patDOM.setAttribute("surname",pat->getSurname());
+            patDOM.setAttribute("name",pat->getName());
+            patDOM.setAttribute("diagnosis",pat->getDiagnosis());
+            patDOM.setAttribute("dob",pat->getDob().toString());
+            root.appendChild(patDOM);
+        }
     }
 
     QFile file(filename);
-    if (!file.open(QIODevice::ReadWrite | QIODevice::Text))
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
         return;
     QTextStream out(&file);
     doc.save(out, Indent);
+    file.close();
 }
 
 void ICFController::save()
 {
-    this->createXMLFile(this->therapists, "therapists.xml");
-//    this->createXMLFile(this->patients, "patients.xml");
+    this->createFile(this->therapists, "therapists.xml");
+    this->createFile(this->patients, "patients.xml");
 }

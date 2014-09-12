@@ -45,15 +45,19 @@ void DomParser::parseRootElement(const QDomElement &element)
 {
     QDomNode child = element.firstChild();
     while (!child.isNull()) {
-        if (child.toElement().tagName() == "therapist")
-            parseFirstChild(child.toElement());
+        if (child.toElement().tagName() == "therapist") {
+            parseTherapist(child.toElement());
+        }
+        else if (child.toElement().tagName() == "patient") {
+            parsePatient(child.toElement());
+        }
         child = child.nextSibling();
     }
 }
 
-void DomParser::parseFirstChild(const QDomElement &element)
+void DomParser::parseTherapist(const QDomElement &element)
 {
-    Person* item = new Person(element.attribute("surname"));
+    Therapist* item = new Therapist(element.attribute("surname"));
     item->setName(element.attribute("name"));
     daten->append(item);
 
@@ -65,7 +69,16 @@ void DomParser::parseFirstChild(const QDomElement &element)
 //            parsePageElement(child.toElement(), item);
 //        }
 //        child = child.nextSibling();
-//    }
+    //    }
+}
+
+void DomParser::parsePatient(const QDomElement &element)
+{
+    Patient* item = new Patient(element.attribute("surname"));
+    item->setName(element.attribute("name"));
+    item->setDiagnosis(element.attribute("diagnosis"));
+    item->setDob(QDate::fromString(element.attribute("dob")));
+    daten->append(item);
 }
 
 void DomParser::parseSecondChild(const QDomElement &element, Person *parent)

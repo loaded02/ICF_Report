@@ -4,14 +4,12 @@
 #include "patient.h"
 #include "therapist.h"
 #include "function.h"
-#include "structure.h"
-#include "partizipation.h"
-#include "context.h"
 
 class Report
 {
 public:
     Report(QDate date);
+    ~Report();
     Patient getPatient() const;
     void setPatient(const Patient &value);
 

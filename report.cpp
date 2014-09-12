@@ -4,6 +4,9 @@ Report::Report(QDate date)
     :date(date)
 {
 }
+
+Report::~Report() {}
+
 Patient Report::getPatient() const
 {
     return patient;

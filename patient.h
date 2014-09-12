@@ -8,6 +8,7 @@ class Patient : public Person
 {
 public:
     Patient();
+    virtual ~Patient();
     Patient(QString surname);
 
     QString getDiagnosis() const;

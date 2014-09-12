@@ -39,6 +39,16 @@ void Function::setText(const QString &value)
 {
     text = value;
 }
+Art Function::getArt() const
+{
+    return art;
+}
+
+void Function::setArt(const Art &value)
+{
+    art = value;
+}
+
 
 
 

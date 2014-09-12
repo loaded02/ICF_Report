@@ -5,6 +5,12 @@ Patient::Patient()
 
 }
 
+Patient::~Patient()
+{
+
+
+}
+
 Patient::Patient(QString surname)
     :Person(surname)
 {

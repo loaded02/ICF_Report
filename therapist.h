@@ -7,6 +7,7 @@ class Therapist : public Person
 {
 public:
     Therapist();
+    virtual ~Therapist();
     Therapist(QString surname);
 };
 

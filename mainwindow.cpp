@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->structuresWidget->setLabel("Körperstrukturen");
     ui->partizipationWidget->setLabel("Partizipation");
     icfController = new ICFController();
+    this->fillTherComboBox();
+    this->fillPatComboBox();
 }
 
 MainWindow::~MainWindow()
@@ -26,8 +28,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_cancelButton_clicked()
 {
-    this->setVisible(false);
-    exit(0);
+    this->close();
 }
 
 void MainWindow::on_actionAbout_triggered()
@@ -38,17 +39,36 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionNew_Therapist_triggered()
 {
-    QString therapist = QInputDialog::getText(this, "Enter Therapist Name", QString::null,QLineEdit::Normal,"Enter Therapist Name");
-    ui->therapeutcB->addItem(therapist);
+//    QString therapist = QInputDialog::getText(this, "Enter Therapist Name", QString::null,QLineEdit::Normal,"Enter Therapist Name");
+//    ui->therapeutcB->addItem(therapist);
+    NewPersonForm* therapist = new NewPersonForm();
+    therapist->hideDiagnosis();
+    therapist->hideDob();
+    therapist->setWindowTitle("Add new Therapist");
+    therapist->exec();
 }
 
 void MainWindow::on_actionNew_Patient_triggered()
 {
-    NewPatientForm* patient = new NewPatientForm();
+    NewPersonForm* patient = new NewPersonForm();
     patient->show();
 }
 
 void MainWindow::on_saveButton_clicked()
 {
     icfController->save();
+}
+
+void MainWindow::fillTherComboBox()
+{
+    for (int i=0; i<icfController->sizeOfTherapists(); i++) {
+        ui->therapeutcB->addItem(icfController->getTherapist(i)->getSurname());
+    }
+}
+
+void MainWindow::fillPatComboBox()
+{
+    for (int i=0; i<icfController->sizeOfPatients(); i++) {
+        ui->patientcB->addItem(icfController->getPatient(i)->getSurname());
+    }
 }
