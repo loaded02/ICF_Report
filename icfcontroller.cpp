@@ -8,6 +8,16 @@ ICFController::ICFController()
     patParser.readFile("patients.xml");
 }
 
+void ICFController::addPatient(Patient* pat)
+{
+    patients.append(pat);
+}
+
+void ICFController::addTherapist(Therapist* ther)
+{
+    therapists.append(ther);
+}
+
 void ICFController::createFile(QList<Person*> persons, QString filename)
 {
     const int Indent = 4;
@@ -42,9 +52,33 @@ void ICFController::createFile(QList<Person*> persons, QString filename)
     doc.save(out, Indent);
     file.close();
 }
+QList<Person *>* ICFController::getPatients()
+{
+    return &patients;
+}
+
+QList<Person*>* ICFController::getTherapists()
+{
+    return &therapists;
+}
+
 
 void ICFController::save()
 {
     this->createFile(this->therapists, "therapists.xml");
     this->createFile(this->patients, "patients.xml");
+}
+
+void ICFController::printReport()
+{
+    QStringList headerList;
+    headerList.append("1.1.2014");
+    Patient* pat = static_cast<Patient*>(patients.at(0));
+    headerList.append(pat->getName() + " " + pat->getSurname());
+    headerList.append(pat->getDob().toString());
+    headerList.append(pat->getDiagnosis());
+    headerList.append("ICF Core Set - Apoplex");
+    headerList.append(therapists.at(0)->getName() + " " + therapists.at(0)->getSurname());
+    PrintWindow printWindow;
+    printWindow.printHeader(headerList);
 }

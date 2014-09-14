@@ -4,9 +4,11 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QInputDialog>
+#include <QString>
 #include <ui_mainwindow.h>
-#include "newpersonform.h"
+#include "gui_newperson.h"
 #include "icfcontroller.h"
+#include "gui_showperson.h"
 
 namespace Ui {
 class MainWindow;
@@ -31,9 +33,17 @@ private slots:
 
     void on_saveButton_clicked();
 
+    void on_printButton_clicked();
+
+    void on_actionManage_Therapists_triggered();
+
+    void on_actionManage_Patients_triggered();
+
 private:
     void fillTherComboBox();
     void fillPatComboBox();
+    void addPatient(QString surname, QString name, QDate dob, QString diagnosis);
+    void addTherapist(QString surname, QString name);
     Ui::MainWindow *ui;
     ICFController* icfController;
 };

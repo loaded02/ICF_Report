@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>NewPersonForm</class>
- <widget class="QDialog" name="NewPersonForm">
+ <class>GUI_NewPerson</class>
+ <widget class="QDialog" name="GUI_NewPerson">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>New Patient</string>
+   <string>Add New Patient</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -152,7 +152,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>NewPersonForm</receiver>
+   <receiver>GUI_NewPerson</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -168,7 +168,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>NewPersonForm</receiver>
+   <receiver>GUI_NewPerson</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -5,6 +5,7 @@
 #include "patient.h"
 #include "therapist.h"
 #include "domparser.h"
+#include "printwindow.h"
 #include <QDomDocument>
 #include <QFile>
 #include <QTextStream>
@@ -14,7 +15,7 @@ class ICFController
 {
 public:
     ICFController();
-    void addPatient(Patient pat);
+    void addPatient(Patient* pat);
     Patient* getPatient(int i) {
         return static_cast<Patient*>(patients.at(i));
     }
@@ -23,7 +24,7 @@ public:
         return patients.size();
     }
 
-    void addTherapist(Therapist ther);
+    void addTherapist(Therapist* ther);
     Therapist* getTherapist(int i) {
         return static_cast<Therapist*>(therapists.at(i));
     }
@@ -39,6 +40,11 @@ public:
     }
 
     void save();
+    void printReport();
+    QList<Person *>* getTherapists();
+
+    QList<Person *>* getPatients();
+
 private:
     void createFile(QList<Person*> persons, QString filename);
     QList<Report*> reports;

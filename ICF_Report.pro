@@ -6,6 +6,7 @@
 
 QT       += core gui
 QT       += xml
+QT       += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -24,7 +25,9 @@ SOURCES += main.cpp\
     gui_functionform.cpp \
     person.cpp \
     domparser.cpp \
-    newpersonform.cpp
+    printwindow.cpp \
+    gui_showperson.cpp \
+    gui_newperson.cpp
 
 HEADERS  += mainwindow.h \
     icfcontroller.h \
@@ -36,9 +39,12 @@ HEADERS  += mainwindow.h \
     gui_functionform.h \
     person.h \
     domparser.h \
-    newpersonform.h
+    printwindow.h \
+    gui_showperson.h \
+    gui_newperson.h
 
 FORMS    += mainwindow.ui \
     gui_function.ui \
     gui_functionform.ui \
-    newpersonform.ui
+    gui_showperson.ui \
+    gui_newperson.ui

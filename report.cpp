@@ -34,6 +34,16 @@ void Report::setDate(const QDate &value)
 {
     date = value;
 }
+QString Report::getFreeText() const
+{
+    return freeText;
+}
+
+void Report::setFreeText(const QString &value)
+{
+    freeText = value;
+}
+
 
 
 

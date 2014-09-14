@@ -19,10 +19,25 @@ public:
     QDate getDate() const;
     void setDate(const QDate &value);
 
+    QString getFreeText() const;
+    void setFreeText(const QString &value);
+
+    int sizeOfFunctions() {
+        return functions.size();
+    }
+    Function* getFunction(int i) {
+        return functions.at(i);
+    }
+    void addFunction(Function* funct) {
+        functions.append(funct);
+    }
+
 private:
     Patient patient;
     Therapist therapist;
     QDate date;
+    QList<Function*> functions;
+    QString freeText;
 };
 
 #endif // REPORT_H

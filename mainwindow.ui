@@ -208,7 +208,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QWidget" name="contextWidget" native="true"/>
+            <widget class="GUI_Function" name="contextWidget" native="true"/>
            </item>
           </layout>
          </widget>
@@ -305,6 +305,11 @@
     </property>
     <addaction name="actionNew_Therapist"/>
     <addaction name="actionNew_Patient"/>
+    <addaction name="actionManage_Therapists"/>
+    <addaction name="actionManage_Patients"/>
+    <addaction name="actionSave_Report"/>
+    <addaction name="actionPrint_Pdf"/>
+    <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuAbout"/>
@@ -331,6 +336,31 @@
   <action name="actionNew_Patient">
    <property name="text">
     <string>New Patient</string>
+   </property>
+  </action>
+  <action name="actionManage_Therapists">
+   <property name="text">
+    <string>Manage Therapists</string>
+   </property>
+  </action>
+  <action name="actionManage_Patients">
+   <property name="text">
+    <string>Manage Patients</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionPrint_Pdf">
+   <property name="text">
+    <string>Print Pdf</string>
+   </property>
+  </action>
+  <action name="actionSave_Report">
+   <property name="text">
+    <string>Save Report</string>
    </property>
   </action>
  </widget>

@@ -19,7 +19,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Körperfunktionen</string>
+        <string>Bodyfunctions</string>
        </property>
       </widget>
      </item>

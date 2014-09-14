@@ -24,7 +24,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox"/>
+      <widget class="QComboBox" name="comboBox">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QLabel" name="label">
@@ -35,7 +39,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Beschreibung</string>
+        <string>Description</string>
        </property>
       </widget>
      </item>
