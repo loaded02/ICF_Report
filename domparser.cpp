@@ -6,6 +6,11 @@ DomParser::DomParser(QList<Person*>* daten)
 
 }
 
+DomParser::DomParser(QList<Report *> *daten)
+    :reports(daten){
+
+}
+
 bool DomParser::readFile(const QString &fileName)
 {
     QFile file(fileName);
@@ -31,7 +36,7 @@ bool DomParser::readFile(const QString &fileName)
 
     QDomElement root = doc.documentElement();
 
-    if (root.tagName() == "person") {
+    if (root.tagName() == "person" || root.tagName() == "reports") {
         parseRootElement(root);
     }
     else {
@@ -51,6 +56,9 @@ void DomParser::parseRootElement(const QDomElement &element)
         else if (child.toElement().tagName() == "patient") {
             parsePatient(child.toElement());
         }
+        else if (child.toElement().tagName() == "report") {
+
+        }
         child = child.nextSibling();
     }
 }
@@ -58,6 +66,7 @@ void DomParser::parseRootElement(const QDomElement &element)
 void DomParser::parseTherapist(const QDomElement &element)
 {
     Therapist* item = new Therapist(element.attribute("surname"));
+    item->setId(element.attribute("id").toInt());
     item->setName(element.attribute("name"));
     daten->append(item);
 
@@ -75,13 +84,35 @@ void DomParser::parseTherapist(const QDomElement &element)
 void DomParser::parsePatient(const QDomElement &element)
 {
     Patient* item = new Patient(element.attribute("surname"));
+    item->setId(element.attribute("id").toInt());
     item->setName(element.attribute("name"));
     item->setDiagnosis(element.attribute("diagnosis"));
     item->setDob(QDate::fromString(element.attribute("dob")));
     daten->append(item);
 }
 
-void DomParser::parseSecondChild(const QDomElement &element, Person *parent)
+void DomParser::parseReport(const QDomElement element)
+{
+    Report* item = new Report(QDate::fromString(element.attribute("date")));
+    //attr
+    QDomNode child = element.firstChild();
+    while (!child.isNull()) {
+        Function* func = new Function();
+        if (child.toElement().tagName() == "function") {
+            func->setArt(Function::function);
+        } else if (child.toElement().tagName() == "structure") {
+            func->setArt(Function::structure);
+        } else if (child.toElement().tagName() == "partizipation") {
+            func->setArt(Function::partizipation);
+        } else if (child.toElement().tagName() == "context") {
+            func->setArt(Function::context);
+        }
+        parseSecondChild(child.toElement(),func);
+        child = child.nextSibling();
+    }
+}
+
+void DomParser::parseSecondChild(const QDomElement &element, Function *parent)
 {
 //    QString page = element.text();
 //    QString allPages = parent->text(1);

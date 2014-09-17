@@ -5,10 +5,12 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QString>
+#include <QDebug>
 #include <ui_mainwindow.h>
 #include "gui_newperson.h"
 #include "icfcontroller.h"
 #include "gui_showperson.h"
+#include "function.h"
 
 namespace Ui {
 class MainWindow;
@@ -39,7 +41,10 @@ private slots:
 
     void on_actionManage_Patients_triggered();
 
+    void on_actionSave_Report_triggered();
+
 private:
+    void saveReport();
     void fillTherComboBox();
     void fillPatComboBox();
     void addPatient(QString surname, QString name, QDate dob, QString diagnosis);

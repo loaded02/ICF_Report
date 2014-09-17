@@ -18,6 +18,8 @@ public:
     bool isChecked();
     int getValue();
     QString getDescription();
+    QString getId();
+    QString getText();
 
 private slots:
     void on_comboBox_currentIndexChanged(const QString &arg1);

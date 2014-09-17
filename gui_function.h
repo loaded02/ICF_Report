@@ -2,6 +2,7 @@
 #define GUI_FUNCTION_H
 
 #include <QWidget>
+#include "gui_functionform.h"
 
 namespace Ui {
 class GUI_Function;
@@ -16,6 +17,8 @@ public:
     ~GUI_Function();
     void hideUnit(int pos);
     void setLabel(QString text);
+    static int NoFunctions;
+    QList<GUI_FunctionForm*> getActiveWidgets();
 
 private slots:
     void on_addButton_clicked();

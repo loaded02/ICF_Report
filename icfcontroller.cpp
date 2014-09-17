@@ -1,21 +1,77 @@
 #include "icfcontroller.h"
 
+int ICFController::patId = 5000;
+int ICFController::therId = 1000;
+int ICFController::repId = 1000;
+
 ICFController::ICFController()
 {
     DomParser therParser(&therapists);
     therParser.readFile("therapists.xml");
     DomParser patParser(&patients);
     patParser.readFile("patients.xml");
+    foreach (Person* per, patients) {
+        if (patId < per->getId())
+            patId = per->getId();
+    }
+    patId++;
+    foreach (Person* per, therapists) {
+        if (therId < per->getId())
+            therId = per->getId();
+    }
+    therId++;
 }
 
 void ICFController::addPatient(Patient* pat)
 {
+    if (pat->getId() == 0)
+        pat->setId(patId++);
     patients.append(pat);
 }
 
+Patient *ICFController::findPatient(int id)
+{
+    for (int i=0; i<patients.size(); i++){
+        if (patients.at(i)->getId() == id) {
+            return static_cast<Patient*>(patients.at(i));
+        }
+    }
+    return NULL;
+}
+
+
 void ICFController::addTherapist(Therapist* ther)
 {
+    if (ther->getId() == 0)
+        ther->setId(therId++);
     therapists.append(ther);
+}
+
+Therapist *ICFController::findTherapist(int id)
+{
+    for (int i=0; i<therapists.size(); i++){
+        if (therapists.at(i)->getId() == id) {
+            return static_cast<Therapist*>(therapists.at(i));
+        }
+    }
+    return NULL;
+}
+
+int ICFController::addReport(Report *rep)
+{
+    //check if report allready exists
+    for (int i=0; i<reports.size(); i++) {
+        if (reports.at(i)->getPatientId() == rep->getPatientId() && reports.at(i)->getTherapistId() == rep->getTherapistId()
+                && reports.at(i)->getDate() == rep->getDate()) {
+            std::cerr << "Es existiert bereits ein Report mit diesen Daten" << std::endl;
+            return 1;
+        }
+    }
+    //setId
+    if (rep->getId() == 0)
+        rep->setId(repId++);
+    reports.append(rep);
+    return 0;
 }
 
 void ICFController::createFile(QList<Person*> persons, QString filename)
@@ -31,18 +87,57 @@ void ICFController::createFile(QList<Person*> persons, QString filename)
         Patient* pat = dynamic_cast<Patient*>(actPerson);
         if (ther) {
             QDomElement therDOM = doc.createElement("therapist");
+            therDOM.setAttribute("id",ther->getId());
             therDOM.setAttribute("surname",ther->getSurname());
             therDOM.setAttribute("name",ther->getName());
             root.appendChild(therDOM);
         }
         if (pat) {
             QDomElement patDOM = doc.createElement("patient");
+            patDOM.setAttribute("id",pat->getId());
             patDOM.setAttribute("surname",pat->getSurname());
             patDOM.setAttribute("name",pat->getName());
             patDOM.setAttribute("diagnosis",pat->getDiagnosis());
             patDOM.setAttribute("dob",pat->getDob().toString());
             root.appendChild(patDOM);
         }
+    }
+
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
+        return;
+    QTextStream out(&file);
+    doc.save(out, Indent);
+    file.close();
+}
+
+void ICFController::createFile(QList<Report *> reports, QString filename)
+{
+    const int Indent = 4;
+
+    QDomDocument doc;
+    QDomElement root = doc.createElement("reports");
+    doc.appendChild(root);
+
+    foreach (Report* actReport, reports) {
+            QDomElement repDOM = doc.createElement("report");
+            repDOM.setAttribute("date", actReport->getDate().toString());
+            repDOM.setAttribute("patient",actReport->getPatientId());
+            repDOM.setAttribute("therapist",actReport->getTherapistId());
+            QDomText freeText = doc.createTextNode(actReport->getFreeText());
+            repDOM.appendChild(freeText);
+            root.appendChild(repDOM);
+            for (int i=0; i<actReport->sizeOfFunctions(); i++) {
+                Function* actFunction = actReport->getFunction(i);
+                QDomElement funcDOM = doc.createElement("function");
+                funcDOM.setAttribute("art",actFunction->getArt());
+                funcDOM.setAttribute("id",actFunction->getId());
+                funcDOM.setAttribute("description",actFunction->getDescription());
+                funcDOM.setAttribute("value",actFunction->getValue());
+                QDomText text = doc.createTextNode(actFunction->getText());
+                funcDOM.appendChild(text);
+                repDOM.appendChild(funcDOM);
+            }
     }
 
     QFile file(filename);
@@ -67,6 +162,7 @@ void ICFController::save()
 {
     this->createFile(this->therapists, "therapists.xml");
     this->createFile(this->patients, "patients.xml");
+    this->createFile(this->reports, "reports.xml");
 }
 
 void ICFController::printReport()

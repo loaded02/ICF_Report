@@ -19,7 +19,7 @@ public:
     Patient* getPatient(int i) {
         return static_cast<Patient*>(patients.at(i));
     }
-
+    Patient* findPatient(int id);
     int sizeOfPatients() {
         return patients.size();
     }
@@ -28,12 +28,13 @@ public:
     Therapist* getTherapist(int i) {
         return static_cast<Therapist*>(therapists.at(i));
     }
+    Therapist* findTherapist(int id);
 
     int sizeOfTherapists() {
         return therapists.size();
     }
 
-    void addReport(Report rep);
+    int addReport(Report* rep);
     Report* getReport(int pos);
     int sizeOfReports() {
         return reports.size();
@@ -47,6 +48,10 @@ public:
 
 private:
     void createFile(QList<Person*> persons, QString filename);
+    void createFile(QList<Report*> reports, QString filename);
+    static int therId;
+    static int patId;
+    static int repId;
     QList<Report*> reports;
     QList<Person*> patients;
     QList<Person*> therapists;

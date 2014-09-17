@@ -28,17 +28,28 @@ int GUI_FunctionForm::getValue()
 {
     if (ui->radioButton->isChecked())
         return 0;
-    else if (ui->radioButton_2->isChecked())
+    if (ui->radioButton_2->isChecked())
         return 1;
-    else if (ui->radioButton_3->isChecked())
+    if (ui->radioButton_3->isChecked())
         return 2;
-    else if (ui->radioButton_4->isChecked())
+    if (ui->radioButton_4->isChecked())
         return 3;
-    else if (ui->radioButton_5->isChecked())
+    if (ui->radioButton_5->isChecked())
         return 4;
+    else return -1;
 }
 
 QString GUI_FunctionForm::getDescription()
+{
+    return ui->label->text();
+}
+
+QString GUI_FunctionForm::getId()
+{
+    return ui->comboBox->currentText();
+}
+
+QString GUI_FunctionForm::getText()
 {
     return ui->lineEdit->text();
 }

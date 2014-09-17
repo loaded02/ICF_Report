@@ -10,7 +10,7 @@ Person::~Person()
 }
 
 Person::Person(QString surname)
-    :surname(surname){
+    :surname(surname), id(0){
 
 }
 QString Person::getSurname() const
@@ -31,3 +31,13 @@ void Person::setName(const QString &value)
 {
     name = value;
 }
+int Person::getId() const
+{
+    return id;
+}
+
+void Person::setId(int value)
+{
+    id = value;
+}
+

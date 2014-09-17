@@ -48,6 +48,7 @@ void MainWindow::on_actionNew_Therapist_triggered()
     therapist->setWindowTitle("Add new Therapist");
     if (therapist->exec())
         this->addTherapist(therapist->getSurname(),therapist->getName());
+    delete therapist;
 }
 
 void MainWindow::on_actionNew_Patient_triggered()
@@ -55,10 +56,12 @@ void MainWindow::on_actionNew_Patient_triggered()
     GUI_NewPerson* patient = new GUI_NewPerson(this);
     if (patient->exec())
         this->addPatient(patient->getSurname(),patient->getName(),patient->getDob(),patient->getDiagnosis());
+    delete patient;
 }
 
 void MainWindow::on_saveButton_clicked()
 {
+    this->saveReport();
     icfController->save();
 }
 
@@ -66,7 +69,7 @@ void MainWindow::fillTherComboBox()
 {
     ui->therapeutcB->clear();
     for (int i=0; i<icfController->sizeOfTherapists(); i++) {
-        ui->therapeutcB->addItem(icfController->getTherapist(i)->getSurname());
+        ui->therapeutcB->addItem(QString::number(icfController->getTherapist(i)->getId()) + " " + icfController->getTherapist(i)->getSurname());
     }
 }
 
@@ -74,7 +77,7 @@ void MainWindow::fillPatComboBox()
 {
     ui->patientcB->clear();
     for (int i=0; i<icfController->sizeOfPatients(); i++) {
-        ui->patientcB->addItem(icfController->getPatient(i)->getSurname());
+        ui->patientcB->addItem(QString::number(icfController->getPatient(i)->getId()) + " " + icfController->getPatient(i)->getSurname());
     }
 }
 
@@ -106,6 +109,7 @@ void MainWindow::on_actionManage_Therapists_triggered()
     GUI_ShowPerson* form = new GUI_ShowPerson(icfController->getTherapists(),this);
     form->setWindowTitle("Manage Therapists");
     form->exec();
+    delete form;
 }
 
 void MainWindow::on_actionManage_Patients_triggered()
@@ -113,4 +117,36 @@ void MainWindow::on_actionManage_Patients_triggered()
     GUI_ShowPerson* form = new GUI_ShowPerson(icfController->getPatients(),this);
     form->setWindowTitle("Manage Patients");
     form->exec();
+    delete form;
+}
+
+void MainWindow::saveReport()
+{
+    Report* report = new Report(ui->dateEdit->date());
+    QStringList pat = ui->patientcB->currentText().split(" ");
+    report->setPatientId(pat[0].toInt());
+    QStringList ther = ui->therapeutcB->currentText().split(" ");
+    report->setTherapistId(ther[0].toInt());
+    report->setFreeText(ui->textEdit->toPlainText());
+    QList<GUI_FunctionForm*> functionsList = ui->functionsWidget->getActiveWidgets();
+    foreach (GUI_FunctionForm* form, functionsList) {
+        Function* function = new Function();
+        function->setArt(Function::function);
+        function->setId(form->getId());
+        function->setDescription(form->getDescription());
+        function->setValue(form->getValue());
+        function->setText(form->getText());
+        report->addFunction(function);
+    }
+    //structures etc fehlt!!!!!!!!!!!!
+    if (icfController->addReport(report) == 0) {
+        QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", "Report added");
+        box->exec();
+        delete box;
+    }
+}
+
+void MainWindow::on_actionSave_Report_triggered()
+{
+    this->saveReport();
 }

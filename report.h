@@ -10,11 +10,6 @@ class Report
 public:
     Report(QDate date);
     ~Report();
-    Patient getPatient() const;
-    void setPatient(const Patient &value);
-
-    Therapist getTherapist() const;
-    void setTherapist(const Therapist &value);
 
     QDate getDate() const;
     void setDate(const QDate &value);
@@ -32,9 +27,19 @@ public:
         functions.append(funct);
     }
 
+    int getPatientId() const;
+    void setPatientId(int value);
+
+    int getTherapistId() const;
+    void setTherapistId(int value);
+
+    int getId() const;
+    void setId(int value);
+
 private:
-    Patient patient;
-    Therapist therapist;
+    int id;
+    int patientId;
+    int therapistId;
     QDate date;
     QList<Function*> functions;
     QString freeText;

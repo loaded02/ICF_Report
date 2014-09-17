@@ -1,6 +1,8 @@
 #include "gui_function.h"
 #include "ui_gui_function.h"
 
+int GUI_Function::NoFunctions = 10;
+
 GUI_Function::GUI_Function(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GUI_Function)
@@ -54,6 +56,42 @@ void GUI_Function::hideUnit(int pos)
 void GUI_Function::setLabel(QString text)
 {
     ui->label->setText(text);
+}
+
+QList<GUI_FunctionForm *> GUI_Function::getActiveWidgets()
+{
+    QList<GUI_FunctionForm*> list;
+    if (ui->widget->isVisible()) {
+        list.append(ui->widget);
+    }
+    if (ui->widget_2->isVisible()) {
+        list.append(ui->widget_2);
+    }
+    if (ui->widget_3->isVisible()) {
+        list.append(ui->widget_3);
+    }
+    if (ui->widget_4->isVisible()) {
+        list.append(ui->widget_4);
+    }
+    if (ui->widget_5->isVisible()) {
+        list.append(ui->widget_5);
+    }
+    if (ui->widget_6->isVisible()) {
+        list.append(ui->widget_6);
+    }
+    if (ui->widget_7->isVisible()) {
+        list.append(ui->widget_7);
+    }
+    if (ui->widget_8->isVisible()) {
+        list.append(ui->widget_8);
+    }
+    if (ui->widget_9->isVisible()) {
+        list.append(ui->widget_9);
+    }
+    if (ui->widget_10->isVisible()) {
+        list.append(ui->widget_10);
+    }
+    return list;
 }
 
 void GUI_Function::on_addButton_clicked()
