@@ -29,7 +29,7 @@ private:
     void parseTherapist(const QDomElement &element);
     void parsePatient(const QDomElement &element);
     void parseReport(const QDomElement element);
-    void parseSecondChild(const QDomElement &element,
+    void parseFunction(const QDomElement &element,
                           Function *parent);
     QList<Person*>* daten;
     QList<Report*>* reports;

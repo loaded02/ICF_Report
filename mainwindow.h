@@ -7,6 +7,7 @@
 #include <QString>
 #include <QDebug>
 #include <ui_mainwindow.h>
+#include <QCloseEvent>
 #include "gui_newperson.h"
 #include "icfcontroller.h"
 #include "gui_showperson.h"
@@ -23,15 +24,17 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+public slots:
+    void on_actionNew_Therapist_triggered();
+
+    void on_actionNew_Patient_triggered();
+
+    void closeEvent(QCloseEvent * event);
 
 private slots:
     void on_cancelButton_clicked();
 
     void on_actionAbout_triggered();
-
-    void on_actionNew_Therapist_triggered();
-
-    void on_actionNew_Patient_triggered();
 
     void on_saveButton_clicked();
 
@@ -40,8 +43,6 @@ private slots:
     void on_actionManage_Therapists_triggered();
 
     void on_actionManage_Patients_triggered();
-
-    void on_actionSave_Report_triggered();
 
 private:
     void saveReport();

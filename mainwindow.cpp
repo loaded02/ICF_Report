@@ -20,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent) :
     icfController = new ICFController();
     this->fillTherComboBox();
     this->fillPatComboBox();
+    connect(ui->actionExit,SIGNAL(triggered()),this,SLOT(on_cancelButton_clicked()));
+    connect(ui->actionPrint_Pdf,SIGNAL(triggered()),this,SLOT(on_printButton_clicked()));
+    connect(ui->actionSave_Report,SIGNAL(triggered()),this,SLOT(on_saveButton_clicked()));
 }
 
 MainWindow::~MainWindow()
@@ -57,6 +60,20 @@ void MainWindow::on_actionNew_Patient_triggered()
     if (patient->exec())
         this->addPatient(patient->getSurname(),patient->getName(),patient->getDob(),patient->getDiagnosis());
     delete patient;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    event->ignore();
+    QMessageBox box;
+    box.setWindowTitle("Save before exit?");
+    box.setText("Click Yes for Saving current data.");
+    box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    box.setDefaultButton(QMessageBox::Yes);
+    int ret = box.exec();
+    if (ret == QMessageBox::Yes)
+        this->on_saveButton_clicked();
+    event->accept();
 }
 
 void MainWindow::on_saveButton_clicked()
@@ -106,7 +123,7 @@ void MainWindow::on_printButton_clicked()
 
 void MainWindow::on_actionManage_Therapists_triggered()
 {
-    GUI_ShowPerson* form = new GUI_ShowPerson(icfController->getTherapists(),this);
+    GUI_ShowPerson* form = new GUI_ShowPerson(icfController,'t',this);
     form->setWindowTitle("Manage Therapists");
     form->exec();
     delete form;
@@ -114,7 +131,7 @@ void MainWindow::on_actionManage_Therapists_triggered()
 
 void MainWindow::on_actionManage_Patients_triggered()
 {
-    GUI_ShowPerson* form = new GUI_ShowPerson(icfController->getPatients(),this);
+    GUI_ShowPerson* form = new GUI_ShowPerson(icfController,'p',this);
     form->setWindowTitle("Manage Patients");
     form->exec();
     delete form;
@@ -139,14 +156,9 @@ void MainWindow::saveReport()
         report->addFunction(function);
     }
     //structures etc fehlt!!!!!!!!!!!!
-    if (icfController->addReport(report) == 0) {
+    if (icfController->addReport(report)) {
         QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", "Report added");
         box->exec();
         delete box;
     }
-}
-
-void MainWindow::on_actionSave_Report_triggered()
-{
-    this->saveReport();
 }

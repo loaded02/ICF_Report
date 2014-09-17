@@ -69,16 +69,6 @@ void DomParser::parseTherapist(const QDomElement &element)
     item->setId(element.attribute("id").toInt());
     item->setName(element.attribute("name"));
     daten->append(item);
-
-//    QDomNode child = element.firstChild();
-//    while (!child.isNull()) {
-//        if (child.toElement().tagName() == "entry") {
-//            parseEntryElement(child.toElement(), item);
-//        } else if (child.toElement().tagName() == "page") {
-//            parsePageElement(child.toElement(), item);
-//        }
-//        child = child.nextSibling();
-    //    }
 }
 
 void DomParser::parsePatient(const QDomElement &element)
@@ -107,12 +97,14 @@ void DomParser::parseReport(const QDomElement element)
         } else if (child.toElement().tagName() == "context") {
             func->setArt(Function::context);
         }
-        parseSecondChild(child.toElement(),func);
+        //get freeText fehlt!!!
+        parseFunction(child.toElement(),func);
         child = child.nextSibling();
     }
+    reports->append(item);
 }
 
-void DomParser::parseSecondChild(const QDomElement &element, Function *parent)
+void DomParser::parseFunction(const QDomElement &element, Function *parent)
 {
 //    QString page = element.text();
 //    QString allPages = parent->text(1);

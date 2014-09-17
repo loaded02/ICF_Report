@@ -39,6 +39,19 @@ Patient *ICFController::findPatient(int id)
     return NULL;
 }
 
+int ICFController::removePatient(int id)
+{
+    if (Patient* pat = this->findPatient(id)) {
+        for (auto it=patients.begin(); it!=patients.end(); it++) {
+            if (*it == pat) {
+                patients.erase(it);
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
 
 void ICFController::addTherapist(Therapist* ther)
 {
@@ -57,6 +70,19 @@ Therapist *ICFController::findTherapist(int id)
     return NULL;
 }
 
+int ICFController::removeTherapist(int id)
+{
+    if (Therapist* ther = this->findTherapist(id)) {
+        for (auto it=therapists.begin(); it!=therapists.end(); it++) {
+            if (*it == ther) {
+                therapists.erase(it);
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
 int ICFController::addReport(Report *rep)
 {
     //check if report allready exists
@@ -64,14 +90,14 @@ int ICFController::addReport(Report *rep)
         if (reports.at(i)->getPatientId() == rep->getPatientId() && reports.at(i)->getTherapistId() == rep->getTherapistId()
                 && reports.at(i)->getDate() == rep->getDate()) {
             std::cerr << "Es existiert bereits ein Report mit diesen Daten" << std::endl;
-            return 1;
+            return 0;
         }
     }
     //setId
     if (rep->getId() == 0)
         rep->setId(repId++);
     reports.append(rep);
-    return 0;
+    return 1;
 }
 
 void ICFController::createFile(QList<Person*> persons, QString filename)
@@ -147,16 +173,6 @@ void ICFController::createFile(QList<Report *> reports, QString filename)
     doc.save(out, Indent);
     file.close();
 }
-QList<Person *>* ICFController::getPatients()
-{
-    return &patients;
-}
-
-QList<Person*>* ICFController::getTherapists()
-{
-    return &therapists;
-}
-
 
 void ICFController::save()
 {

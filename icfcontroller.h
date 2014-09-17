@@ -23,6 +23,7 @@ public:
     int sizeOfPatients() {
         return patients.size();
     }
+    int removePatient(int id);
 
     void addTherapist(Therapist* ther);
     Therapist* getTherapist(int i) {
@@ -33,6 +34,7 @@ public:
     int sizeOfTherapists() {
         return therapists.size();
     }
+    int removeTherapist(int id);
 
     int addReport(Report* rep);
     Report* getReport(int pos);
@@ -42,6 +44,7 @@ public:
 
     void save();
     void printReport();
+    //ueberfluessig!!!!!!!!!!!
     QList<Person *>* getTherapists();
 
     QList<Person *>* getPatients();
