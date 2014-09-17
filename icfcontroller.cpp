@@ -6,8 +6,6 @@ int ICFController::repId = 1000;
 
 ICFController::ICFController()
 {
-    DomParser therParser(&therapists);
-    therParser.readFile("therapists.xml");
     DomParser patParser(&patients);
     patParser.readFile("patients.xml");
     foreach (Person* per, patients) {
@@ -15,11 +13,20 @@ ICFController::ICFController()
             patId = per->getId();
     }
     patId++;
+    DomParser therParser(&therapists);
+    therParser.readFile("therapists.xml");
     foreach (Person* per, therapists) {
         if (therId < per->getId())
             therId = per->getId();
     }
     therId++;
+    DomParser repParser(&reports);
+    repParser.readFile("reports.xml");
+    foreach (Report* rep, reports) {
+        if (repId < rep->getId())
+            repId = rep->getId();
+    }
+    repId++;
 }
 
 void ICFController::addPatient(Patient* pat)
@@ -87,8 +94,8 @@ int ICFController::addReport(Report *rep)
 {
     //check if report allready exists
     for (int i=0; i<reports.size(); i++) {
-        if (reports.at(i)->getPatientId() == rep->getPatientId() && reports.at(i)->getTherapistId() == rep->getTherapistId()
-                && reports.at(i)->getDate() == rep->getDate()) {
+        if (reports.at(i)->getDate() == rep->getDate() && reports.at(i)->getPatientId() == rep->getPatientId()
+                && reports.at(i)->getTherapistId() == rep->getTherapistId()) {
             std::cerr << "Es existiert bereits ein Report mit diesen Daten" << std::endl;
             return 0;
         }
@@ -147,15 +154,31 @@ void ICFController::createFile(QList<Report *> reports, QString filename)
 
     foreach (Report* actReport, reports) {
             QDomElement repDOM = doc.createElement("report");
+            repDOM.setAttribute("id",QString::number(actReport->getId()));
             repDOM.setAttribute("date", actReport->getDate().toString());
             repDOM.setAttribute("patient",actReport->getPatientId());
             repDOM.setAttribute("therapist",actReport->getTherapistId());
+            QDomElement textElement = doc.createElement("freetext");
             QDomText freeText = doc.createTextNode(actReport->getFreeText());
-            repDOM.appendChild(freeText);
+            textElement.appendChild(freeText);
+            repDOM.appendChild(textElement);
             root.appendChild(repDOM);
             for (int i=0; i<actReport->sizeOfFunctions(); i++) {
                 Function* actFunction = actReport->getFunction(i);
-                QDomElement funcDOM = doc.createElement("function");
+                QString label;
+                switch (actFunction->getArt()) {
+                case Function::function : label = "function";
+                    break;
+                case Function::structure : label = "structure";
+                    break;
+                case Function::partizipation : label = "partizipation";
+                    break;
+                case Function::context : label = "context";
+                    break;
+                default: ;
+                }
+
+                QDomElement funcDOM = doc.createElement(label);
                 funcDOM.setAttribute("art",actFunction->getArt());
                 funcDOM.setAttribute("id",actFunction->getId());
                 funcDOM.setAttribute("description",actFunction->getDescription());

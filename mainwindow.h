@@ -45,6 +45,7 @@ private slots:
     void on_actionManage_Patients_triggered();
 
 private:
+    void saveFunctionAttributes(Report* rep, QList<GUI_FunctionForm *> list, Function::Art art);
     void saveReport();
     void fillTherComboBox();
     void fillPatComboBox();

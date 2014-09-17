@@ -11,6 +11,8 @@
 #include <QDomElement>
 #include <QFile>
 #include <iostream>
+#include <QStringList>
+#include <QDebug>
 #include "person.h"
 #include "therapist.h"
 #include "patient.h"

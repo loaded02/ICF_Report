@@ -57,7 +57,7 @@ void DomParser::parseRootElement(const QDomElement &element)
             parsePatient(child.toElement());
         }
         else if (child.toElement().tagName() == "report") {
-
+            parseReport(child.toElement());
         }
         child = child.nextSibling();
     }
@@ -84,7 +84,10 @@ void DomParser::parsePatient(const QDomElement &element)
 void DomParser::parseReport(const QDomElement element)
 {
     Report* item = new Report(QDate::fromString(element.attribute("date")));
-    //attr
+    item->setId(element.attribute("id").toInt());
+    item->setPatientId(element.attribute("patient").toInt());
+    item->setTherapistId(element.attribute("therapist").toInt());
+
     QDomNode child = element.firstChild();
     while (!child.isNull()) {
         Function* func = new Function();
@@ -96,9 +99,13 @@ void DomParser::parseReport(const QDomElement element)
             func->setArt(Function::partizipation);
         } else if (child.toElement().tagName() == "context") {
             func->setArt(Function::context);
+        } else if (child.toElement().tagName() == "freetext") {
+            item->setFreeText(child.toElement().text());
+            child = child.nextSibling();
+            continue;
         }
-        //get freeText fehlt!!!
         parseFunction(child.toElement(),func);
+        item->addFunction(func);
         child = child.nextSibling();
     }
     reports->append(item);
@@ -106,10 +113,8 @@ void DomParser::parseReport(const QDomElement element)
 
 void DomParser::parseFunction(const QDomElement &element, Function *parent)
 {
-//    QString page = element.text();
-//    QString allPages = parent->text(1);
-//    if (!allPages.isEmpty())
-//        allPages += ", ";
-//    allPages += page;
-//    parent->setText(1, allPages);
+    parent->setId(element.attribute("id"));
+    parent->setDescription(element.attribute("description"));
+    parent->setValue(element.attribute("value").toInt());
+    parent->setText(element.text());
 }

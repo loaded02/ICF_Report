@@ -137,8 +137,19 @@ void MainWindow::on_actionManage_Patients_triggered()
     delete form;
 }
 
-void MainWindow::saveReport()
-{
+void MainWindow::saveFunctionAttributes(Report* rep, QList<GUI_FunctionForm*> list, Function::Art art) {
+    foreach (GUI_FunctionForm* form, list) {
+        Function* function = new Function();
+        function->setArt(art);
+        function->setId(form->getId());
+        function->setDescription(form->getDescription());
+        function->setValue(form->getValue());
+        function->setText(form->getText());
+        rep->addFunction(function);
+    }
+}
+
+void MainWindow::saveReport() {
     Report* report = new Report(ui->dateEdit->date());
     QStringList pat = ui->patientcB->currentText().split(" ");
     report->setPatientId(pat[0].toInt());
@@ -146,16 +157,13 @@ void MainWindow::saveReport()
     report->setTherapistId(ther[0].toInt());
     report->setFreeText(ui->textEdit->toPlainText());
     QList<GUI_FunctionForm*> functionsList = ui->functionsWidget->getActiveWidgets();
-    foreach (GUI_FunctionForm* form, functionsList) {
-        Function* function = new Function();
-        function->setArt(Function::function);
-        function->setId(form->getId());
-        function->setDescription(form->getDescription());
-        function->setValue(form->getValue());
-        function->setText(form->getText());
-        report->addFunction(function);
-    }
-    //structures etc fehlt!!!!!!!!!!!!
+    saveFunctionAttributes(report, functionsList, Function::function);
+    QList<GUI_FunctionForm*> structuresList = ui->structuresWidget->getActiveWidgets();
+    saveFunctionAttributes(report,structuresList,Function::structure);
+    QList<GUI_FunctionForm*> partizipationList = ui->partizipationWidget->getActiveWidgets();
+    saveFunctionAttributes(report,partizipationList,Function::partizipation);
+    QList<GUI_FunctionForm*> contextList = ui->contextWidget->getActiveWidgets();
+    saveFunctionAttributes(report,contextList, Function::context);
     if (icfController->addReport(report)) {
         QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", "Report added");
         box->exec();

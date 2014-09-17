@@ -44,11 +44,8 @@ public:
 
     void save();
     void printReport();
-    //ueberfluessig!!!!!!!!!!!
-    QList<Person *>* getTherapists();
 
-    QList<Person *>* getPatients();
-
+    void setFunctionAttributes(Function* actFunction, QDomDocument doc, QDomElement funcDOM);
 private:
     void createFile(QList<Person*> persons, QString filename);
     void createFile(QList<Report*> reports, QString filename);
