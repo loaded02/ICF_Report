@@ -10,7 +10,7 @@ Person::~Person()
 }
 
 Person::Person(QString surname)
-    :surname(surname), id(0){
+    :id(0), surname(surname){
 
 }
 QString Person::getSurname() const

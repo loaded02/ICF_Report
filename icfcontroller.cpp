@@ -251,16 +251,8 @@ void ICFController::save()
     this->createFile(this->reports, "reports.xml");
 }
 
-void ICFController::printReport()
+void ICFController::printReport(int repId)
 {
-    QStringList headerList;
-    headerList.append("1.1.2014");
-    Patient* pat = static_cast<Patient*>(patients.at(0));
-    headerList.append(pat->getName() + " " + pat->getSurname());
-    headerList.append(pat->getDob().toString());
-    headerList.append(pat->getDiagnosis());
-    headerList.append("ICF Core Set - Apoplex");
-    headerList.append(therapists.at(0)->getName() + " " + therapists.at(0)->getSurname());
-    PrintWindow printWindow;
-    printWindow.printHeader(headerList);
+    PrintWindow printWindow(this);
+    printWindow.printReport(repId);
 }

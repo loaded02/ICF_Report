@@ -47,7 +47,7 @@ public:
     int removeReport(int id);
 
     void save();
-    void printReport();
+    void printReport(int repId);
 
 private:
     void createFile(QList<Person*> persons, QString filename);

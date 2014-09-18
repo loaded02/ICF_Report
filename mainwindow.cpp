@@ -143,7 +143,8 @@ void MainWindow::fillReportForm(Report *rep)
 
 void MainWindow::on_printButton_clicked()
 {
-    icfController->printReport();
+    if (ui->reportcB->currentText() == "New Report") return;
+    icfController->printReport(ui->reportcB->currentText().toInt());
 }
 
 void MainWindow::on_actionManage_Therapists_triggered()

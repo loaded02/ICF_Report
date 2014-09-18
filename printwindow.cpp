@@ -1,14 +1,33 @@
 #include "printwindow.h"
 
-PrintWindow::PrintWindow(QDialog *parent)
-    :QDialog(parent)
+PrintWindow::PrintWindow(ICFController* icfController, QDialog *parent)
+    :QDialog(parent), icfController(icfController)
 {
+}
+
+PrintWindow::~PrintWindow()
+{
+
+}
+
+void PrintWindow::printReport(int repId)
+{
+    Report* report;
+    if ((report = icfController->findReport(repId))) {
+        QString html;
+        html += this->printHeader(report);
+        for (int i=0; i<report->sizeOfFunctions(); i++) {
+            html += this->printTable(report->getFunction(i))+ "<br>";
+        }
+        html += this->printFooter(report);
+        this->printHtml(html);
+    }
 }
 
 void PrintWindow::printHtml(const QString &html)
 {
     printer.setOrientation(QPrinter::Portrait);
-//    printer.setPageMargins(25,25,25,25,QPrinter::Millimeter);
+    printer.setOutputFormat(QPrinter::PdfFormat);
     QPrintDialog printDialog(&printer, this);
     if (printDialog.exec()) {
 //        QPainter painter(&printer);
@@ -19,39 +38,54 @@ void PrintWindow::printHtml(const QString &html)
     }
 }
 
-void PrintWindow::printHeader(const QStringList &entries)
+QString PrintWindow::printHeader(const Report* report)
 {
+    Patient* pat = icfController->findPatient(report->getPatientId());
+    Therapist* ther = icfController->findTherapist(report->getTherapistId());
     QString html;
     html += "<body>"
             "<table width=\"100%\" cellspacing=\"0\" class=\"header\"><tr><td>"
-            "<p align=\"right\">Befundaufnahme: " + entries[0].toHtmlEscaped() + "</p>"
-            "<p>Patient: " + entries[1].toHtmlEscaped() + ", Geb.-Datum: " + entries[2].toHtmlEscaped() + "<br>Diagnose: " + entries[3].toHtmlEscaped() + "</p>"
-            "<br>"
-            "<h1 align=\"center\">" + entries[4].toHtmlEscaped() + "</h1>"
-            "<br>"
-            "<p>Therapeut: " + entries[5].toHtmlEscaped() + "</p>"
+            "<p align=\"right\">Befundaufnahme: " + report->getDate().toString().toHtmlEscaped() + "</p>"
+            "<p>Patient: " + pat->getName().toHtmlEscaped() + " " + pat->getSurname().toHtmlEscaped() +
+            ", Geb.-Datum: " + pat->getDob().toString().toHtmlEscaped() + "<br>Diagnose: " + pat->getDiagnosis().toHtmlEscaped() + "</p>"
+            "<h1 align=\"center\">" + "ICF Core Set - Apoplex" + "</h1>"
+            "<p>Therapeut: " + ther->getName().toHtmlEscaped() + " " + ther->getSurname().toHtmlEscaped() + "</p>"
             "</td></tr></table><br>";
-
-    //test
-    html += this->printTable(entries);
-    html += "</body>";
-    this->printHtml(html);
+    return html;
 }
 
-QString PrintWindow::printTable(const QStringList &entries)
+QString PrintWindow::printTable(const Function *func)
 {
     QString html;
     html += "<table width=\"100%\" cellspacing=\"0\" class=\"tbl\">"
             "<tr>"
-            "<th colspan=\"2\"><b>KOERPERFUNKTIONEN</b></th><th width=\"160px\"><table width=\"160px\" class=\"tbl\"><tr><th colspan=\"6\"><b>Schaedigung</b></th><tr><td></td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr></table></th>"
+            "<th rowspan=\"2\" colspan=\"2\" align=\"left\"><b>KOERPERFUNKTIONEN</b></th><th colspan=\"6\" align=\"left\"><b>Schaedigung</b></th>"
             "</tr>"
-            "</table>";
-    html += "<table>"
             "<tr>"
-            "<td width=\"64px\">ID#</td><td>Beschreibung</td><td width=\"160px\"><table width=\"160px\"><tr><td><td></td><td></td><td></td><td></td><td>x</td></td></tr></table></td>"
+            "<th></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th>"
+            "</tr>";
+    html += "<tr>"
+            "<td width=\"7%\" rowspan=\"2\">ID#</td><td width=\"63%\" rowspan=\"2\">Beschreibung</td><td>LF</td><td>"
+            "</td><td></td><td></td><td align=\"center\">x</td><td></td>"
             "</tr>"
-            "<tr><td colspan=\"3\"></td></tr>"
-            "</table>";
+            "<tr>"
+            "<td>L</td><td></td><td></td><td></td><td align=\"center\">x</td><td></td>"
+            "</tr>";
+    html += "</table>";
+    return html;
+}
+
+QString PrintWindow::printText(QString txt)
+{
+    txt += "<br><br><p>Hier kommt der Freitext.</p><br><br>";
+    return txt;
+}
+
+QString PrintWindow::printFooter(const Report *report)
+{
+    QString html;
+    html += "<p>Praxis für Physiotherapie XYZ</p>";
+    html += "</body>";
     return html;
 }
 
@@ -60,15 +94,13 @@ QString PrintWindow::cssTable()
     QString css;
     css =   "<style type=\"text/css\">"
             "body {font-family:Tahoma,Helvetica,sans-serif;}"
-//            "h1 { border-bottom:4px double blue; padding-bottom:4px; margin:0px; }"
-//            "h2 { border-top:1px solid blue; margin:0px; }"
-//            "p { line-height:150%; }"
-            "table.header {border-width: 1px;border-style: solid;border-color: black;margin-top: 0px;margin-bottom: 0px;color: black;}"
-            "table.header th {border-width:0;border-style:none; border-collapse:collapse;}"
+            "p {margin-top: 10px;margin-right:10px;margin-bottom:10px;margin-left:10px;}"
+            "table.header {border-width: 1px;border-style: solid;border-color: black;color: black;}"
+            "table.header th {border-width:0;border-style:none;border-collapse:collapse;}"
             "table.header td {border-width:0;border-style:none;border-collapse:collapse;}"
             "table.tbl {border-width: 1px;border-style: solid;border-color: black;margin-left:32px; margin-right:32px; empty-cells:show; table-layout:fixed; border-collapse:collapse; text-align:left;color: black;background-color:#E0E0E0;}"
             "table.tbl th {border-width: 1px;border-style: solid;border-color: black;border-collapse:collapse; text-align:left;background-color:#E0E0E0;}"
-            "table.tbl td {font-size:1.2em; border-width: 1px;border-style: solid;border-color: black;border-collapse:collapse; text-align:left;background-color:#E0E0E0;}"
+            "table.tbl td {border-width: 1px;border-style: solid;border-color: black;border-collapse:collapse; text-align:left;background-color:#FFFFFF;}"
             "</style>";
     return css;
 }
