@@ -24,6 +24,7 @@ public:
     void setId(QString id);
     QString getText();
     void setText(QString txt);
+    void resetInput();
 
 private:
     Ui::GUI_FunctionForm *ui;

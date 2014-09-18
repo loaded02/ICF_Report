@@ -19,33 +19,43 @@ void GUI_Function::hideUnit(int pos)
 {
     switch (pos) {
     case 1:
+        ui->widget->resetInput();
         ui->widget->hide();
         break;
     case 2:
+        ui->widget_2->resetInput();
         ui->widget_2->hide();
         break;
     case 3:
+        ui->widget_3->resetInput();
         ui->widget_3->hide();
         break;
     case 4:
+        ui->widget_4->resetInput();
         ui->widget_4->hide();
         break;
     case 5:
+        ui->widget_5->resetInput();
         ui->widget_5->hide();
         break;
     case 6:
+        ui->widget_6->resetInput();
         ui->widget_6->hide();
         break;
     case 7:
+        ui->widget_7->resetInput();
         ui->widget_7->hide();
         break;
     case 8:
+        ui->widget_8->resetInput();
         ui->widget_8->hide();
         break;
     case 9:
+        ui->widget_9->resetInput();
         ui->widget_9->hide();
         break;
     case 10:
+        ui->widget_10->resetInput();
         ui->widget_10->hide();
         break;
     default:
@@ -156,33 +166,33 @@ void GUI_Function::on_addButton_clicked()
 void GUI_Function::on_removeButton_clicked()
 {
     if (ui->widget->isChecked()) {
-        ui->widget->setVisible(false);
+        hideUnit(1);
     }
     if (ui->widget_2->isChecked()) {
-        ui->widget_2->setVisible(false);
+        hideUnit(2);
     }
     if (ui->widget_3->isChecked()) {
-        ui->widget_3->setVisible(false);
+        hideUnit(3);
     }
     if (ui->widget_4->isChecked()) {
-        ui->widget_4->setVisible(false);
+        hideUnit(4);
     }
     if (ui->widget_5->isChecked()) {
-        ui->widget_5->setVisible(false);
+        hideUnit(5);
     }
     if (ui->widget_6->isChecked()) {
-        ui->widget_6->setVisible(false);
+        hideUnit(6);
     }
     if (ui->widget_7->isChecked()) {
-        ui->widget_7->setVisible(false);
+        hideUnit(7);
     }
     if (ui->widget_8->isChecked()) {
-        ui->widget_8->setVisible(false);
+        hideUnit(8);
     }
     if (ui->widget_9->isChecked()) {
-        ui->widget_9->setVisible(false);
+        hideUnit(9);
     }
     if (ui->widget_10->isChecked()) {
-        ui->widget_10->setVisible(false);
+        hideUnit(10);
     }
 }

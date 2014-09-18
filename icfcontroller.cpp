@@ -141,6 +141,19 @@ Report *ICFController::findReport(int id)
     return NULL;
 }
 
+int ICFController::removeReport(int id)
+{
+    if (Report* rep = this->findReport(id)) {
+        for (auto it=reports.begin(); it!=reports.end(); it++) {
+            if (*it == rep) {
+                reports.erase(it);
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
 void ICFController::createFile(QList<Person*> persons, QString filename)
 {
     const int Indent = 4;

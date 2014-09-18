@@ -44,6 +44,7 @@ public:
     }
     QList<Report*> getReportsForId(int patId);
     Report* findReport(int id);
+    int removeReport(int id);
 
     void save();
     void printReport();

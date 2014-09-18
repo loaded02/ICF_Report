@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     icfController = new ICFController();
     this->fillTherComboBox();
     this->fillPatComboBox();
-    connect(ui->actionExit,SIGNAL(triggered()),this,SLOT(on_cancelButton_clicked()));
+    connect(ui->actionExit,SIGNAL(triggered()),this,SLOT(close()));
     connect(ui->actionPrint_Pdf,SIGNAL(triggered()),this,SLOT(on_printButton_clicked()));
     connect(ui->actionSave_Report,SIGNAL(triggered()),this,SLOT(on_saveButton_clicked()));
 }
@@ -26,7 +26,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_cancelButton_clicked()
 {
-    this->close();
+    ui->reportcB->setCurrentIndex(0);
 }
 
 void MainWindow::on_actionAbout_triggered()
@@ -65,14 +65,13 @@ void MainWindow::closeEvent(QCloseEvent *event)
     box.setDefaultButton(QMessageBox::Yes);
     int ret = box.exec();
     if (ret == QMessageBox::Yes)
-        this->on_saveButton_clicked();
+        icfController->save();
     event->accept();
 }
 
 void MainWindow::on_saveButton_clicked()
 {
     this->saveReport();
-    icfController->save();
 }
 
 void MainWindow::fillTherComboBox()
@@ -153,6 +152,7 @@ void MainWindow::on_actionManage_Therapists_triggered()
     form->setWindowTitle("Manage Therapists");
     form->exec();
     delete form;
+    fillTherComboBox();
 }
 
 void MainWindow::on_actionManage_Patients_triggered()
@@ -161,6 +161,7 @@ void MainWindow::on_actionManage_Patients_triggered()
     form->setWindowTitle("Manage Patients");
     form->exec();
     delete form;
+    fillPatComboBox();
 }
 
 void MainWindow::saveFunctionAttributes(Report* rep, QList<GUI_FunctionForm*> list, Function::Art art) {
@@ -190,23 +191,49 @@ void MainWindow::saveReport() {
     saveFunctionAttributes(report,partizipationList,Function::partizipation);
     QList<GUI_FunctionForm*> contextList = ui->contextWidget->getActiveWidgets();
     saveFunctionAttributes(report,contextList, Function::context);
+    //First try to add as new Report
     if (icfController->addReport(report)) {
-        QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", "Report added");
-        box->exec();
-        delete box;
-    } else {
-        Report* oldRep = icfController->findReport(currentReportId);
-        *oldRep = *report;
-        oldRep->setId(currentReportId);
-        QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", "Old Report overridden.");
+        QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", "Report added as new.");
         box->exec();
         delete box;
     }
+    //Second try to override old Report
+    else {
+        QString msg;
+        Report* oldRep;
+        if ((oldRep = icfController->findReport(currentReportId))) {
+            *oldRep = *report;
+            oldRep->setId(currentReportId);
+            msg = "Old Report overriden.";
+        }
+        //Third give Error Message
+        else {
+            msg = "Report with same Patient, Therapist AND Date already existing. Report not Saved!";
+        }
+        QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", msg);
+        box->exec();
+        delete box;
+    }
+    this->on_patientcB_currentIndexChanged(ui->patientcB->currentText());
+}
+
+void MainWindow::clearForm()
+{
+    currentReportId = 0;
+    ui->functionsWidget->hideAll();
+    ui->structuresWidget->hideAll();
+    ui->partizipationWidget->hideAll();
+    ui->contextWidget->hideAll();
+    ui->textEdit->clear();
 }
 
 void MainWindow::on_reportcB_currentIndexChanged(const QString &arg1)
 {
     if (arg1 == "") return;
+    if (arg1 == "New Report") {
+        clearForm();
+        return;
+    }
     Report* actReport = icfController->findReport(arg1.toInt());
     if (actReport) {
         this->fillReportForm(actReport);
@@ -217,11 +244,22 @@ void MainWindow::on_reportcB_currentIndexChanged(const QString &arg1)
 void MainWindow::on_patientcB_currentIndexChanged(const QString &arg1)
 {
     ui->reportcB->clear();
+    ui->reportcB->addItem("New Report");
     QStringList item = arg1.split(" ");
     QList<Report*> actReports = icfController->getReportsForId(item[0].toInt());
     if (!actReports.isEmpty()) {
         foreach (Report* rep, actReports) {
             ui->reportcB->addItem(QString::number(rep->getId()));
         }
+    }
+}
+
+void MainWindow::on_deleteButton_clicked()
+{
+    if (icfController->removeReport(currentReportId)) {
+        QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", "Report removed.");
+        box->exec();
+        delete box;
+        this->on_patientcB_currentIndexChanged(ui->patientcB->currentText());
     }
 }

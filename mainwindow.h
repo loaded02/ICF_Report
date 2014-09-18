@@ -24,6 +24,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void clearForm();
 public slots:
     void on_actionNew_Therapist_triggered();
 
@@ -47,6 +48,8 @@ private slots:
     void on_reportcB_currentIndexChanged(const QString &arg1);
 
     void on_patientcB_currentIndexChanged(const QString &arg1);
+
+    void on_deleteButton_clicked();
 
 private:
     void saveFunctionAttributes(Report* rep, QList<GUI_FunctionForm *> list, Function::Art art);

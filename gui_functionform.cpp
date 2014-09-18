@@ -85,3 +85,31 @@ void GUI_FunctionForm::setText(QString txt)
 {
     ui->lineEdit->setText(txt);
 }
+
+void GUI_FunctionForm::resetInput()
+{
+    ui->checkBox->setChecked(false);
+    ui->comboBox->setCurrentIndex(0);
+    ui->label->setText("Description");
+    ui->lineEdit->clear();
+    int btn = this->getValue();
+    if (btn != -1) {
+        QRadioButton* selectedBtn;
+        switch (btn) {
+        case 0 : selectedBtn = ui->radioButton;
+            break;
+        case 1 : selectedBtn = ui->radioButton_2;
+            break;
+        case 2 : selectedBtn = ui->radioButton_3;
+            break;
+        case 3 : selectedBtn = ui->radioButton_4;
+            break;
+        case 4 : selectedBtn = ui->radioButton_5;
+            break;
+        default :;
+        }
+        selectedBtn->setAutoExclusive(false);
+        selectedBtn->setChecked(false);
+        selectedBtn->setAutoExclusive(true);
+    }
+}
