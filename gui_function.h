@@ -16,6 +16,8 @@ public:
     explicit GUI_Function(QWidget *parent = 0);
     ~GUI_Function();
     void hideUnit(int pos);
+    void hideAll();
+    GUI_FunctionForm* setUnitVisible();
     void setLabel(QString text);
     static int NoFunctions;
     QList<GUI_FunctionForm*> getActiveWidgets();

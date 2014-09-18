@@ -29,6 +29,19 @@ ICFController::ICFController()
     repId++;
 }
 
+ICFController::~ICFController()
+{
+    foreach(Person* per, therapists) {
+        delete per;
+    }
+    foreach (Person* per, patients) {
+        delete per;
+    }
+    foreach (Report* rep, reports) {
+        delete rep;
+    }
+}
+
 void ICFController::addPatient(Patient* pat)
 {
     if (pat->getId() == 0)
@@ -105,6 +118,27 @@ int ICFController::addReport(Report *rep)
         rep->setId(repId++);
     reports.append(rep);
     return 1;
+}
+
+QList<Report *> ICFController::getReportsForId(int patId)
+{
+    QList<Report*> reportsForId;
+    foreach(Report* rep, reports) {
+        if (rep->getPatientId() == patId) {
+            reportsForId.append(rep);
+        }
+    }
+    return reportsForId;
+}
+
+Report *ICFController::findReport(int id)
+{
+    for (int i=0; i<reports.size(); i++){
+        if (reports.at(i)->getId() == id) {
+            return reports.at(i);
+        }
+    }
+    return NULL;
 }
 
 void ICFController::createFile(QList<Person*> persons, QString filename)

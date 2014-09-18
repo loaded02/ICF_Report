@@ -53,6 +53,60 @@ void GUI_Function::hideUnit(int pos)
     }
 }
 
+void GUI_Function::hideAll()
+{
+    for (int i=1; i<=NoFunctions; i++) {
+        hideUnit(i);
+    }
+}
+
+GUI_FunctionForm *GUI_Function::setUnitVisible()
+{
+    if (ui->widget->isHidden()) {
+        ui->widget->setVisible(true);
+        return ui->widget;
+    }
+    else if (ui->widget_2->isHidden()) {
+        ui->widget_2->setVisible(true);
+        return ui->widget_2;
+    }
+    else if (ui->widget_3->isHidden()) {
+        ui->widget_3->setVisible(true);
+        return ui->widget_3;
+    }
+    else if (ui->widget_4->isHidden()) {
+        ui->widget_4->setVisible(true);
+        return ui->widget_4;
+    }
+    else if (ui->widget_5->isHidden()) {
+        ui->widget_5->setVisible(true);
+        return ui->widget_5;
+    }
+    else if (ui->widget_6->isHidden()) {
+        ui->widget_6->setVisible(true);
+        return ui->widget_6;
+    }
+    else if (ui->widget_7->isHidden()) {
+        ui->widget_7->setVisible(true);
+        return ui->widget_7;
+    }
+    else if (ui->widget_8->isHidden()) {
+        ui->widget_8->setVisible(true);
+        return ui->widget_8;
+    }
+    else if (ui->widget_9->isHidden()) {
+        ui->widget_9->setVisible(true);
+        return ui->widget_9;
+    }
+    else if (ui->widget_10->isHidden()) {
+        ui->widget_10->setVisible(true);
+        return ui->widget_10;
+    }
+    else {
+        return NULL;
+    }
+}
+
 void GUI_Function::setLabel(QString text)
 {
     ui->label->setText(text);
@@ -96,29 +150,7 @@ QList<GUI_FunctionForm *> GUI_Function::getActiveWidgets()
 
 void GUI_Function::on_addButton_clicked()
 {
-    if (ui->widget->isHidden()) {
-        ui->widget->setVisible(true);
-    }
-    else if (ui->widget_2->isHidden()) {
-        ui->widget_2->setVisible(true);
-    }
-    else if (ui->widget_3->isHidden()) {
-        ui->widget_3->setVisible(true);
-    }else if (ui->widget_4->isHidden()) {
-        ui->widget_4->setVisible(true);
-    }else if (ui->widget_5->isHidden()) {
-        ui->widget_5->setVisible(true);
-    }else if (ui->widget_6->isHidden()) {
-        ui->widget_6->setVisible(true);
-    }else if (ui->widget_7->isHidden()) {
-        ui->widget_7->setVisible(true);
-    }else if (ui->widget_8->isHidden()) {
-        ui->widget_8->setVisible(true);
-    }else if (ui->widget_9->isHidden()) {
-        ui->widget_9->setVisible(true);
-    }else if (ui->widget_10->isHidden()) {
-        ui->widget_10->setVisible(true);
-    }
+    this->setUnitVisible();
 }
 
 void GUI_Function::on_removeButton_clicked()

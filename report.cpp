@@ -1,11 +1,15 @@
 #include "report.h"
 
 Report::Report(QDate date)
-    :date(date),id(0)
+    :id(0),date(date)
 {
 }
 
-Report::~Report() {}
+Report::~Report() {
+    foreach(Function* func, functions) {
+        delete func;
+    }
+}
 
 QDate Report::getDate() const
 {

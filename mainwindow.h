@@ -44,6 +44,10 @@ private slots:
 
     void on_actionManage_Patients_triggered();
 
+    void on_reportcB_currentIndexChanged(const QString &arg1);
+
+    void on_patientcB_currentIndexChanged(const QString &arg1);
+
 private:
     void saveFunctionAttributes(Report* rep, QList<GUI_FunctionForm *> list, Function::Art art);
     void saveReport();
@@ -51,8 +55,10 @@ private:
     void fillPatComboBox();
     void addPatient(QString surname, QString name, QDate dob, QString diagnosis);
     void addTherapist(QString surname, QString name);
+    void fillReportForm(Report* rep);
     Ui::MainWindow *ui;
     ICFController* icfController;
+    int currentReportId;
 };
 
 #endif // MAINWINDOW_H

@@ -15,6 +15,7 @@ class ICFController
 {
 public:
     ICFController();
+    ~ICFController();
     void addPatient(Patient* pat);
     Patient* getPatient(int i) {
         return static_cast<Patient*>(patients.at(i));
@@ -41,11 +42,12 @@ public:
     int sizeOfReports() {
         return reports.size();
     }
+    QList<Report*> getReportsForId(int patId);
+    Report* findReport(int id);
 
     void save();
     void printReport();
 
-    void setFunctionAttributes(Function* actFunction, QDomDocument doc, QDomElement funcDOM);
 private:
     void createFile(QList<Person*> persons, QString filename);
     void createFile(QList<Report*> reports, QString filename);
