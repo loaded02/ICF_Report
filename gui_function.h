@@ -21,6 +21,7 @@ public:
     void setLabel(QString text);
     static int NoFunctions;
     QList<GUI_FunctionForm*> getActiveWidgets();
+    QList<GUI_FunctionForm*> getAllWidgets();
 
 private slots:
     void on_addButton_clicked();

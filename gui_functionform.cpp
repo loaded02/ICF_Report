@@ -6,7 +6,7 @@ GUI_FunctionForm::GUI_FunctionForm(QWidget *parent) :
     ui(new Ui::GUI_FunctionForm)
 {
     ui->setupUi(this);
-    ui->comboBox->addItems(QStringList() << "ID 12" << "ID 13" << "ID 14");
+//    ui->comboBox->addItems(QStringList() << "ID 12" << "ID 13" << "ID 14");
 }
 
 GUI_FunctionForm::~GUI_FunctionForm()
@@ -114,10 +114,15 @@ void GUI_FunctionForm::resetInput()
     }
 }
 
+void GUI_FunctionForm::changeDescription(const QString &arg1, int rnd)
+{
+    if (this->rnd == rnd)
+        ui->label->setText(arg1);
+}
+
 void GUI_FunctionForm::on_comboBox_currentIndexChanged(const QString &arg1)
 {
-    if (arg1 != "ID 12" && arg1 != "ID 13" && arg1 != "ID 14") {
-        QString label = QInputDialog::getText(this, "Enter Description for " + arg1, QString::null,QLineEdit::Normal,"Description");
-        ui->label->setText(label);
-    }
+    srand(time(NULL));
+    rnd = rand();
+    emit idChanged(arg1, rnd);
 }

@@ -10,6 +10,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
+#include <map>
 
 class ICFController
 {
@@ -48,6 +49,9 @@ public:
 
     void save();
     void printReport(int repId);
+    QString getIcfCodeDescription(QString code);
+
+    void setIcfCodeDescription(QString code, QString description);
 
 private:
     void createFile(QList<Person*> persons, QString filename);
@@ -58,6 +62,7 @@ private:
     QList<Report*> reports;
     QList<Person*> patients;
     QList<Person*> therapists;
+    std::map<QString,QString> icfCode;
 };
 
 #endif // ICFCONTROLLER_H

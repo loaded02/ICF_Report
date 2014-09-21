@@ -158,6 +158,22 @@ QList<GUI_FunctionForm *> GUI_Function::getActiveWidgets()
     return list;
 }
 
+QList<GUI_FunctionForm *> GUI_Function::getAllWidgets()
+{
+    QList<GUI_FunctionForm*> list;
+    list.append(ui->widget);
+    list.append(ui->widget_2);
+    list.append(ui->widget_3);
+    list.append(ui->widget_4);
+    list.append(ui->widget_5);
+    list.append(ui->widget_6);
+    list.append(ui->widget_7);
+    list.append(ui->widget_8);
+    list.append(ui->widget_9);
+    list.append(ui->widget_10);
+    return list;
+}
+
 void GUI_Function::on_addButton_clicked()
 {
     this->setUnitVisible();

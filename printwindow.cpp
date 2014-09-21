@@ -42,6 +42,7 @@ void PrintWindow::printHtml(const QString &html)
 
 QString PrintWindow::printHeader(const Report* report)
 {
+    //TODO: Abfrage auf NULL Pointer fehlt!!!!!!!!!!!!
     Patient* pat = icfController->findPatient(report->getPatientId());
     Therapist* ther = icfController->findTherapist(report->getTherapistId());
     QString html;

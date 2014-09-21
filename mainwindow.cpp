@@ -1,6 +1,33 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+void MainWindow::connectLoop(QList<GUI_FunctionForm*> list)
+{
+    foreach (GUI_FunctionForm* form, list) {
+        connect(form,SIGNAL(idChanged(QString,int)),this,SLOT(icfIdChanged(QString,int)));
+        connect(this,SIGNAL(changeDescription(QString,int)),form,SLOT(changeDescription(QString,int)));
+    }
+}
+
+void MainWindow::connectSignals()
+{
+    connect(ui->actionExit,SIGNAL(triggered()),this,SLOT(close()));
+    connect(ui->actionPrint_Pdf,SIGNAL(triggered()),this,SLOT(on_printButton_clicked()));
+    connect(ui->actionSave_Report,SIGNAL(triggered()),this,SLOT(on_saveButton_clicked()));
+
+    QList<GUI_FunctionForm*> list = ui->functionsWidget->getAllWidgets();
+    connectLoop(list);
+    list.clear();
+    list = ui->structuresWidget->getAllWidgets();
+    connectLoop(list);
+    list.clear();
+    list = ui->partizipationWidget->getAllWidgets();
+    connectLoop(list);
+    list.clear();
+    list = ui->contextWidget->getAllWidgets();
+    connectLoop(list);
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),currentReportId(0)
@@ -13,9 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     icfController = new ICFController();
     this->fillTherComboBox();
     this->fillPatComboBox();
-    connect(ui->actionExit,SIGNAL(triggered()),this,SLOT(close()));
-    connect(ui->actionPrint_Pdf,SIGNAL(triggered()),this,SLOT(on_printButton_clicked()));
-    connect(ui->actionSave_Report,SIGNAL(triggered()),this,SLOT(on_saveButton_clicked()));
+    connectSignals();
 }
 
 MainWindow::~MainWindow()
@@ -65,6 +90,22 @@ void MainWindow::closeEvent(QCloseEvent *event)
     if (ret == QMessageBox::Yes)
         icfController->save();
     event->accept();
+}
+
+void MainWindow::on_actionSave_All_triggered()
+{
+    this->saveReport();
+    icfController->save();
+}
+
+void MainWindow::icfIdChanged(QString icfId, int rnd)
+{
+    QString value;
+    if ((value = icfController->getIcfCodeDescription(icfId)) == "") {
+        value = QInputDialog::getText(this, "Enter Description", QString::null,QLineEdit::Normal,"Description");
+        icfController->setIcfCodeDescription(icfId,value);
+    }
+    emit changeDescription(value,rnd);
 }
 
 void MainWindow::on_saveButton_clicked()

@@ -24,12 +24,20 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void clearForm();
+
+    void connectSignals();
+    void connectLoop(QList<GUI_FunctionForm*> list);
+signals:
+    void changeDescription(QString value, int rnd);
+
 public slots:
     void on_actionNew_Therapist_triggered();
 
     void on_actionNew_Patient_triggered();
 
     void closeEvent(QCloseEvent * event);
+
+    void icfIdChanged(QString icfId, int rnd);
 
 private slots:
     void on_cancelButton_clicked();
@@ -49,6 +57,8 @@ private slots:
     void on_patientcB_currentIndexChanged(const QString &arg1);
 
     void on_deleteButton_clicked();
+
+    void on_actionSave_All_triggered();
 
 private:
     void saveFunctionAttributes(Report* rep, QList<GUI_FunctionForm *> list, Function::Art art);

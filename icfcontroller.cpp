@@ -27,6 +27,10 @@ ICFController::ICFController()
             repId = rep->getId();
     }
     repId++;
+    //test
+    icfCode["ID 12"] = "Eine Störung";
+    icfCode["ID 13"] = "Noch eine";
+    icfCode["ID 14"] = "was anderes";
 }
 
 ICFController::~ICFController()
@@ -255,4 +259,25 @@ void ICFController::printReport(int repId)
 {
     PrintWindow printWindow(this);
     printWindow.printReport(repId);
+}
+
+QString ICFController::getIcfCodeDescription(QString code) {
+    QString result;
+    try {
+        result = icfCode.at(code);
+    }
+    catch (const std::out_of_range& oor) {
+        std::cerr << "Out of Range error: " << oor.what() << '\n';
+        result = "";
+    }
+    return result;
+}
+
+void ICFController::setIcfCodeDescription(QString code, QString description) {
+    std::pair<std::map<QString,QString>::iterator,bool> ret;
+    ret = icfCode.insert(std::pair<QString,QString>(code,description));
+    //overrides existing key
+    if (!ret.second) {
+        icfCode[code] = description;
+    }
 }

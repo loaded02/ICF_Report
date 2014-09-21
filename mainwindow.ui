@@ -362,6 +362,7 @@
     <addaction name="actionManage_Therapists"/>
     <addaction name="actionManage_Patients"/>
     <addaction name="actionSave_Report"/>
+    <addaction name="actionSave_All"/>
     <addaction name="actionPrint_Pdf"/>
     <addaction name="actionExit"/>
    </widget>
@@ -433,6 +434,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSave_All">
+   <property name="text">
+    <string>Save All</string>
    </property>
   </action>
  </widget>
