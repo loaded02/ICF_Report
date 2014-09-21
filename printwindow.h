@@ -21,7 +21,7 @@ public:
 private:
     void printHtml(const QString &html);
     QString printHeader(const Report *report);
-    QString printTable(const Function *func);
+    QString printTable(const QList<Function *> func);
     QString printText(QString txt);
     QString printFooter(const Report *report);
     QString cssTable();

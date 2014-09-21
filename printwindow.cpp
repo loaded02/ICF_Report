@@ -16,9 +16,11 @@ void PrintWindow::printReport(int repId)
     if ((report = icfController->findReport(repId))) {
         QString html;
         html += this->printHeader(report);
-        for (int i=0; i<report->sizeOfFunctions(); i++) {
-            html += this->printTable(report->getFunction(i))+ "<br>";
-        }
+        html += this->printTable(report->getFunctions(Function::function));
+        html += this->printTable(report->getFunctions(Function::structure));
+        html += this->printTable(report->getFunctions(Function::partizipation));
+        html += this->printTable(report->getFunctions(Function::context));
+        html += this->printText(report->getFreeText());
         html += this->printFooter(report);
         this->printHtml(html);
     }
@@ -54,37 +56,69 @@ QString PrintWindow::printHeader(const Report* report)
     return html;
 }
 
-QString PrintWindow::printTable(const Function *func)
+QString PrintWindow::printTable(const QList<Function *>func)
 {
+    if (func.isEmpty()) return "";
+    QString art;
+    switch (func.at(0)->getArt()) {
+    case Function::function : art = "KOERPERFUNKTIONEN";
+        break;
+    case Function::structure : art = "KOERPERSTRUKTUREN";
+        break;
+    case Function::partizipation : art = "PARTIZIPATION";
+        break;
+    case Function::context : art = "KONTEXTFAKTOREN";
+        break;
+    default:;
+    }
+
     QString html;
     html += "<table width=\"100%\" cellspacing=\"0\" class=\"tbl\">"
             "<tr>"
-            "<th rowspan=\"2\" colspan=\"2\" align=\"left\"><b>KOERPERFUNKTIONEN</b></th><th colspan=\"6\" align=\"left\"><b>Schaedigung</b></th>"
+            "<th rowspan=\"2\" colspan=\"2\" align=\"left\"><b>" + art + "</b></th><th colspan=\"6\" align=\"left\"><b>Schaedigung</b></th>"
             "</tr>"
             "<tr>"
             "<th></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th>"
             "</tr>";
-    html += "<tr>"
-            "<td width=\"7%\" rowspan=\"2\">ID#</td><td width=\"63%\" rowspan=\"2\">Beschreibung</td><td>LF</td><td>"
-            "</td><td></td><td></td><td align=\"center\">x</td><td></td>"
-            "</tr>"
-            "<tr>"
-            "<td>L</td><td></td><td></td><td></td><td align=\"center\">x</td><td></td>"
-            "</tr>";
-    html += "</table>";
+    foreach ( Function* actFunc, func) {
+        QString null, one, two, three, four;
+        switch (actFunc->getValue()) {
+        case 0 : null="x";
+            break;
+        case 1 : one ="x";
+            break;
+        case 2 : two = "x";
+            break;
+        case 3 : three = "x";
+            break;
+        case 4 : four = "x";
+            break;
+        default: ;
+        }
+
+        html += "<tr>"
+                "<td width=\"7%\" rowspan=\"2\">" + actFunc->getId() + "</td><td width=\"63%\" rowspan=\"2\">" + actFunc->getDescription() + "</td><td>LF</td><td align=\"center\">"
+                + null + "</td><td align=\"center\">" + one + "</td><td align=\"center\">" + two + "</td><td align=\"center\">" + three + "</td><td align=\"center\">" + four + "</td>"
+                "</tr>"
+                "<tr>"
+                "<td>L</td><td align=\"center\">" + null + "</td><td align=\"center\">" + one + "</td><td align=\"center\">" + two + "</td><td align=\"center\">" + three + "</td><td align=\"center\">" + four + "</td>"
+                "</tr>"
+                "<tr><td colspan=\"8\">" + actFunc->getText() + "</td></tr>";
+    }
+    html += "</table><br>";
     return html;
 }
 
 QString PrintWindow::printText(QString txt)
 {
-    txt += "<br><br><p>Hier kommt der Freitext.</p><br><br>";
+    txt = "<br><br><p>" + txt + "</p><br><br>";
     return txt;
 }
 
 QString PrintWindow::printFooter(const Report *report)
 {
     QString html;
-    html += "<p>Praxis für Physiotherapie XYZ</p>";
+    html += "<p>Praxis :" + QString::number(report->getTherapistId()) + "</p>";
     html += "</body>";
     return html;
 }

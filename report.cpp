@@ -29,6 +29,17 @@ void Report::setFreeText(const QString &value)
 {
     freeText = value;
 }
+
+QList<Function *> Report::getFunctions(Function::Art actArt)
+{
+    QList<Function*> result;
+    foreach (Function* func, functions) {
+        if (func->getArt() == actArt) {
+            result.append(func);
+        }
+    }
+    return result;
+}
 int Report::getPatientId() const
 {
     return patientId;

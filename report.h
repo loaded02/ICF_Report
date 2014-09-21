@@ -26,6 +26,7 @@ public:
     void addFunction(Function* funct) {
         functions.append(funct);
     }
+    QList<Function*> getFunctions(Function::Art actArt);
 
     int getPatientId() const;
     void setPatientId(int value);
