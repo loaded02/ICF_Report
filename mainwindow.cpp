@@ -37,8 +37,6 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionNew_Therapist_triggered()
 {
-//    QString therapist = QInputDialog::getText(this, "Enter Therapist Name", QString::null,QLineEdit::Normal,"Enter Therapist Name");
-//    ui->therapeutcB->addItem(therapist);
     GUI_NewPerson* therapist = new GUI_NewPerson(this);
     therapist->therapistAppearance();
     therapist->setWindowTitle("Add new Therapist");

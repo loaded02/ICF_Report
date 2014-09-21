@@ -132,7 +132,7 @@ QString PrintWindow::cssTable()
             "table.header {border-width: 1px;border-style: solid;border-color: black;color: black;}"
             "table.header th {border-width:0;border-style:none;border-collapse:collapse;}"
             "table.header td {border-width:0;border-style:none;border-collapse:collapse;}"
-            "table.tbl {border-width: 1px;border-style: solid;border-color: black;margin-left:32px; margin-right:32px; empty-cells:show; table-layout:fixed; border-collapse:collapse; text-align:left;color: black;background-color:#E0E0E0;}"
+            "table.tbl {border-width: 1px;border-style: solid;border-color: black;margin-left:32px; margin-right:32px; empty-cells:show; table-layout:fixed; border-collapse:collapse; text-align:left;color: black;background-color:#FFFFFF;}"
             "table.tbl th {border-width: 1px;border-style: solid;border-color: black;border-collapse:collapse; text-align:left;background-color:#E0E0E0;}"
             "table.tbl td {border-width: 1px;border-style: solid;border-color: black;border-collapse:collapse; text-align:left;background-color:#FFFFFF;}"
             "</style>";

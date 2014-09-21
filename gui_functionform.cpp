@@ -113,3 +113,11 @@ void GUI_FunctionForm::resetInput()
         selectedBtn->setAutoExclusive(true);
     }
 }
+
+void GUI_FunctionForm::on_comboBox_currentIndexChanged(const QString &arg1)
+{
+    if (arg1 != "ID 12" && arg1 != "ID 13" && arg1 != "ID 14") {
+        QString label = QInputDialog::getText(this, "Enter Description for " + arg1, QString::null,QLineEdit::Normal,"Description");
+        ui->label->setText(label);
+    }
+}

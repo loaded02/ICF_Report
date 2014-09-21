@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
-#include <QInputDialog>
 #include <QString>
 #include <QDebug>
 #include <ui_mainwindow.h>

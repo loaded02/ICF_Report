@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QDebug>
+#include <QInputDialog>
 
 namespace Ui {
 class GUI_FunctionForm;
@@ -25,6 +26,9 @@ public:
     QString getText();
     void setText(QString txt);
     void resetInput();
+
+private slots:
+    void on_comboBox_currentIndexChanged(const QString &arg1);
 
 private:
     Ui::GUI_FunctionForm *ui;
