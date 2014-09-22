@@ -34,6 +34,7 @@ signals:
 
 public slots:
     void changeDescription(const QString &arg1, int rnd);
+    void addIcfCodeToCb(const QString &arg1);
 
 private slots:
     void on_comboBox_currentIndexChanged(const QString &arg1);

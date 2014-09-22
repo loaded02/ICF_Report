@@ -29,6 +29,7 @@ public:
     void connectLoop(QList<GUI_FunctionForm*> list);
 signals:
     void changeDescription(QString value, int rnd);
+    void addIcfCodeToForm(QString value);
 
 public slots:
     void on_actionNew_Therapist_triggered();

@@ -69,11 +69,11 @@ QString GUI_FunctionForm::getId()
 void GUI_FunctionForm::setId(QString id)
 {
     int i;
-    if ((i= ui->comboBox->findText(id)) >= 0) {
-        ui->comboBox->setCurrentIndex(i);
-    } else {
+    if ((i= ui->comboBox->findText(id)) == -1) {
         ui->comboBox->addItem(id);
+        i= ui->comboBox->findText(id);
     }
+    ui->comboBox->setCurrentIndex(i);
 }
 
 QString GUI_FunctionForm::getText()
@@ -118,6 +118,11 @@ void GUI_FunctionForm::changeDescription(const QString &arg1, int rnd)
 {
     if (this->rnd == rnd)
         ui->label->setText(arg1);
+}
+
+void GUI_FunctionForm::addIcfCodeToCb(const QString &arg1)
+{
+    ui->comboBox->addItem(arg1);
 }
 
 void GUI_FunctionForm::on_comboBox_currentIndexChanged(const QString &arg1)

@@ -52,6 +52,10 @@ public:
     QString getIcfCodeDescription(QString code);
 
     void setIcfCodeDescription(QString code, QString description);
+    int sizeOfIcfCodes() {
+        return icfCode.size();
+    }
+    QString getIcfCode(int i);
 
 private:
     void createFile(QList<Person*> persons, QString filename);

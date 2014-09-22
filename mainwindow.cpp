@@ -6,6 +6,7 @@ void MainWindow::connectLoop(QList<GUI_FunctionForm*> list)
     foreach (GUI_FunctionForm* form, list) {
         connect(form,SIGNAL(idChanged(QString,int)),this,SLOT(icfIdChanged(QString,int)));
         connect(this,SIGNAL(changeDescription(QString,int)),form,SLOT(changeDescription(QString,int)));
+        connect(this,SIGNAL(addIcfCodeToForm(QString)),form,SLOT(addIcfCodeToCb(QString)));
     }
 }
 
@@ -41,6 +42,9 @@ MainWindow::MainWindow(QWidget *parent) :
     this->fillTherComboBox();
     this->fillPatComboBox();
     connectSignals();
+    for (int i=0; i<icfController->sizeOfIcfCodes(); i++) {
+        emit addIcfCodeToForm(icfController->getIcfCode(i));
+    }
 }
 
 MainWindow::~MainWindow()
@@ -174,7 +178,7 @@ void MainWindow::fillReportForm(Report *rep)
         }
         if (!actForm) continue;
         actForm->setId(actFunction->getId());
-        actForm->setDescription(actFunction->getDescription());
+//        actForm->setDescription(actFunction->getDescription());
         actForm->setValue(actFunction->getValue());
         actForm->setText(actFunction->getText());
     }
@@ -236,6 +240,11 @@ void MainWindow::saveReport() {
         QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", "Report added as new.");
         box->exec();
         delete box;
+        //update Report Combobox
+        this->on_patientcB_currentIndexChanged(ui->patientcB->currentText());
+        int index;
+        if ((index = ui->reportcB->findText(QString::number(report->getId()))) != -1)
+            ui->reportcB->setCurrentIndex(index);
     }
     //Second try to override old Report
     else {
@@ -254,7 +263,6 @@ void MainWindow::saveReport() {
         box->exec();
         delete box;
     }
-    this->on_patientcB_currentIndexChanged(ui->patientcB->currentText());
 }
 
 void MainWindow::clearForm()

@@ -281,3 +281,14 @@ void ICFController::setIcfCodeDescription(QString code, QString description) {
         icfCode[code] = description;
     }
 }
+
+QString ICFController::getIcfCode(int i) {
+    if (i<0) return 0;
+    int counter = 0;
+    std::map<QString,QString>::iterator it = icfCode.begin();
+    while (counter < i) {
+        it++;
+        counter++;
+    }
+    return it->first;
+}
