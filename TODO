@@ -1,7 +1,6 @@
 ====Wichtig===========
-->ICF ID Liste einlesen
-->Description in Report.xml überflüssig. Über eigene ID.xml verwalten.
-->BUG: Neuer Patient erscheint nicht direkt in MAnagement Maske
+->BUG: Neuer Patient erscheint nicht direkt in Management Maske
+->BUG: Forms identifizieren sich über Rand. Diese liegt bei FillReportForm zu nah beieinander.
 -ContextFactors: Adjust Values in  Form
 ====Weniger Wichtig===
 -CB Pat/Ther: k.A. falls T/P gelöscht wurde

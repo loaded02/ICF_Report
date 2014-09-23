@@ -28,6 +28,8 @@ private slots:
 
     void on_removeButton_clicked();
 
+    void on_refreshButton_clicked();
+
 private:
     void fillListView();
     Ui::GUI_ShowPerson *ui;

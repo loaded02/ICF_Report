@@ -104,3 +104,8 @@ void GUI_ShowPerson::on_removeButton_clicked()
         this->fillListView();
     }
 }
+
+void GUI_ShowPerson::on_refreshButton_clicked()
+{
+    this->fillListView();
+}
