@@ -133,7 +133,7 @@ void DomParser::parseReport(const QDomElement element)
 void DomParser::parseFunction(const QDomElement &element, Function *parent)
 {
     parent->setId(element.attribute("id"));
-//    parent->setDescription(element.attribute("description"));
+    parent->setDescription(element.attribute("description"));
     parent->setValue(element.attribute("value").toInt());
     parent->setText(element.text());
 }

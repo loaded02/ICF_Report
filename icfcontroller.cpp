@@ -230,7 +230,7 @@ void ICFController::createFile(QList<Report *> reports, QString filename)
                 QDomElement funcDOM = doc.createElement(label);
                 funcDOM.setAttribute("art",actFunction->getArt());
                 funcDOM.setAttribute("id",actFunction->getId());
-//                funcDOM.setAttribute("description",actFunction->getDescription());
+                funcDOM.setAttribute("description",actFunction->getDescription());
                 funcDOM.setAttribute("value",actFunction->getValue());
                 QDomText text = doc.createTextNode(actFunction->getText());
                 funcDOM.appendChild(text);

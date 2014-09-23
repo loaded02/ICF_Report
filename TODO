@@ -1,5 +1,4 @@
 ====Wichtig===========
-->BUG: Neuer Patient erscheint nicht direkt in Management Maske
 ->BUG: Forms identifizieren sich über Rand. Diese liegt bei FillReportForm zu nah beieinander.
 -ContextFactors: Adjust Values in  Form
 ====Weniger Wichtig===
@@ -7,6 +6,10 @@
 -Save mit Select File (wo? Select Directory)
 -(Save Report as New) differenzieren 
     ->Besser: Abfragen ob gespeichert werden soll.
+-Seitenzahl bei PDF nicht gewünscht
+-Praxis als Name in PDF und als Attribut für Therapeut
+-PDF Core Set Überschrift auswählbar
+-eventl FontSize für Table kleiner wählen
 ====Irgendwann========
 -->Vorlagen für CoreSets einlesen
 -->ICF Definitionen online einlesen
