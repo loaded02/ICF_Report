@@ -1,0 +1,13 @@
+====Wichtig===========
+->ICF ID Liste einlesen
+->Description in Report.xml überflüssig. Über eigene ID.xml verwalten.
+->BUG: Neuer Patient erscheint nicht direkt in MAnagement Maske
+-ContextFactors: Adjust Values in  Form
+====Weniger Wichtig===
+-CB Pat/Ther: k.A. falls T/P gelöscht wurde
+-Save mit Select File (wo? Select Directory)
+-(Save Report as New) differenzieren 
+    ->Besser: Abfragen ob gespeichert werden soll.
+====Irgendwann========
+-->Vorlagen für CoreSets einlesen
+-->ICF Definitionen online einlesen

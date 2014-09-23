@@ -11,6 +11,11 @@ DomParser::DomParser(QList<Report *> *daten)
 
 }
 
+DomParser::DomParser(std::map<QString, QString> *daten)
+    :icfCodes(daten){
+
+}
+
 bool DomParser::readFile(const QString &fileName)
 {
     QFile file(fileName);
@@ -36,7 +41,7 @@ bool DomParser::readFile(const QString &fileName)
 
     QDomElement root = doc.documentElement();
 
-    if (root.tagName() == "person" || root.tagName() == "reports") {
+    if (root.tagName() == "person" || root.tagName() == "reports" || root.tagName() == "icfcodes") {
         parseRootElement(root);
     }
     else {
@@ -59,8 +64,22 @@ void DomParser::parseRootElement(const QDomElement &element)
         else if (child.toElement().tagName() == "report") {
             parseReport(child.toElement());
         }
+        else if (child.toElement().tagName() == "icfcode") {
+            parseIcfCode(child.toElement());
+        }
         child = child.nextSibling();
     }
+}
+
+void DomParser::parseIcfCode(const QDomElement &element)
+{
+    QString id = element.attribute("id");
+    QString description;
+    QDomNode child = element.firstChild();
+    if (child.toElement().tagName() == "description") {
+        description = child.toElement().text();
+    }
+    icfCodes->insert(std::pair<QString,QString>(id,description));
 }
 
 void DomParser::parseTherapist(const QDomElement &element)
@@ -114,7 +133,7 @@ void DomParser::parseReport(const QDomElement element)
 void DomParser::parseFunction(const QDomElement &element, Function *parent)
 {
     parent->setId(element.attribute("id"));
-    parent->setDescription(element.attribute("description"));
+//    parent->setDescription(element.attribute("description"));
     parent->setValue(element.attribute("value").toInt());
     parent->setText(element.text());
 }

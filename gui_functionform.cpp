@@ -6,7 +6,6 @@ GUI_FunctionForm::GUI_FunctionForm(QWidget *parent) :
     ui(new Ui::GUI_FunctionForm)
 {
     ui->setupUi(this);
-//    ui->comboBox->addItems(QStringList() << "ID 12" << "ID 13" << "ID 14");
 }
 
 GUI_FunctionForm::~GUI_FunctionForm()
@@ -73,7 +72,11 @@ void GUI_FunctionForm::setId(QString id)
         ui->comboBox->addItem(id);
         i= ui->comboBox->findText(id);
     }
-    ui->comboBox->setCurrentIndex(i);
+    if (ui->comboBox->currentIndex() == i) {
+        this->on_comboBox_currentIndexChanged(id);
+    } else {
+        ui->comboBox->setCurrentIndex(i);
+    }
 }
 
 QString GUI_FunctionForm::getText()

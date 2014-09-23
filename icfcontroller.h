@@ -60,6 +60,7 @@ public:
 private:
     void createFile(QList<Person*> persons, QString filename);
     void createFile(QList<Report*> reports, QString filename);
+    void createIcfCodeFile(QString filename);
     static int therId;
     static int patId;
     static int repId;

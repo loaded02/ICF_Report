@@ -49,3 +49,6 @@ FORMS    += mainwindow.ui \
     gui_functionform.ui \
     gui_showperson.ui \
     gui_newperson.ui
+
+OTHER_FILES += \
+    TODO

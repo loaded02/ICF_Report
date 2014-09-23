@@ -27,10 +27,8 @@ ICFController::ICFController()
             repId = rep->getId();
     }
     repId++;
-    //test
-    icfCode["ID 12"] = "Eine Störung";
-    icfCode["ID 13"] = "Noch eine";
-    icfCode["ID 14"] = "was anderes";
+    DomParser codeParser(&icfCode);
+    codeParser.readFile("icfcode.xml");
 }
 
 ICFController::~ICFController()
@@ -232,7 +230,7 @@ void ICFController::createFile(QList<Report *> reports, QString filename)
                 QDomElement funcDOM = doc.createElement(label);
                 funcDOM.setAttribute("art",actFunction->getArt());
                 funcDOM.setAttribute("id",actFunction->getId());
-                funcDOM.setAttribute("description",actFunction->getDescription());
+//                funcDOM.setAttribute("description",actFunction->getDescription());
                 funcDOM.setAttribute("value",actFunction->getValue());
                 QDomText text = doc.createTextNode(actFunction->getText());
                 funcDOM.appendChild(text);
@@ -248,11 +246,38 @@ void ICFController::createFile(QList<Report *> reports, QString filename)
     file.close();
 }
 
+void ICFController::createIcfCodeFile(QString filename)
+{
+    const int Indent = 4;
+
+    QDomDocument doc;
+    QDomElement root = doc.createElement("icfcodes");
+    doc.appendChild(root);
+
+    for (auto it=icfCode.begin(); it != icfCode.end(); it++) {
+        QDomElement codeDOM = doc.createElement("icfcode");
+        codeDOM.setAttribute("id",it->first);
+        QDomElement textElement = doc.createElement("description");
+        QDomText description = doc.createTextNode(it->second);
+        textElement.appendChild(description);
+        codeDOM.appendChild(textElement);
+        root.appendChild(codeDOM);
+    }
+
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
+        return;
+    QTextStream out(&file);
+    doc.save(out, Indent);
+    file.close();
+}
+
 void ICFController::save()
 {
     this->createFile(this->therapists, "therapists.xml");
     this->createFile(this->patients, "patients.xml");
     this->createFile(this->reports, "reports.xml");
+    this->createIcfCodeFile("icfcode.xml");
 }
 
 void ICFController::printReport(int repId)
