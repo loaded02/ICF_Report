@@ -6,6 +6,7 @@ GUI_FunctionForm::GUI_FunctionForm(QWidget *parent) :
     ui(new Ui::GUI_FunctionForm)
 {
     ui->setupUi(this);
+    srand(time(NULL));
 }
 
 GUI_FunctionForm::~GUI_FunctionForm()
@@ -130,7 +131,6 @@ void GUI_FunctionForm::addIcfCodeToCb(const QString &arg1)
 
 void GUI_FunctionForm::on_comboBox_currentIndexChanged(const QString &arg1)
 {
-    srand(time(NULL));
     rnd = rand();
     emit idChanged(arg1, rnd);
 }
