@@ -1,6 +1,5 @@
 ICF_Report
 ==========
-<<<<<<< HEAD
 This is a simple GUI-Programm, which is supposed to help creating a brief ICF Report. The ICF Report is used to describe a patient status, e.g. during a medical therapy. Check http://www.who.int/classifications/icf/en/ for more information about ICF.
 
 Features:
@@ -17,11 +16,3 @@ Ubuntu 13.10, 64 bit
 3) cd build
 2) qmake ../ICF_Report.pro -r -spec linux-g++
 3) make
-=======
-This Programm is supposed to help creating a brief ICF Report. The Report is used to 
-describe a patient medical status.
-Check http://www.who.int/classifications/icf/en/ for more information about ICF.
-
-Programm supports saving content in XML structure on disk.
-Output can be achieved via printing to Paper or Pdf.
->>>>>>> b03a20f92691e9afbc17ddd7feba30f12cb9eae7
