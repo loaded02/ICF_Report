@@ -7,6 +7,11 @@
 #include <stdlib.h>
 #include <time.h>
 
+/*
+ * View class. Shows visualisation of Function entity.
+ * This QWidget is used in GUI_Function.
+*/
+
 namespace Ui {
 class GUI_FunctionForm;
 }

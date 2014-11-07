@@ -12,10 +12,12 @@
 #include "gui_showperson.h"
 #include "function.h"
 
-/*MainWindow is called from main(..). It is the mainframe and shows just the header with
-* 2 comboboxes and dateedit and the footer with buttons like print, save, etc. The central
-* 3 widgets are designed in GUI_FunctionForm and GUI_Function. The Businesslogic is controlled
-* and encapsulated by ICFController. This class is instanciated by MainWindow. */
+/*
+ * MainWindow is called from main(..). It is the mainframe and shows just the header with
+ * 2 comboboxes and dateedit and the footer with buttons like print, save, etc. The central
+ * 3 widgets are designed in GUI_FunctionForm and GUI_Function. The Businesslogic is controlled
+ * and encapsulated by ICFController. ICFController is instanciated by MainWindow.
+*/
 
 namespace Ui {
 class MainWindow;

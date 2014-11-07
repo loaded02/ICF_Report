@@ -9,6 +9,11 @@
 #include "report.h"
 #include "icfcontroller.h"
 
+/*
+ * Uses QTextDocument to print given report data onto a printer or pdf file.
+ * Layout of the page is set here.
+*/
+
 class ICFController;
 
 class PrintWindow : public QDialog

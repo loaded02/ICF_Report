@@ -3,6 +3,11 @@
 
 #include <QDialog>
 
+/*
+ * View class. Dialog with Person attributes.
+ * Used to insert a new Person.
+*/
+
 namespace Ui {
 class GUI_NewPerson;
 }

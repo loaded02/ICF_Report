@@ -5,6 +5,10 @@
 #include "therapist.h"
 #include "function.h"
 
+/*
+ * Entity class. Holds attributes of a Report.
+*/
+
 class Report
 {
 public:

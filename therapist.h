@@ -3,6 +3,10 @@
 
 #include "person.h"
 
+/*
+ * Entity class. Holds attributes of a Therapist.
+*/
+
 class Therapist : public Person
 {
 public:

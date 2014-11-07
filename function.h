@@ -3,6 +3,11 @@
 
 #include <QString>
 
+/*
+ * Entity class. Holds attributes of a bodyfunction like
+ * partizipation, structure etc.
+*/
+
 class Function
 {
 public:

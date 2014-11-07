@@ -3,6 +3,10 @@
 
 #include <QString>
 
+/*
+ * Entity class. Holds attributes of a Person.
+*/
+
 class Person
 {
 public:

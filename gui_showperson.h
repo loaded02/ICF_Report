@@ -7,6 +7,11 @@
 #include "mainwindow.h"
 #include "icfcontroller.h"
 
+/*
+ * View class. Dialog with  listwidget of all Persons.
+ * Used to manage existing Persons.
+*/
+
 namespace Ui {
 class GUI_ShowPerson;
 }

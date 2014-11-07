@@ -15,7 +15,7 @@
 
 /*
 * Parses XML Document with 2 hierarchy steps
-* and puts them into an QVector. Used for Person and Report class.
+* and puts them into an QVector. Used for all saved Datatypes (Person, Report, ICFCodes)
 */
 
 class DomParser

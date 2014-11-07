@@ -4,6 +4,11 @@
 #include <QWidget>
 #include "gui_functionform.h"
 
+/*
+ * View class. Shows 2 buttons and up to 10 widgets, which are
+ * GUI_FunctionForm classes. This QWidget is used in Mainwindow.
+*/
+
 namespace Ui {
 class GUI_Function;
 }

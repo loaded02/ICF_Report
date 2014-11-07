@@ -4,6 +4,10 @@
 #include <QDate>
 #include "person.h"
 
+/*
+ * Entity class. Holds attributes of a Patient.
+*/
+
 class Patient : public Person
 {
 public:
