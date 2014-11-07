@@ -1,11 +1,6 @@
 #ifndef DOMPARSER_H
 #define DOMPARSER_H
 
-/*
-* Parses XML Document with 2 hierarchy steps
-* and puts them into an QVector. Used for Person class.
-*/
-
 #include <QList>
 #include <QDomDocument>
 #include <QDomElement>
@@ -17,6 +12,11 @@
 #include "therapist.h"
 #include "patient.h"
 #include "report.h"
+
+/*
+* Parses XML Document with 2 hierarchy steps
+* and puts them into an QVector. Used for Person and Report class.
+*/
 
 class DomParser
 {

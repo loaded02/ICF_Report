@@ -12,6 +12,11 @@
 #include "gui_showperson.h"
 #include "function.h"
 
+/*MainWindow is called from main(..). It is the mainframe and shows just the header with
+* 2 comboboxes and dateedit and the footer with buttons like print, save, etc. The central
+* 3 widgets are designed in GUI_FunctionForm and GUI_Function. The Businesslogic is controlled
+* and encapsulated by ICFController. This class is instanciated by MainWindow. */
+
 namespace Ui {
 class MainWindow;
 }
@@ -21,11 +26,15 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    /*Default Constructor*/
     explicit MainWindow(QWidget *parent = 0);
+    /*Destructor*/
     ~MainWindow();
+    /*Clears all forms that are currently shown*/
     void clearForm();
-
+    /*Connect Signals to Slots in MainWindow and to GUI_Functionform*/
     void connectSignals();
+    /*Subfunction for ConnectSignals()*/
     void connectLoop(QList<GUI_FunctionForm*> list);
 signals:
     void changeDescription(QString value, int rnd);
