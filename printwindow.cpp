@@ -30,12 +30,17 @@ void PrintWindow::printHtml(const QString &html)
 {
     printer.setOrientation(QPrinter::Portrait);
     printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPageSize(QPrinter::A4);
     QPrintDialog printDialog(&printer, this);
     if (printDialog.exec()) {
 //        QPainter painter(&printer);
         QTextDocument textDocument;
+        QSizeF paperSize;
+        paperSize.setWidth(printer.width());
+        paperSize.setHeight(printer.height());
 //        textDocument.setDefaultStyleSheet(this->cssTable());
         textDocument.setHtml(this->cssTable() + html);
+        textDocument.setPageSize(paperSize); // must be set, so that we don't get page numbers. Now Paginate Function must be implemeted!!!!
         textDocument.print(&printer);
     }
 }
@@ -62,9 +67,9 @@ QString PrintWindow::printTable(const QList<Function *>func)
     if (func.isEmpty()) return "";
     QString art;
     switch (func.at(0)->getArt()) {
-    case Function::function : art = "KOERPERFUNKTIONEN";
+    case Function::function : art = "KÖRPERFUNKTIONEN";
         break;
-    case Function::structure : art = "KOERPERSTRUKTUREN";
+    case Function::structure : art = "KÖRPERSTRUKTUREN";
         break;
     case Function::partizipation : art = "PARTIZIPATION";
         break;
@@ -76,7 +81,7 @@ QString PrintWindow::printTable(const QList<Function *>func)
     QString html;
     html += "<table width=\"100%\" cellspacing=\"0\" class=\"tbl\">"
             "<tr>"
-            "<th rowspan=\"2\" colspan=\"2\" align=\"left\"><b>" + art + "</b></th><th colspan=\"6\" align=\"left\"><b>Schaedigung</b></th>"
+            "<th rowspan=\"2\" colspan=\"2\" align=\"left\"><b>" + art + "</b></th><th colspan=\"6\" align=\"left\"><b>Schädigung</b></th>"
             "</tr>"
             "<tr>"
             "<th></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th>"
@@ -118,8 +123,9 @@ QString PrintWindow::printText(QString txt)
 
 QString PrintWindow::printFooter(const Report *report)
 {
+    Therapist* ther = icfController->findTherapist(report->getTherapistId());
     QString html;
-    html += "<p>Praxis :" + QString::number(report->getTherapistId()) + "</p>";
+    html += "<p>Praxis :" + ther->getCompany().toHtmlEscaped() + "</p>";
     html += "</body>";
     return html;
 }
@@ -128,7 +134,7 @@ QString PrintWindow::cssTable()
 {
     QString css;
     css =   "<style type=\"text/css\">"
-            "body {font-family:Tahoma,Helvetica,sans-serif;}"
+            "body {font-family:Tahoma,Helvetica,sans-serif; margin:32px;}"
             "p {margin-top: 10px;margin-right:10px;margin-bottom:10px;margin-left:10px;}"
             "table.header {border-width: 1px;border-style: solid;border-color: black;color: black;}"
             "table.header th {border-width:0;border-style:none;border-collapse:collapse;}"

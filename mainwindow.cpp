@@ -70,7 +70,7 @@ void MainWindow::on_actionNew_Therapist_triggered()
     therapist->therapistAppearance();
     therapist->setWindowTitle("Add new Therapist");
     if (therapist->exec())
-        this->addTherapist(therapist->getSurname(),therapist->getName());
+        this->addTherapist(therapist->getSurname(),therapist->getName(), therapist->getDiagnosis());
     delete therapist;
 }
 
@@ -143,10 +143,11 @@ void MainWindow::addPatient(QString surname, QString name, QDate dob, QString di
     this->fillPatComboBox();
 }
 
-void MainWindow::addTherapist(QString surname, QString name)
+void MainWindow::addTherapist(QString surname, QString name, QString company)
 {
     Therapist* ther = new Therapist(surname);
     ther->setName(name);
+    ther->setCompany(company);
     icfController->addTherapist(ther);
     this->fillTherComboBox();
 }

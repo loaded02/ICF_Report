@@ -172,6 +172,7 @@ void ICFController::createFile(QList<Person*> persons, QString filename)
             therDOM.setAttribute("id",ther->getId());
             therDOM.setAttribute("surname",ther->getSurname());
             therDOM.setAttribute("name",ther->getName());
+            therDOM.setAttribute("company", ther->getCompany());
             root.appendChild(therDOM);
         }
         if (pat) {

@@ -78,7 +78,7 @@ private:
     void fillTherComboBox();
     void fillPatComboBox();
     void addPatient(QString surname, QString name, QDate dob, QString diagnosis);
-    void addTherapist(QString surname, QString name);
+    void addTherapist(QString surname, QString name, QString company);
     void fillReportForm(Report* rep);
     Ui::MainWindow *ui;
     ICFController* icfController;

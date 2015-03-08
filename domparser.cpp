@@ -87,6 +87,7 @@ void DomParser::parseTherapist(const QDomElement &element)
     Therapist* item = new Therapist(element.attribute("surname"));
     item->setId(element.attribute("id").toInt());
     item->setName(element.attribute("name"));
+    item->setCompany(element.attribute("company"));
     daten->append(item);
 }
 

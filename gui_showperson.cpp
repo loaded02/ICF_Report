@@ -48,9 +48,11 @@ void GUI_ShowPerson::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
             form->setWindowTitle("Edit Therapist");
             form->setSurname(ther->getSurname());
             form->setName(ther->getName());
+            form->setDiagnosis(ther->getCompany());
             if (form->exec()) {
                 ther->setSurname(form->getSurname());
                 ther->setName(form->getName());
+                ther->setCompany(form->getDiagnosis());
             }
         }
     }

@@ -15,7 +15,8 @@ GUI_NewPerson::~GUI_NewPerson()
 
 void GUI_NewPerson::therapistAppearance()
 {
-    this->hideDiagnosis();
+    //this->hideDiagnosis();
+    ui->diagnosisLabel->setText("Company");
     this->hideDob();
 }
 

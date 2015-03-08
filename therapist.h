@@ -13,6 +13,12 @@ public:
     Therapist();
     virtual ~Therapist();
     Therapist(QString surname);
+
+    QString getCompany() const;
+    void setCompany(const QString &value);
+
+private:
+    QString company;
 };
 
 #endif // THERAPIST_H
