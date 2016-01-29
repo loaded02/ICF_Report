@@ -26,7 +26,12 @@ p.sig {
     margin:40px 10px 10px 10px;
 }
 
+p.desc {
+    font-size: 70%;
+}    
+
 table.header {
+    margin-bottom: 15px;
     width:19cm;
     border-width:1px;
     border-style:solid;
@@ -41,17 +46,16 @@ table.header th, td {
 }
 
 table.tbl {
-    margin:15px 0px 15px 0px;
-    width:17cm;
+    margin: 0;
+    width:19cm;
     border-width:1px;
     border-style:solid;
     border-color:black;
     border-collapse:collapse;
     text-align:center;
-    margin-left:1cm;
-    margin-right:1cm;
     empty-cells:show;
     color:black;
+    font-size: 85%;
 }
 
 table.tbl th {
@@ -97,3 +101,14 @@ table.tbl td.left {
     text-align:left;
     background-color:#FFFFFF;
 } 
+
+table.tbl td.part {
+    line-height:1.2;
+    border-width:1px;
+    border-style:solid;
+    border-color:black;
+    border-collapse:collapse;
+    text-align:center;
+    background-color:#FFFFFF;
+    font-size: 80%;
+}
