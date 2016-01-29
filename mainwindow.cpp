@@ -13,7 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    icfController = new ICFController();
+    icfController = new ICFController("/home/moritz/git_reps/ICF_Report/xml/");
+
     connect(ui->actionExit,SIGNAL(triggered()),this,SLOT(close()));
     connect(ui->pushButtonPat,SIGNAL(clicked()),this,SLOT(on_actionManage_Patients_triggered()));
     connect(ui->pushButtonTher,SIGNAL(clicked()),this,SLOT(on_actionManage_Therapists_triggered()));

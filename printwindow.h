@@ -1,11 +1,7 @@
 #ifndef PRINTWINDOW_H
 #define PRINTWINDOW_H
 
-#include <QString>
-#include <QPrintDialog>
-#include <QPrinter>
-#include <QTextDocument>
-#include <QDebug>
+#include <QDialog>
 #include "report.h"
 #include "icfcontroller.h"
 
@@ -22,15 +18,12 @@ class PrintWindow : public QDialog
 public:
     PrintWindow(ICFController* icfController, QDialog *parent = 0);
     ~PrintWindow();
-    void printReport(int repId);
+    int printReport(int repId);
 private:
-    void printHtml(const QString &html);
-    QString printHeader(const Report *report);
-    QString printTable(const QList<Function *> func);
-    QString printText(QString txt);
-    QString printFooter(const Report *report);
-    QString cssTable();
-    QPrinter printer;
+    void createXmlReport(Report &rep);
+    void createXmlTherapist(Report &rep, QDomDocument &doc, QDomElement &root);
+    void createXmlPatient(Report &rep, QDomDocument &doc, QDomElement &root);
+    void createXmlFunction(Report& rep, QDomDocument& doc, QDomElement& root);
     ICFController* icfController;
 };
 

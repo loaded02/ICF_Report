@@ -21,7 +21,7 @@ class ICFController
 {
 public:
     /*Default constructor*/
-    ICFController();
+    ICFController(QString baseDir);
     /*Destructor*/
     ~ICFController();
     /*Appends Patient to Patient List*/
@@ -85,6 +85,8 @@ public:
     /*Return ICF Code at position i in Code list*/
     QString getIcfCode(int i);
 
+    QString getBaseDir() const;
+
 private:
     void createFile(QList<Person*> persons, QString filename);
     void createFile(QList<Report*> reports, QString filename);
@@ -96,6 +98,7 @@ private:
     QList<Person*> patients;
     QList<Person*> therapists;
     std::map<QString,QString> icfCode;
+    QString m_baseDir;
 };
 
 #endif // ICFCONTROLLER_H

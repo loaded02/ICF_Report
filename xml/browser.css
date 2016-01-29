@@ -1,0 +1,99 @@
+* {
+    margin:0;
+    padding:0;
+    border:0;
+    font-size:100%;
+    line-height:1;
+}
+
+body {
+    font-family:Tahoma,Helvetica,sans-serif;
+    width:19cm; /*Annahme: Rand macht der Browser beim Druck*/
+}
+
+h1 {
+    margin:10px;
+    font-size:150%;
+    text-align:center;
+}
+
+p {
+    margin:10px;
+    line-height:1.2;
+}
+
+p.sig {
+    margin:40px 10px 10px 10px;
+}
+
+table.header {
+    width:19cm;
+    border-width:1px;
+    border-style:solid;
+    border-color:black;
+    color:black;
+}
+
+table.header th, td {
+    border-width:0;
+    border-style:none;
+    border-collapse:collapse;
+}
+
+table.tbl {
+    margin:15px 0px 15px 0px;
+    width:17cm;
+    border-width:1px;
+    border-style:solid;
+    border-color:black;
+    border-collapse:collapse;
+    text-align:center;
+    margin-left:1cm;
+    margin-right:1cm;
+    empty-cells:show;
+    color:black;
+}
+
+table.tbl th {
+    line-height:1.2;
+    border-width:1px;
+    border-style:solid;
+    border-color:black;
+    border-collapse:collapse;
+    text-align:center;
+    background-color:#E0E0E0;
+    font-weight:bold;
+}
+
+table.tbl th.left {
+    padding: 0 0 0 10px;
+    line-height:1.2;
+    border-width:1px;
+    border-style:solid;
+    border-color:black;
+    border-collapse:collapse;
+    text-align:left;
+    background-color:#E0E0E0;
+    font-weight:bold;
+}
+
+table.tbl td {
+    line-height:1.2;
+    border-width:1px;
+    border-style:solid;
+    border-color:black;
+    border-collapse:collapse;
+    text-align:center;
+    background-color:#FFFFFF;
+} 
+
+table.tbl td.left {
+    padding: 0 0 0 10px;
+    line-height:1.2;
+    border-width:1px;
+    border-style:solid;
+    border-color:black;
+    border-collapse:collapse;
+    text-align:left;
+    background-color:#FFFFFF;
+} 

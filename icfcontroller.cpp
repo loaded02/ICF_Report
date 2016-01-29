@@ -1,34 +1,35 @@
 #include "icfcontroller.h"
 
-int ICFController::patId = 5000;
+int ICFController::patId = 2000;
 int ICFController::therId = 1000;
-int ICFController::repId = 1000;
+int ICFController::repId = 5000;
 
-ICFController::ICFController()
+ICFController::ICFController(QString baseDir)
+    :m_baseDir(baseDir)
 {
     DomParser patParser(&patients);
-    patParser.readFile("patients.xml");
+    patParser.readFile(m_baseDir + "patients.xml");
     foreach (Person* per, patients) {
         if (patId < per->getId())
             patId = per->getId();
     }
     patId++;
     DomParser therParser(&therapists);
-    therParser.readFile("therapists.xml");
+    therParser.readFile(m_baseDir + "therapists.xml");
     foreach (Person* per, therapists) {
         if (therId < per->getId())
             therId = per->getId();
     }
     therId++;
     DomParser repParser(&reports);
-    repParser.readFile("reports.xml");
+    repParser.readFile(m_baseDir + "reports.xml");
     foreach (Report* rep, reports) {
         if (repId < rep->getId())
             repId = rep->getId();
     }
     repId++;
     DomParser codeParser(&icfCode);
-    codeParser.readFile("icfcode.xml");
+    codeParser.readFile(m_baseDir + "icfcode.xml");
 }
 
 ICFController::~ICFController()
@@ -273,12 +274,17 @@ void ICFController::createIcfCodeFile(QString filename)
     file.close();
 }
 
+QString ICFController::getBaseDir() const
+{
+    return m_baseDir;
+}
+
 void ICFController::save()
 {
-    this->createFile(this->therapists, "therapists.xml");
-    this->createFile(this->patients, "patients.xml");
-    this->createFile(this->reports, "reports.xml");
-    this->createIcfCodeFile("icfcode.xml");
+    this->createFile(this->therapists, m_baseDir + "therapists.xml");
+    this->createFile(this->patients, m_baseDir + "patients.xml");
+    this->createFile(this->reports, m_baseDir + "reports.xml");
+    this->createIcfCodeFile(m_baseDir + "icfcode.xml");
 }
 
 void ICFController::printReport(int repId)

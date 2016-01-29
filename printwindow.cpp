@@ -1,4 +1,10 @@
 #include "printwindow.h"
+#include <QDomDocument>
+#include <QDomElement>
+#include <QString>
+#include <QDebug>
+#include "patient.h"
+#include "therapist.h"
 
 PrintWindow::PrintWindow(ICFController* icfController, QDialog *parent)
     :QDialog(parent), icfController(icfController)
@@ -10,138 +16,151 @@ PrintWindow::~PrintWindow()
 
 }
 
-void PrintWindow::printReport(int repId)
+int PrintWindow::printReport(int repId)
 {
     Report* report;
     if ((report = icfController->findReport(repId))) {
-        QString html;
-        html += this->printHeader(report);
-        html += this->printTable(report->getFunctions(Function::function));
-        html += this->printTable(report->getFunctions(Function::structure));
-        html += this->printTable(report->getFunctions(Function::partizipation));
-        html += this->printTable(report->getFunctions(Function::context));
-        html += this->printText(report->getFreeText());
-        html += this->printFooter(report);
-        this->printHtml(html);
+        createXmlReport(*report);
+        return 0;
+    }
+    return 1;
+}
+
+void PrintWindow::createXmlReport(Report& rep) {
+    QDomDocument doc;
+    doc.insertBefore(doc.createProcessingInstruction("xml-stylesheet", "type=\"text/xsl\" href=\"report.xsl\""),doc.documentElement());
+    doc.insertBefore(doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"utf-8\""),doc.documentElement());
+    QDomElement root = doc.createElement("report");
+    doc.appendChild(root);
+
+    QDomElement repId = doc.createElement("id");
+    root.appendChild(repId);
+    QDomText repIdTxt = doc.createTextNode(QString::number(rep.getId()));
+    repId.appendChild(repIdTxt);
+
+    QDomElement repDate = doc.createElement("date");
+    root.appendChild(repDate);
+    QDomText repDateTxt = doc.createTextNode(rep.getDate().toString("dd.MM.yyyy"));
+    repDate.appendChild(repDateTxt);
+
+    QDomElement repType = doc.createElement("type");
+    root.appendChild(repType);
+    QDomText repTypeTxt = doc.createTextNode("ICF Core Set - Apoplex"); //TODO: Variable
+    repType.appendChild(repTypeTxt);
+
+    createXmlPatient(rep,doc,root);
+    createXmlTherapist(rep,doc, root);
+    createXmlFunction(rep,doc, root);
+
+    QDomElement free = doc.createElement("freetext");
+    root.appendChild(free);
+    QDomText freeTxt = doc.createTextNode(rep.getFreeText());
+    free.appendChild(freeTxt);
+
+    QFile file(icfController->getBaseDir() + "report.xml");
+    if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
+        return;
+    QTextStream out(&file);
+    const int Indent = 4;
+    doc.save(out,Indent);
+    file.close();
+}
+
+void PrintWindow::createXmlTherapist(Report& rep, QDomDocument& doc, QDomElement& root) {
+    Therapist* ther = icfController->findTherapist(rep.getTherapistId());
+    if (ther) {
+        QDomElement therapist = doc.createElement("therapist");
+        root.appendChild(therapist);
+        QDomElement therId = doc.createElement("id");
+        therapist.appendChild(therId);
+        QDomText therIdTxt = doc.createTextNode(QString::number(ther->getId()));
+        therId.appendChild(therIdTxt);
+
+        QDomElement therName = doc.createElement("name");
+        therapist.appendChild(therName);
+        QDomText therNameTxt = doc.createTextNode(ther->getName());
+        therName.appendChild(therNameTxt);
+
+        QDomElement therSurname = doc.createElement("surname");
+        therapist.appendChild(therSurname);
+        QDomText therSurnameTxt = doc.createTextNode(ther->getSurname());
+        therSurname.appendChild(therSurnameTxt);
+
+        QDomElement therOffice = doc.createElement("office");
+        therapist.appendChild(therOffice);
+        QDomText therOfficeTxt = doc.createTextNode(ther->getCompany());
+        therOffice.appendChild(therOfficeTxt);
     }
 }
 
-void PrintWindow::printHtml(const QString &html)
-{
-    printer.setOrientation(QPrinter::Portrait);
-    printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setPageSize(QPrinter::A4);
-    QPrintDialog printDialog(&printer, this);
-    if (printDialog.exec()) {
-//        QPainter painter(&printer);
-        QTextDocument textDocument;
-        QSizeF paperSize;
-        paperSize.setWidth(printer.width());
-        paperSize.setHeight(printer.height());
-//        textDocument.setDefaultStyleSheet(this->cssTable());
-        textDocument.setHtml(this->cssTable() + html);
-        textDocument.setPageSize(paperSize); // must be set, so that we don't get page numbers. Now Paginate Function must be implemeted!!!!
-        textDocument.print(&printer);
+void PrintWindow::createXmlPatient(Report& rep, QDomDocument& doc, QDomElement& root) {
+    Patient* patient = icfController->findPatient(rep.getPatientId());
+    if (patient) {
+    QDomElement pat = doc.createElement("patient");
+    root.appendChild(pat);
+    QDomElement patId = doc.createElement("id");
+    pat.appendChild(patId);
+    QDomText patIdTxt = doc.createTextNode(QString::number(patient->getId()));
+    patId.appendChild(patIdTxt);
+
+    QDomElement patName = doc.createElement("name");
+    pat.appendChild(patName);
+    QDomText patNameTxt = doc.createTextNode(patient->getName());
+    patName.appendChild(patNameTxt);
+
+    QDomElement patSurname = doc.createElement("surname");
+    pat.appendChild(patSurname);
+    QDomText patSurnameTxt = doc.createTextNode(patient->getSurname());
+    patSurname.appendChild(patSurnameTxt);
+
+    QDomElement patDob = doc.createElement("dob");
+    pat.appendChild(patDob);
+    QDomText patDobTxt = doc.createTextNode(patient->getDob().toString("dd.MM.yyyy"));
+    patDob.appendChild(patDobTxt);
+
+    QDomElement patDiag = doc.createElement("diagnosis");
+    pat.appendChild(patDiag);
+    QDomText patDiagTxt = doc.createTextNode(patient->getDiagnosis());
+    patDiag.appendChild(patDiagTxt);
     }
 }
 
-QString PrintWindow::printHeader(const Report* report)
-{
-    //TODO: Abfrage auf NULL Pointer fehlt!!!!!!!!!!!!
-    Patient* pat = icfController->findPatient(report->getPatientId());
-    Therapist* ther = icfController->findTherapist(report->getTherapistId());
-    QString html;
-    html += "<body>"
-            "<table width=\"100%\" cellspacing=\"0\" class=\"header\"><tr><td>"
-            "<p align=\"right\">Befundaufnahme: " + report->getDate().toString().toHtmlEscaped() + "</p>"
-            "<p>Patient: " + pat->getName().toHtmlEscaped() + " " + pat->getSurname().toHtmlEscaped() +
-            ", Geb.-Datum: " + pat->getDob().toString().toHtmlEscaped() + "<br>Diagnose: " + pat->getDiagnosis().toHtmlEscaped() + "</p>"
-            "<h1 align=\"center\">" + "ICF Core Set - Apoplex" + "</h1>"
-            "<p>Therapeut: " + ther->getName().toHtmlEscaped() + " " + ther->getSurname().toHtmlEscaped() + "</p>"
-            "</td></tr></table><br>";
-    return html;
-}
-
-QString PrintWindow::printTable(const QList<Function *>func)
-{
-    if (func.isEmpty()) return "";
-    QString art;
-    switch (func.at(0)->getArt()) {
-    case Function::function : art = "KÖRPERFUNKTIONEN";
-        break;
-    case Function::structure : art = "KÖRPERSTRUKTUREN";
-        break;
-    case Function::partizipation : art = "PARTIZIPATION";
-        break;
-    case Function::context : art = "KONTEXTFAKTOREN";
-        break;
-    default:;
-    }
-
-    QString html;
-    html += "<table width=\"100%\" cellspacing=\"0\" class=\"tbl\">"
-            "<tr>"
-            "<th rowspan=\"2\" colspan=\"2\" align=\"left\"><b>" + art + "</b></th><th colspan=\"6\" align=\"left\"><b>Schädigung</b></th>"
-            "</tr>"
-            "<tr>"
-            "<th></th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th>"
-            "</tr>";
-    foreach ( Function* actFunc, func) {
-        QString null, one, two, three, four;
-        switch (actFunc->getValue()) {
-        case 0 : null="x";
+void PrintWindow::createXmlFunction(Report& rep, QDomDocument& doc, QDomElement& root) {
+    for (int i=0; i<rep.sizeOfFunctions(); i++) {
+        Function* actFunc = rep.getFunction(i);
+        QString label;
+        switch (actFunc->getArt()) {
+        case Function::function : label = "function";
             break;
-        case 1 : one ="x";
+        case Function::structure : label = "structure";
             break;
-        case 2 : two = "x";
+        case Function::partizipation : label = "partizipation";
             break;
-        case 3 : three = "x";
-            break;
-        case 4 : four = "x";
+        case Function::context : label = "context";
             break;
         default: ;
         }
 
-        html += "<tr>"
-                "<td width=\"7%\" rowspan=\"2\">" + actFunc->getId() + "</td><td width=\"63%\" rowspan=\"2\">" + actFunc->getDescription() + "</td><td>LF</td><td align=\"center\">"
-                + null + "</td><td align=\"center\">" + one + "</td><td align=\"center\">" + two + "</td><td align=\"center\">" + three + "</td><td align=\"center\">" + four + "</td>"
-                "</tr>"
-                "<tr>"
-                "<td>L</td><td align=\"center\">" + null + "</td><td align=\"center\">" + one + "</td><td align=\"center\">" + two + "</td><td align=\"center\">" + three + "</td><td align=\"center\">" + four + "</td>"
-                "</tr>"
-                "<tr><td colspan=\"8\">" + actFunc->getText() + "</td></tr>";
+        QDomElement func = doc.createElement(label);
+        root.appendChild(func);
+        QDomElement id = doc.createElement("id");
+        func.appendChild(id);
+        QDomText idTxt = doc.createTextNode(actFunc->getId());
+        id.appendChild(idTxt);
+
+        QDomElement desc = doc.createElement("description");
+        func.appendChild(desc);
+        QDomText descTxt = doc.createTextNode(actFunc->getDescription());
+        desc.appendChild(descTxt);
+
+        QDomElement val = doc.createElement("value");
+        func.appendChild(val);
+        QDomText valTxt = doc.createTextNode(QString::number(actFunc->getValue()));
+        val.appendChild(valTxt);
+
+        QDomElement txt = doc.createElement("freetext");
+        func.appendChild(txt);
+        QDomText txtTxt = doc.createTextNode(actFunc->getText());
+        txt.appendChild(txtTxt);
     }
-    html += "</table><br>";
-    return html;
-}
-
-QString PrintWindow::printText(QString txt)
-{
-    txt = "<br><br><p>" + txt + "</p><br><br>";
-    return txt;
-}
-
-QString PrintWindow::printFooter(const Report *report)
-{
-    Therapist* ther = icfController->findTherapist(report->getTherapistId());
-    QString html;
-    html += "<p>Praxis :" + ther->getCompany().toHtmlEscaped() + "</p>";
-    html += "</body>";
-    return html;
-}
-
-QString PrintWindow::cssTable()
-{
-    QString css;
-    css =   "<style type=\"text/css\">"
-            "body {font-family:Tahoma,Helvetica,sans-serif; margin:32px;}"
-            "p {margin-top: 10px;margin-right:10px;margin-bottom:10px;margin-left:10px;}"
-            "table.header {border-width: 1px;border-style: solid;border-color: black;color: black;}"
-            "table.header th {border-width:0;border-style:none;border-collapse:collapse;}"
-            "table.header td {border-width:0;border-style:none;border-collapse:collapse;}"
-            "table.tbl {border-width: 1px;border-style: solid;border-color: black;margin-left:32px; margin-right:32px; empty-cells:show; table-layout:fixed; border-collapse:collapse; text-align:left;color: black;background-color:#FFFFFF;}"
-            "table.tbl th {border-width: 1px;border-style: solid;border-color: black;border-collapse:collapse; text-align:left;background-color:#E0E0E0;}"
-            "table.tbl td {border-width: 1px;border-style: solid;border-color: black;border-collapse:collapse; text-align:left;background-color:#FFFFFF;}"
-            "</style>";
-    return css;
 }
