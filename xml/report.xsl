@@ -26,7 +26,7 @@
             <table class="tbl">
                 <tr>
                     <th rowspan="2" colspan="2" class="left">KÖRPERFUNKTIONEN</th>
-                    <th colspan="6" class="left">Schädigung</th>
+                    <th colspan="6" >Schädigung</th>
                 </tr>
                 <tr>
                     <th></th>
@@ -59,7 +59,7 @@
             <table class="tbl">
                 <tr>
                     <th rowspan="2" colspan="2" class="left">KÖRPERSTRUKTUREN</th>
-                    <th colspan="6" class="left">Schädigung</th>
+                    <th colspan="6" >Schädigung</th>
                 </tr>
                 <tr>
                     <th></th>
@@ -92,7 +92,7 @@
             <table class="tbl">
                 <tr>
                     <th rowspan="2" colspan="2" class="left">AKTIVITÄTEN UND PARTIZIPATION [TEILHABE]</th>
-                    <th colspan="6" class="left">Beeinträchtigung</th>
+                    <th colspan="6" >Beeinträchtigung</th>
                 </tr>
                 <tr>
                     <th></th>
@@ -133,8 +133,8 @@
             <table class="tbl">
                 <tr>
                     <th rowspan="2" colspan="2" class="left">UMWELTFAKTOREN</th>
-                    <th colspan="4" class="left">Förderfaktor</th>
-                    <th colspan="5" class="left">Barriere</th>
+                    <th colspan="4" >Förderfaktor</th>
+                    <th colspan="5" >Barriere</th>
                 </tr>
                 <tr>
                     <th>+4</th>
@@ -172,10 +172,31 @@
             <p class="desc">In den Körperfunktionen, Körperstrukturen, Aktivitäten und Partizipation: 0 = kein Problem, 1 = leichtes Problem, 2 = mäßiges Problem, 3 = erhebliches Problem, 4 = vollständiges Problem; In den Umweltfaktoren: 0 = keine Barriere/Förderfaktor, 1 = leichte Barriere, 2 = mäßige Barriere, 3 = erhebliche Barriere, 4 = vollständige Barriere, +1 = leichter Förderfaktor, +2 = mäßiger Förderfaktor, +3 = erheblicher Förderfaktor, +4 = vollständiger Förderfaktor<br />8 = nicht spezifiziert, 9 = nicht anwendbar<br />L = Leistung, LF = Leistungsfähigkeit
             </p>
             <!-- FREE TEXT -->
-            <p><u>Erläuterung:</u><xsl:text> </xsl:text><xsl:value-of select="freetext"/></p>
+            <p><u>Erläuterung:</u><xsl:text> </xsl:text>
+                                <xsl:call-template name="insertBreaks">
+                                    <xsl:with-param name="pText" select="freetext"/>
+                                </xsl:call-template>
+            </p>
         <!-- FOOTER -->
         <p class="sig"><xsl:value-of select="therapist/office"/></p>
   </body>
 </html>
   </xsl:template>
+  
+   <xsl:template match="text()" name="insertBreaks">
+   <xsl:param name="pText" select="."/>
+
+   <xsl:choose>
+     <xsl:when test="not(contains($pText, '&#xA;'))">
+       <xsl:copy-of select="$pText"/>
+     </xsl:when>
+     <xsl:otherwise>
+       <xsl:value-of select="substring-before($pText, '&#xA;')"/>
+       <br />
+       <xsl:call-template name="insertBreaks">
+         <xsl:with-param name="pText" select="substring-after($pText, '&#xA;')"/>
+       </xsl:call-template>
+     </xsl:otherwise>
+   </xsl:choose>
+ </xsl:template>
 </xsl:stylesheet>
