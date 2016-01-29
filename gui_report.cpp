@@ -1,6 +1,7 @@
 #include "gui_report.h"
 #include "ui_gui_report.h"
 #include <QMessageBox>
+#include <QInputDialog>
 
 GUI_Report::GUI_Report(ICFController *icfController, QWidget *parent) :
     QDialog(parent),
@@ -16,6 +17,11 @@ GUI_Report::GUI_Report(ICFController *icfController, QWidget *parent) :
     connectSignals();
     for (int i=0; i<m_icfController->sizeOfIcfCodes(); i++) {
         emit addIcfCodeToForm(m_icfController->getIcfCode(i));
+    }
+    ui->dateEdit->setDate(QDate::currentDate());
+    QList<GUI_FunctionForm*> list = ui->contextWidget->getAllWidgets();
+    foreach (GUI_FunctionForm* form, list) {
+        form->showContextRadio();
     }
 }
 
@@ -47,11 +53,6 @@ void GUI_Report::on_patientcB_currentIndexChanged(const QString &arg1)
     }
 }
 
-void GUI_Report::on_therapeutcB_currentIndexChanged(const QString &arg1)
-{
-
-}
-
 void GUI_Report::on_reportcB_currentIndexChanged(const QString &arg1)
 {
     if (arg1 == "") return;
@@ -73,10 +74,10 @@ void GUI_Report::on_cancelButton_clicked()
 
 void GUI_Report::on_deleteButton_clicked()
 {
-    if (m_icfController->removeReport(currentReportId)) {
-        QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", "Report removed.");
-        box->exec();
-        delete box;
+    if (!m_icfController->removeReport(currentReportId)) {
+        QMessageBox box;
+        box.setText("Report removed.");
+        box.exec();
         this->on_patientcB_currentIndexChanged(ui->patientcB->currentText());
     }
 }
@@ -84,12 +85,22 @@ void GUI_Report::on_deleteButton_clicked()
 void GUI_Report::on_printButton_clicked()
 {
     if (ui->reportcB->currentText() == "New Report") return;
-    m_icfController->printReport(ui->reportcB->currentText().toInt());
+    if (!m_icfController->printReport(ui->reportcB->currentText().toInt())) {
+        QMessageBox box;
+        box.setText("Report printed.");
+        box.exec();
+    }
 }
 
 void GUI_Report::on_saveButton_clicked()
 {
-    this->saveReport();
+    if (!saveReport()) {
+        this->close();
+    } else {
+        QMessageBox box;
+        box.setText("Change date, patient or therapist to save report.");
+        box.exec();
+    }
 }
 
 void GUI_Report::clearForm()
@@ -100,6 +111,7 @@ void GUI_Report::clearForm()
     ui->partizipationWidget->hideAll();
     ui->contextWidget->hideAll();
     ui->textEdit->clear();
+    ui->dateEdit->setDate(QDate::currentDate());
 }
 
 void GUI_Report::connectSignals()
@@ -139,7 +151,7 @@ void GUI_Report::saveFunctionAttributes(Report *rep, QList<GUI_FunctionForm *> l
     }
 }
 
-void GUI_Report::saveReport()
+int GUI_Report::saveReport()
 {
     Report* report = new Report(ui->dateEdit->date());
     QStringList pat = ui->patientcB->currentText().split(" ");
@@ -147,6 +159,7 @@ void GUI_Report::saveReport()
     QStringList ther = ui->therapeutcB->currentText().split(" ");
     report->setTherapistId(ther[0].toInt());
     report->setFreeText(ui->textEdit->toPlainText());
+    report->setType(ui->lineEditRepType->text());
     QList<GUI_FunctionForm*> functionsList = ui->functionsWidget->getActiveWidgets();
     saveFunctionAttributes(report, functionsList, Function::function);
     QList<GUI_FunctionForm*> structuresList = ui->structuresWidget->getActiveWidgets();
@@ -156,33 +169,30 @@ void GUI_Report::saveReport()
     QList<GUI_FunctionForm*> contextList = ui->contextWidget->getActiveWidgets();
     saveFunctionAttributes(report,contextList, Function::context);
     //First try to add as new Report
-    if (m_icfController->addReport(report)) {
-        QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", "Report added as new.");
-        box->exec();
-        delete box;
+    if (!m_icfController->addReport(report)) {
+        QMessageBox box;
+        box.setText("Report added as new.");
+        box.exec();
         //update Report Combobox
         this->on_patientcB_currentIndexChanged(ui->patientcB->currentText());
         int index;
         if ((index = ui->reportcB->findText(QString::number(report->getId()))) != -1)
             ui->reportcB->setCurrentIndex(index);
+        return 0;
     }
     //Second try to override old Report
     else {
-        QString msg;
         Report* oldRep;
         if ((oldRep = m_icfController->findReport(currentReportId))) {
-            *oldRep = *report;
+            *oldRep = *report; //old becomes new Report
             oldRep->setId(currentReportId);
-            msg = "Old Report overriden.";
+            QMessageBox box;
+            box.setText("Old Report overriden.");
+            box.exec();
+            return 0;
         }
-        //Third give Error Message
-        else {
-            msg = "Report with same Patient, Therapist AND Date already existing. Report not Saved!";
-        }
-        QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", msg);
-        box->exec();
-        delete box;
     }
+    return 1;
 }
 
 void GUI_Report::fillTherComboBox()
@@ -204,6 +214,7 @@ void GUI_Report::fillPatComboBox()
 void GUI_Report::fillReportForm(Report *rep)
 {
     ui->dateEdit->setDate(rep->getDate());
+    ui->lineEditRepType->setText(rep->getType());
     int index = ui->therapeutcB->findText(QString::number(rep->getTherapistId()), Qt::MatchContains);
     if (index >= 0)
         ui->therapeutcB->setCurrentIndex(index);
@@ -231,5 +242,16 @@ void GUI_Report::fillReportForm(Report *rep)
 //        actForm->setDescription(actFunction->getDescription());
         actForm->setValue(actFunction->getValue());
         actForm->setText(actFunction->getText());
+    }
+}
+
+void GUI_Report::on_lineEditRepType_returnPressed()
+{
+    Report* rep = m_icfController->findReport(currentReportId);
+    if (rep) {
+        rep->setType(ui->lineEditRepType->text());
+        QMessageBox box;
+        box.setText("Report Type changed.");
+        box.exec();
     }
 }

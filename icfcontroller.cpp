@@ -8,28 +8,28 @@ ICFController::ICFController(QString baseDir)
     :m_baseDir(baseDir)
 {
     DomParser patParser(&patients);
-    patParser.readFile(m_baseDir + "patients.xml");
+    patParser.readFile(m_baseDir + "storage/patients.xml");
     foreach (Person* per, patients) {
         if (patId < per->getId())
             patId = per->getId();
     }
     patId++;
     DomParser therParser(&therapists);
-    therParser.readFile(m_baseDir + "therapists.xml");
+    therParser.readFile(m_baseDir + "storage/therapists.xml");
     foreach (Person* per, therapists) {
         if (therId < per->getId())
             therId = per->getId();
     }
     therId++;
     DomParser repParser(&reports);
-    repParser.readFile(m_baseDir + "reports.xml");
+    repParser.readFile(m_baseDir + "storage/reports.xml");
     foreach (Report* rep, reports) {
         if (repId < rep->getId())
             repId = rep->getId();
     }
     repId++;
     DomParser codeParser(&icfCode);
-    codeParser.readFile(m_baseDir + "icfcode.xml");
+    codeParser.readFile(m_baseDir + "storage/icfcode.xml");
 }
 
 ICFController::~ICFController()
@@ -68,11 +68,11 @@ int ICFController::removePatient(int id)
         for (auto it=patients.begin(); it!=patients.end(); it++) {
             if (*it == pat) {
                 patients.erase(it);
-                return 1;
+                return 0;
             }
         }
     }
-    return 0;
+    return 1;
 }
 
 
@@ -99,11 +99,11 @@ int ICFController::removeTherapist(int id)
         for (auto it=therapists.begin(); it!=therapists.end(); it++) {
             if (*it == ther) {
                 therapists.erase(it);
-                return 1;
+                return 0;
             }
         }
     }
-    return 0;
+    return 1;
 }
 
 int ICFController::addReport(Report *rep)
@@ -113,14 +113,14 @@ int ICFController::addReport(Report *rep)
         if (reports.at(i)->getDate() == rep->getDate() && reports.at(i)->getPatientId() == rep->getPatientId()
                 && reports.at(i)->getTherapistId() == rep->getTherapistId()) {
             std::cerr << "Es existiert bereits ein Report mit diesen Daten" << std::endl;
-            return 0;
+            return 1;
         }
     }
     //setId
     if (rep->getId() == 0)
         rep->setId(repId++);
     reports.append(rep);
-    return 1;
+    return 0;
 }
 
 QList<Report *> ICFController::getReportsForId(int patId)
@@ -150,11 +150,11 @@ int ICFController::removeReport(int id)
         for (auto it=reports.begin(); it!=reports.end(); it++) {
             if (*it == rep) {
                 reports.erase(it);
-                return 1;
+                return 0;
             }
         }
     }
-    return 0;
+    return 1;
 }
 
 void ICFController::createFile(QList<Person*> persons, QString filename)
@@ -209,6 +209,7 @@ void ICFController::createFile(QList<Report *> reports, QString filename)
             repDOM.setAttribute("date", actReport->getDate().toString());
             repDOM.setAttribute("patient",actReport->getPatientId());
             repDOM.setAttribute("therapist",actReport->getTherapistId());
+            repDOM.setAttribute("type",actReport->getType());
             QDomElement textElement = doc.createElement("freetext");
             QDomText freeText = doc.createTextNode(actReport->getFreeText());
             textElement.appendChild(freeText);
@@ -281,16 +282,16 @@ QString ICFController::getBaseDir() const
 
 void ICFController::save()
 {
-    this->createFile(this->therapists, m_baseDir + "therapists.xml");
-    this->createFile(this->patients, m_baseDir + "patients.xml");
-    this->createFile(this->reports, m_baseDir + "reports.xml");
-    this->createIcfCodeFile(m_baseDir + "icfcode.xml");
+    this->createFile(this->therapists, m_baseDir + "storage/therapists.xml");
+    this->createFile(this->patients, m_baseDir + "storage/patients.xml");
+    this->createFile(this->reports, m_baseDir + "storage/reports.xml");
+    this->createIcfCodeFile(m_baseDir + "storage/icfcode.xml");
 }
 
-void ICFController::printReport(int repId)
+int ICFController::printReport(int repId)
 {
     PrintWindow printWindow(this);
-    printWindow.printReport(repId);
+    return printWindow.printReport(repId);
 }
 
 QString ICFController::getIcfCodeDescription(QString code) {

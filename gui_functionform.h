@@ -2,10 +2,6 @@
 #define GUI_FUNCTIONFORM_H
 
 #include <QWidget>
-#include <QDebug>
-#include <QInputDialog>
-#include <stdlib.h>
-#include <time.h>
 
 /*
  * View class. Shows visualisation of Function entity.
@@ -33,6 +29,7 @@ public:
     QString getText();
     void setText(QString txt);
     void resetInput();
+    void showContextRadio();
 
 signals:
     void idChanged(QString arg, int rnd);

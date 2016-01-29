@@ -72,7 +72,7 @@ public:
     /*Saves Reports, Therapists, Patients and ICF Codes in XML Files*/
     void save();
     /*prints current report*/
-    void printReport(int repId);
+    int printReport(int repId);
     /*returns Description corresponding to code String*/
     QString getIcfCodeDescription(QString code);
     /*Inserts the key (code), value (description) pair into Code list.

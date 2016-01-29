@@ -6,6 +6,7 @@ GUI_NewPerson::GUI_NewPerson(QWidget *parent) :
     ui(new Ui::GUI_NewPerson)
 {
     ui->setupUi(this);
+    ui->dateEdit->setDate(QDate::currentDate());
 }
 
 GUI_NewPerson::~GUI_NewPerson()

@@ -1,5 +1,9 @@
 #include "gui_functionform.h"
 #include "ui_gui_functionform.h"
+#include <QDebug>
+#include <QInputDialog>
+#include <stdlib.h>
+#include <time.h>
 
 GUI_FunctionForm::GUI_FunctionForm(QWidget *parent) :
     QWidget(parent),
@@ -7,6 +11,11 @@ GUI_FunctionForm::GUI_FunctionForm(QWidget *parent) :
 {
     ui->setupUi(this);
     srand(time(NULL));
+
+    ui->radioButton_6->hide();
+    ui->radioButton_7->hide();
+    ui->radioButton_8->hide();
+    ui->radioButton_9->hide();
 }
 
 GUI_FunctionForm::~GUI_FunctionForm()
@@ -36,6 +45,14 @@ int GUI_FunctionForm::getValue()
         return 3;
     if (ui->radioButton_5->isChecked())
         return 4;
+    if (ui->radioButton_6->isChecked())
+        return 5;
+    if (ui->radioButton_7->isChecked())
+        return 6;
+    if (ui->radioButton_8->isChecked())
+        return 7;
+    if (ui->radioButton_9->isChecked())
+        return 8;
     else return -1;
 }
 
@@ -51,6 +68,14 @@ void GUI_FunctionForm::setValue(int val)
     case 3 : ui->radioButton_4->setChecked(true);
         break;
     case 4 : ui->radioButton_5->setChecked(true);
+        break;
+    case 5 : ui->radioButton_6->setChecked(true);
+        break;
+    case 6 : ui->radioButton_7->setChecked(true);
+        break;
+    case 7 : ui->radioButton_8->setChecked(true);
+        break;
+    case 8 : ui->radioButton_9->setChecked(true);
         break;
     default: ;
     }
@@ -110,12 +135,28 @@ void GUI_FunctionForm::resetInput()
             break;
         case 4 : selectedBtn = ui->radioButton_5;
             break;
+        case 5 : selectedBtn = ui->radioButton_6;
+            break;
+        case 6 : selectedBtn = ui->radioButton_7;
+            break;
+        case 7 : selectedBtn = ui->radioButton_8;
+            break;
+        case 8 : selectedBtn = ui->radioButton_9;
+            break;
         default :;
         }
         selectedBtn->setAutoExclusive(false);
         selectedBtn->setChecked(false);
         selectedBtn->setAutoExclusive(true);
     }
+}
+
+void GUI_FunctionForm::showContextRadio()
+{
+    ui->radioButton_6->show();
+    ui->radioButton_7->show();
+    ui->radioButton_8->show();
+    ui->radioButton_9->show();
 }
 
 void GUI_FunctionForm::changeDescription(const QString &arg1, int rnd)

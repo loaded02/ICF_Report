@@ -6,8 +6,8 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <link rel="stylesheet" media="screen" type="text/css" href="browser.css"/>
-        <link rel="stylesheet" media="print" type="text/css" href="browser.css"/>
+        <link rel="stylesheet" media="screen" type="text/css" href="layout/browser.css"/>
+        <link rel="stylesheet" media="print" type="text/css" href="layout/browser.css"/>
     </head>
 <!-- HTML HEADER -->
     <body>
@@ -152,15 +152,15 @@
                 <tr>
                     <td width="7%" ><xsl:value-of select="id"/></td>
                     <td width="63%" class="left"><xsl:value-of select="description"/></td>
-                    <td><xsl:if test="value = 4">X</xsl:if></td>
-                    <td><xsl:if test="value = 3">X</xsl:if></td>
-                    <td><xsl:if test="value = 2">X</xsl:if></td>
-                    <td><xsl:if test="value = 1">X</xsl:if></td>
+                    <td><xsl:if test="value = 8">X</xsl:if></td>
+                    <td><xsl:if test="value = 7">X</xsl:if></td>
+                    <td><xsl:if test="value = 6">X</xsl:if></td>
+                    <td><xsl:if test="value = 5">X</xsl:if></td>
                     <td><xsl:if test="value = 0">X</xsl:if></td>
-                    <td><xsl:if test="value = -1">X</xsl:if></td>
-                    <td><xsl:if test="value = -2">X</xsl:if></td>
-                    <td><xsl:if test="value = -3">X</xsl:if></td>
-                    <td><xsl:if test="value = -4">X</xsl:if></td>
+                    <td><xsl:if test="value = 1">X</xsl:if></td>
+                    <td><xsl:if test="value = 2">X</xsl:if></td>
+                    <td><xsl:if test="value = 3">X</xsl:if></td>
+                    <td><xsl:if test="value = 4">X</xsl:if></td>
                 </tr>
                 <tr>
                     <td colspan="11" class="left"><i><xsl:value-of select="freetext"/></i></td>

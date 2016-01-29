@@ -28,7 +28,7 @@ int PrintWindow::printReport(int repId)
 
 void PrintWindow::createXmlReport(Report& rep) {
     QDomDocument doc;
-    doc.insertBefore(doc.createProcessingInstruction("xml-stylesheet", "type=\"text/xsl\" href=\"report.xsl\""),doc.documentElement());
+    doc.insertBefore(doc.createProcessingInstruction("xml-stylesheet", "type=\"text/xsl\" href=\"layout/report.xsl\""),doc.documentElement());
     doc.insertBefore(doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"utf-8\""),doc.documentElement());
     QDomElement root = doc.createElement("report");
     doc.appendChild(root);
@@ -45,7 +45,7 @@ void PrintWindow::createXmlReport(Report& rep) {
 
     QDomElement repType = doc.createElement("type");
     root.appendChild(repType);
-    QDomText repTypeTxt = doc.createTextNode("ICF Core Set - Apoplex"); //TODO: Variable
+    QDomText repTypeTxt = doc.createTextNode(rep.getType());
     repType.appendChild(repTypeTxt);
 
     createXmlPatient(rep,doc,root);

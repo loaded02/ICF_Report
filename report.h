@@ -41,6 +41,9 @@ public:
     int getId() const;
     void setId(int value);
 
+    QString getType() const;
+    void setType(const QString &value);
+
 private:
     int id;
     int patientId;
@@ -48,6 +51,7 @@ private:
     QDate date;
     QList<Function*> functions;
     QString freeText;
+    QString type;
 };
 
 #endif // REPORT_H

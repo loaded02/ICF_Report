@@ -2,10 +2,8 @@
 #define GUI_SHOWPERSON_H
 
 #include <QDialog>
-#include <QListWidgetItem>
-#include "gui_newperson.h"
-#include "mainwindow.h"
 #include "icfcontroller.h"
+#include <QListWidgetItem>
 
 /*
  * View class. Dialog with  listwidget of all Persons.

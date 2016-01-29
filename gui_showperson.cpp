@@ -1,5 +1,7 @@
 #include "gui_showperson.h"
 #include "ui_gui_showperson.h"
+#include "gui_newperson.h"
+#include <QMessageBox>
 
 void GUI_ShowPerson::fillListView()
 {
@@ -137,6 +139,7 @@ void GUI_ShowPerson::addPatient(QString surname, QString name, QDate dob, QStrin
     pat->setDob(dob);
     pat->setDiagnosis(diagnosis);
     icfcontroller->addPatient(pat);
+    emit on_refreshButton_clicked();
 }
 
 void GUI_ShowPerson::addTherapist(QString surname, QString name, QString company)
@@ -145,4 +148,5 @@ void GUI_ShowPerson::addTherapist(QString surname, QString name, QString company
     ther->setName(name);
     ther->setCompany(company);
     icfcontroller->addTherapist(ther);
+    emit on_refreshButton_clicked();
 }

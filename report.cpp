@@ -68,6 +68,16 @@ void Report::setId(int value)
     id = value;
 }
 
+QString Report::getType() const
+{
+    return type;
+}
+
+void Report::setType(const QString &value)
+{
+    type = value;
+}
+
 
 
 

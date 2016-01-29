@@ -27,8 +27,6 @@ public slots:
 
     void on_patientcB_currentIndexChanged(const QString &arg1);
 
-    void on_therapeutcB_currentIndexChanged(const QString &arg1);
-
     void on_reportcB_currentIndexChanged(const QString &arg1);
 
     void on_cancelButton_clicked();
@@ -39,6 +37,9 @@ public slots:
 
     void on_saveButton_clicked();
 
+private slots:
+    void on_lineEditRepType_returnPressed();
+
 private:
     /*Clears all forms that are currently shown*/
     void clearForm();
@@ -47,7 +48,7 @@ private:
     /*Subfunction for ConnectSignals()*/
     void connectLoop(QList<GUI_FunctionForm*> list);
     void saveFunctionAttributes(Report* rep, QList<GUI_FunctionForm *> list, Function::Art art);
-    void saveReport();
+    int saveReport();
     void fillTherComboBox();
     void fillPatComboBox();
     void fillReportForm(Report* rep);

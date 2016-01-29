@@ -107,6 +107,7 @@ void DomParser::parseReport(const QDomElement element)
     item->setId(element.attribute("id").toInt());
     item->setPatientId(element.attribute("patient").toInt());
     item->setTherapistId(element.attribute("therapist").toInt());
+    item->setType(element.attribute("type"));
 
     QDomNode child = element.firstChild();
     while (!child.isNull()) {
