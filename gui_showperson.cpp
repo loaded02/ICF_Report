@@ -25,9 +25,9 @@ GUI_ShowPerson::GUI_ShowPerson(ICFController *controller, char art, QWidget *par
     ui->setupUi(this);
     this->fillListView();
     if (art == 'p') {
-        connect(ui->newButton,SIGNAL(clicked()),static_cast<MainWindow*>(parent),SLOT(on_actionNew_Patient_triggered()));
+        connect(ui->newButton,SIGNAL(clicked()),this,SLOT(on_actionNew_Patient_clicked()));
     } else if (art == 't') {
-        connect(ui->newButton,SIGNAL(clicked()),static_cast<MainWindow*>(parent),SLOT(on_actionNew_Therapist_triggered()));
+        connect(ui->newButton,SIGNAL(clicked()),this,SLOT(on_actionNew_Therapist_clicked()));
     } else {
         std::cerr << "Art ist weder p noch t" << std::endl;
     }
@@ -36,6 +36,24 @@ GUI_ShowPerson::GUI_ShowPerson(ICFController *controller, char art, QWidget *par
 GUI_ShowPerson::~GUI_ShowPerson()
 {
     delete ui;
+}
+
+void GUI_ShowPerson::on_actionNew_Therapist_clicked()
+{
+    GUI_NewPerson* therapist = new GUI_NewPerson(this);
+    therapist->therapistAppearance();
+    therapist->setWindowTitle("Add new Therapist");
+    if (therapist->exec())
+        this->addTherapist(therapist->getSurname(),therapist->getName(), therapist->getDiagnosis());
+    delete therapist;
+}
+
+void GUI_ShowPerson::on_actionNew_Patient_clicked()
+{
+    GUI_NewPerson* patient = new GUI_NewPerson(this);
+    if (patient->exec())
+        this->addPatient(patient->getSurname(),patient->getName(),patient->getDob(),patient->getDiagnosis());
+    delete patient;
 }
 
 void GUI_ShowPerson::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
@@ -110,4 +128,21 @@ void GUI_ShowPerson::on_removeButton_clicked()
 void GUI_ShowPerson::on_refreshButton_clicked()
 {
     this->fillListView();
+}
+
+void GUI_ShowPerson::addPatient(QString surname, QString name, QDate dob, QString diagnosis)
+{
+    Patient* pat = new Patient(surname);
+    pat->setName(name);
+    pat->setDob(dob);
+    pat->setDiagnosis(diagnosis);
+    icfcontroller->addPatient(pat);
+}
+
+void GUI_ShowPerson::addTherapist(QString surname, QString name, QString company)
+{
+    Therapist* ther = new Therapist(surname);
+    ther->setName(name);
+    ther->setCompany(company);
+    icfcontroller->addTherapist(ther);
 }

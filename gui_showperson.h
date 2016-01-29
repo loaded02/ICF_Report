@@ -25,6 +25,8 @@ public:
     ~GUI_ShowPerson();
 
 private slots:
+    void on_actionNew_Therapist_clicked();
+    void on_actionNew_Patient_clicked();
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
     void on_closeButton_clicked();
@@ -36,6 +38,8 @@ private slots:
     void on_refreshButton_clicked();
 
 private:
+    void addPatient(QString surname, QString name, QDate dob, QString diagnosis);
+    void addTherapist(QString surname, QString name, QString company);
     void fillListView();
     Ui::GUI_ShowPerson *ui;
     ICFController* icfcontroller;

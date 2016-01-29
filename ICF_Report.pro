@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     domparser.cpp \
     printwindow.cpp \
     gui_showperson.cpp \
-    gui_newperson.cpp
+    gui_newperson.cpp \
+    gui_report.cpp
 
 HEADERS  += mainwindow.h \
     icfcontroller.h \
@@ -42,13 +43,15 @@ HEADERS  += mainwindow.h \
     domparser.h \
     printwindow.h \
     gui_showperson.h \
-    gui_newperson.h
+    gui_newperson.h \
+    gui_report.h
 
 FORMS    += mainwindow.ui \
     gui_function.ui \
     gui_functionform.ui \
     gui_showperson.ui \
-    gui_newperson.ui
+    gui_newperson.ui \
+    gui_report.ui
 
 OTHER_FILES += \
     TODO

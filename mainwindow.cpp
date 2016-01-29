@@ -1,50 +1,22 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
-void MainWindow::connectLoop(QList<GUI_FunctionForm*> list)
-{
-    foreach (GUI_FunctionForm* form, list) {
-        connect(form,SIGNAL(idChanged(QString,int)),this,SLOT(icfIdChanged(QString,int)));
-        connect(this,SIGNAL(changeDescription(QString,int)),form,SLOT(changeDescription(QString,int)));
-        connect(this,SIGNAL(addIcfCodeToForm(QString)),form,SLOT(addIcfCodeToCb(QString)));
-    }
-}
-
-void MainWindow::connectSignals()
-{
-    connect(ui->actionExit,SIGNAL(triggered()),this,SLOT(close()));
-    connect(ui->actionPrint_Pdf,SIGNAL(triggered()),this,SLOT(on_printButton_clicked()));
-    connect(ui->actionSave_Report,SIGNAL(triggered()),this,SLOT(on_saveButton_clicked()));
-
-    QList<GUI_FunctionForm*> list = ui->functionsWidget->getAllWidgets();
-    connectLoop(list);
-    list.clear();
-    list = ui->structuresWidget->getAllWidgets();
-    connectLoop(list);
-    list.clear();
-    list = ui->partizipationWidget->getAllWidgets();
-    connectLoop(list);
-    list.clear();
-    list = ui->contextWidget->getAllWidgets();
-    connectLoop(list);
-}
+#include "gui_newperson.h"
+#include "icfcontroller.h"
+#include "gui_showperson.h"
+#include <QString>
+#include <QDebug>
+#include <QMessageBox>
+#include "gui_report.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),currentReportId(0)
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle("ICF Report");
-    ui->structuresWidget->setLabel("Bodystructures");
-    ui->partizipationWidget->setLabel("Participation");
-    ui->contextWidget->setLabel("Context Factors");
     icfController = new ICFController();
-    this->fillTherComboBox();
-    this->fillPatComboBox();
-    connectSignals();
-    for (int i=0; i<icfController->sizeOfIcfCodes(); i++) {
-        emit addIcfCodeToForm(icfController->getIcfCode(i));
-    }
+    connect(ui->actionExit,SIGNAL(triggered()),this,SLOT(close()));
+    connect(ui->pushButtonPat,SIGNAL(clicked()),this,SLOT(on_actionManage_Patients_triggered()));
+    connect(ui->pushButtonTher,SIGNAL(clicked()),this,SLOT(on_actionManage_Therapists_triggered()));
 }
 
 MainWindow::~MainWindow()
@@ -53,33 +25,10 @@ MainWindow::~MainWindow()
     delete icfController;
 }
 
-void MainWindow::on_cancelButton_clicked()
-{
-    ui->reportcB->setCurrentIndex(0);
-}
-
 void MainWindow::on_actionAbout_triggered()
 {
     QMessageBox::about(this,"About ICF Report", "ICF Report is used to easily create short ICF Reports. It also includes a simple"
                        " patient management system.\nCreated by loaded 2014");
-}
-
-void MainWindow::on_actionNew_Therapist_triggered()
-{
-    GUI_NewPerson* therapist = new GUI_NewPerson(this);
-    therapist->therapistAppearance();
-    therapist->setWindowTitle("Add new Therapist");
-    if (therapist->exec())
-        this->addTherapist(therapist->getSurname(),therapist->getName(), therapist->getDiagnosis());
-    delete therapist;
-}
-
-void MainWindow::on_actionNew_Patient_triggered()
-{
-    GUI_NewPerson* patient = new GUI_NewPerson(this);
-    if (patient->exec())
-        this->addPatient(patient->getSurname(),patient->getName(),patient->getDob(),patient->getDiagnosis());
-    delete patient;
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -98,97 +47,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::on_actionSave_All_triggered()
 {
-    this->saveReport();
     icfController->save();
-}
-
-void MainWindow::icfIdChanged(QString icfId, int rnd)
-{
-    QString value;
-    if ((value = icfController->getIcfCodeDescription(icfId)) == "") {
-        value = QInputDialog::getText(this, "Enter Description", QString::null,QLineEdit::Normal,"Description");
-        icfController->setIcfCodeDescription(icfId,value);
-    }
-    emit changeDescription(value,rnd);
-}
-
-void MainWindow::on_saveButton_clicked()
-{
-    this->saveReport();
-}
-
-void MainWindow::fillTherComboBox()
-{
-    ui->therapeutcB->clear();
-    for (int i=0; i<icfController->sizeOfTherapists(); i++) {
-        ui->therapeutcB->addItem(QString::number(icfController->getTherapist(i)->getId()) + " " + icfController->getTherapist(i)->getSurname());
-    }
-}
-
-void MainWindow::fillPatComboBox()
-{
-    ui->patientcB->clear();
-    for (int i=0; i<icfController->sizeOfPatients(); i++) {
-        ui->patientcB->addItem(QString::number(icfController->getPatient(i)->getId()) + " " + icfController->getPatient(i)->getSurname());
-    }
-}
-
-void MainWindow::addPatient(QString surname, QString name, QDate dob, QString diagnosis)
-{
-    Patient* pat = new Patient(surname);
-    pat->setName(name);
-    pat->setDob(dob);
-    pat->setDiagnosis(diagnosis);
-    icfController->addPatient(pat);
-    this->fillPatComboBox();
-}
-
-void MainWindow::addTherapist(QString surname, QString name, QString company)
-{
-    Therapist* ther = new Therapist(surname);
-    ther->setName(name);
-    ther->setCompany(company);
-    icfController->addTherapist(ther);
-    this->fillTherComboBox();
-}
-
-void MainWindow::fillReportForm(Report *rep)
-{
-    ui->dateEdit->setDate(rep->getDate());
-    int index = ui->therapeutcB->findText(QString::number(rep->getTherapistId()), Qt::MatchContains);
-    if (index >= 0)
-        ui->therapeutcB->setCurrentIndex(index);
-    ui->textEdit->setText(rep->getFreeText());
-    ui->functionsWidget->hideAll();
-    ui->structuresWidget->hideAll();
-    ui->partizipationWidget->hideAll();
-    ui->contextWidget->hideAll();
-    for (int i=0; i<rep->sizeOfFunctions(); i++) {
-        Function* actFunction = rep->getFunction(i);
-        GUI_FunctionForm* actForm;
-        switch (actFunction->getArt()) {
-        case Function::function : actForm = ui->functionsWidget->setUnitVisible();
-            break;
-        case Function::structure : actForm = ui->structuresWidget->setUnitVisible();
-            break;
-        case Function::partizipation : actForm = ui->partizipationWidget->setUnitVisible();
-            break;
-        case Function::context : actForm = ui->contextWidget->setUnitVisible();
-            break;
-        default: std::cerr << "Kein GUI_FunctionForm* gefunden" << std::endl;
-        }
-        if (!actForm) continue;
-        actForm->setId(actFunction->getId());
-//        actForm->setDescription(actFunction->getDescription());
-        actForm->setValue(actFunction->getValue());
-        actForm->setText(actFunction->getText());
-    }
-}
-
-void MainWindow::on_printButton_clicked()
-{
-    if (ui->reportcB->currentText() == "New Report") return;
-    icfController->printReport(ui->reportcB->currentText().toInt());
 }
 
 void MainWindow::on_actionManage_Therapists_triggered()
@@ -197,7 +56,6 @@ void MainWindow::on_actionManage_Therapists_triggered()
     form->setWindowTitle("Manage Therapists");
     form->exec();
     delete form;
-    fillTherComboBox();
 }
 
 void MainWindow::on_actionManage_Patients_triggered()
@@ -206,109 +64,16 @@ void MainWindow::on_actionManage_Patients_triggered()
     form->setWindowTitle("Manage Patients");
     form->exec();
     delete form;
-    fillPatComboBox();
 }
 
-void MainWindow::saveFunctionAttributes(Report* rep, QList<GUI_FunctionForm*> list, Function::Art art) {
-    foreach (GUI_FunctionForm* form, list) {
-        Function* function = new Function();
-        function->setArt(art);
-        function->setId(form->getId());
-        function->setDescription(form->getDescription());
-        function->setValue(form->getValue());
-        function->setText(form->getText());
-        rep->addFunction(function);
-    }
-}
-
-void MainWindow::saveReport() {
-    Report* report = new Report(ui->dateEdit->date());
-    QStringList pat = ui->patientcB->currentText().split(" ");
-    report->setPatientId(pat[0].toInt());
-    QStringList ther = ui->therapeutcB->currentText().split(" ");
-    report->setTherapistId(ther[0].toInt());
-    report->setFreeText(ui->textEdit->toPlainText());
-    QList<GUI_FunctionForm*> functionsList = ui->functionsWidget->getActiveWidgets();
-    saveFunctionAttributes(report, functionsList, Function::function);
-    QList<GUI_FunctionForm*> structuresList = ui->structuresWidget->getActiveWidgets();
-    saveFunctionAttributes(report,structuresList,Function::structure);
-    QList<GUI_FunctionForm*> partizipationList = ui->partizipationWidget->getActiveWidgets();
-    saveFunctionAttributes(report,partizipationList,Function::partizipation);
-    QList<GUI_FunctionForm*> contextList = ui->contextWidget->getActiveWidgets();
-    saveFunctionAttributes(report,contextList, Function::context);
-    //First try to add as new Report
-    if (icfController->addReport(report)) {
-        QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", "Report added as new.");
-        box->exec();
-        delete box;
-        //update Report Combobox
-        this->on_patientcB_currentIndexChanged(ui->patientcB->currentText());
-        int index;
-        if ((index = ui->reportcB->findText(QString::number(report->getId()))) != -1)
-            ui->reportcB->setCurrentIndex(index);
-    }
-    //Second try to override old Report
-    else {
-        QString msg;
-        Report* oldRep;
-        if ((oldRep = icfController->findReport(currentReportId))) {
-            *oldRep = *report;
-            oldRep->setId(currentReportId);
-            msg = "Old Report overriden.";
-        }
-        //Third give Error Message
-        else {
-            msg = "Report with same Patient, Therapist AND Date already existing. Report not Saved!";
-        }
-        QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", msg);
-        box->exec();
-        delete box;
-    }
-}
-
-void MainWindow::clearForm()
+void MainWindow::on_pushButtonrepNew_clicked()
 {
-    currentReportId = 0;
-    ui->functionsWidget->hideAll();
-    ui->structuresWidget->hideAll();
-    ui->partizipationWidget->hideAll();
-    ui->contextWidget->hideAll();
-    ui->textEdit->clear();
+    GUI_Report* repForm = new GUI_Report(icfController,this);
+    repForm->exec();
+    delete repForm;
 }
 
-void MainWindow::on_reportcB_currentIndexChanged(const QString &arg1)
+void MainWindow::on_pushButtonRep_clicked()
 {
-    if (arg1 == "") return;
-    if (arg1 == "New Report") {
-        clearForm();
-        return;
-    }
-    Report* actReport = icfController->findReport(arg1.toInt());
-    if (actReport) {
-        this->fillReportForm(actReport);
-        currentReportId = actReport->getId();
-    }
-}
 
-void MainWindow::on_patientcB_currentIndexChanged(const QString &arg1)
-{
-    ui->reportcB->clear();
-    ui->reportcB->addItem("New Report");
-    QStringList item = arg1.split(" ");
-    QList<Report*> actReports = icfController->getReportsForId(item[0].toInt());
-    if (!actReports.isEmpty()) {
-        foreach (Report* rep, actReports) {
-            ui->reportcB->addItem(QString::number(rep->getId()));
-        }
-    }
-}
-
-void MainWindow::on_deleteButton_clicked()
-{
-    if (icfController->removeReport(currentReportId)) {
-        QMessageBox* box = new QMessageBox(QMessageBox::Information, "Information", "Report removed.");
-        box->exec();
-        delete box;
-        this->on_patientcB_currentIndexChanged(ui->patientcB->currentText());
-    }
 }

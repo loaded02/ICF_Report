@@ -6,335 +6,48 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>846</width>
-    <height>826</height>
+    <width>253</width>
+    <height>153</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_3">
-    <item>
-     <widget class="QScrollArea" name="scrollArea">
-      <property name="autoFillBackground">
-       <bool>false</bool>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <widget class="QPushButton" name="pushButtonPat">
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
+      <property name="text">
+       <string>Manage Patients</string>
       </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>826</width>
-         <height>716</height>
-        </rect>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QGroupBox" name="groupBox">
-          <property name="title">
-           <string>Basic Information</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_4">
-             <item>
-              <widget class="QLabel" name="label_2">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Patient</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="patientcB">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_3">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Preferred</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_3">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Therapist</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="therapeutcB">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_2">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Preferred</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_4">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Date</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QDateEdit" name="dateEdit">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumDate">
-                <date>
-                 <year>2014</year>
-                 <month>1</month>
-                 <day>1</day>
-                </date>
-               </property>
-               <property name="calendarPopup">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QLabel" name="label_5">
-               <property name="text">
-                <string>Reports</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="reportcB">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_5">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Expanding</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="groupBox_2">
-          <property name="title">
-           <string>ICF Klassification</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <item>
-            <widget class="GUI_Function" name="functionsWidget" native="true"/>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_8">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="GUI_Function" name="structuresWidget" native="true"/>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_10">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="GUI_Function" name="partizipationWidget" native="true"/>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_11">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>9</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="GUI_Function" name="contextWidget" native="true"/>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>Free Text Section</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QTextEdit" name="textEdit"/>
-        </item>
-       </layout>
-      </widget>
      </widget>
     </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="cancelButton">
-        <property name="text">
-         <string>Cancel</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="deleteButton">
-        <property name="text">
-         <string>Delete Report</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="printButton">
-        <property name="text">
-         <string>Print Pdf</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="saveButton">
-        <property name="text">
-         <string>Save Report</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+    <item row="0" column="1">
+     <widget class="QPushButton" name="pushButtonTher">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Manage Therapists</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pushButtonrepNew">
+      <property name="text">
+       <string>New Report</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QPushButton" name="pushButtonRep">
+      <property name="text">
+       <string>Open Report</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -343,27 +56,23 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>846</width>
-     <height>20</height>
+     <width>253</width>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
-     <string>Info</string>
+     <string>I&amp;nfo</string>
     </property>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>Fi&amp;le</string>
     </property>
-    <addaction name="actionNew_Therapist"/>
-    <addaction name="actionNew_Patient"/>
-    <addaction name="actionManage_Therapists"/>
     <addaction name="actionManage_Patients"/>
-    <addaction name="actionSave_Report"/>
+    <addaction name="actionManage_Therapists"/>
     <addaction name="actionSave_All"/>
-    <addaction name="actionPrint_Pdf"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
@@ -380,25 +89,15 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAbout">
    <property name="text">
-    <string>About</string>
+    <string>&amp;About</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
    </property>
   </action>
-  <action name="actionNew_Therapist">
-   <property name="text">
-    <string>New Therapist</string>
-   </property>
-  </action>
-  <action name="actionNew_Patient">
-   <property name="text">
-    <string>New Patient</string>
-   </property>
-  </action>
   <action name="actionManage_Therapists">
    <property name="text">
-    <string>Manage Therapists</string>
+    <string>&amp;Manage Therapists</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+T</string>
@@ -406,7 +105,7 @@
   </action>
   <action name="actionManage_Patients">
    <property name="text">
-    <string>Manage Patients</string>
+    <string>Manage Pat&amp;ients</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+P</string>
@@ -414,43 +113,19 @@
   </action>
   <action name="actionExit">
    <property name="text">
-    <string>Exit</string>
+    <string>&amp;Exit</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+X</string>
    </property>
   </action>
-  <action name="actionPrint_Pdf">
-   <property name="text">
-    <string>Print Pdf</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+P</string>
-   </property>
-  </action>
-  <action name="actionSave_Report">
-   <property name="text">
-    <string>Save Report</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+S</string>
-   </property>
-  </action>
   <action name="actionSave_All">
    <property name="text">
-    <string>Save All</string>
+    <string>Save &amp;All</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>GUI_Function</class>
-   <extends>QWidget</extends>
-   <header location="global">gui_function.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
