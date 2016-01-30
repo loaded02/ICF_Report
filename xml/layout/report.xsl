@@ -14,7 +14,7 @@
         <table class="header">
             <tr>
                 <td>
-		    <p>Patient: <xsl:value-of select="patient/name"/><xsl:text> </xsl:text><xsl:value-of select="patient/surname"/>, geb. <xsl:value-of select="patient/dob"/></p>
+		    <p>Patient: <xsl:value-of select="patient/surname"/><xsl:text>, </xsl:text><xsl:value-of select="patient/name"/>, geb. <xsl:value-of select="patient/dob"/></p>
 		    <p>Befundaufnahme: <xsl:value-of select="date"/></p>
                     <h1> <xsl:value-of select="type"/> </h1>
                     <p>Therapeut: <xsl:value-of select="therapist/name"/><xsl:text> </xsl:text><xsl:value-of select="therapist/surname"/></p>
