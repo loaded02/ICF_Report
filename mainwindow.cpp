@@ -7,13 +7,21 @@
 #include <QDebug>
 #include <QMessageBox>
 #include "gui_report.h"
+#include <QFileDialog>
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    icfController = new ICFController("/home/moritz/git_reps/ICF_Report/xml/");
+
+    QCoreApplication::setOrganizationName("ICF_Report");
+    QCoreApplication::setApplicationName("ICF_Report");
+    QSettings settings;
+    QString baseDir = settings.value("baseDir").toString();
+
+    icfController = new ICFController(baseDir);
 
     connect(ui->actionExit,SIGNAL(triggered()),this,SLOT(close()));
     connect(ui->pushButtonPat,SIGNAL(clicked()),this,SLOT(on_actionManage_Patients_triggered()));
@@ -77,4 +85,14 @@ void MainWindow::on_pushButtonrepNew_clicked()
 void MainWindow::on_pushButtonRep_clicked()
 {
 
+}
+
+void MainWindow::on_actionSet_Xml_Directory_triggered()
+{
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Select Directory"),
+                                                "/home",
+                                                QFileDialog::ShowDirsOnly
+                                                | QFileDialog::DontResolveSymlinks);
+    QSettings settings;
+    settings.setValue("baseDir",dir);
 }

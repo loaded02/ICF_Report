@@ -37,6 +37,8 @@ private slots:
     void on_actionManage_Therapists_triggered();
     void on_actionManage_Patients_triggered();
 
+    void on_actionSet_Xml_Directory_triggered();
+
 private:
     Ui::MainWindow *ui;
     ICFController* icfController;

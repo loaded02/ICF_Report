@@ -1,4 +1,5 @@
 #include "icfcontroller.h"
+#include <QDir>
 
 int ICFController::patId = 2000;
 int ICFController::therId = 1000;
@@ -7,29 +8,34 @@ int ICFController::repId = 5000;
 ICFController::ICFController(QString baseDir)
     :m_baseDir(baseDir)
 {
+    QDir dir(baseDir + "/storage");
+    if (!dir.exists())
+        if (dir.mkdir(baseDir + "/storage"))
+            qDebug() << "mkDir: " << baseDir << "/storage";
+
     DomParser patParser(&patients);
-    patParser.readFile(m_baseDir + "storage/patients.xml");
+    patParser.readFile(m_baseDir + "/storage/patients.xml");
     foreach (Person* per, patients) {
         if (patId < per->getId())
             patId = per->getId();
     }
     patId++;
     DomParser therParser(&therapists);
-    therParser.readFile(m_baseDir + "storage/therapists.xml");
+    therParser.readFile(m_baseDir + "/storage/therapists.xml");
     foreach (Person* per, therapists) {
         if (therId < per->getId())
             therId = per->getId();
     }
     therId++;
     DomParser repParser(&reports);
-    repParser.readFile(m_baseDir + "storage/reports.xml");
+    repParser.readFile(m_baseDir + "/storage/reports.xml");
     foreach (Report* rep, reports) {
         if (repId < rep->getId())
             repId = rep->getId();
     }
     repId++;
     DomParser codeParser(&icfCode);
-    codeParser.readFile(m_baseDir + "storage/icfcode.xml");
+    codeParser.readFile(m_baseDir + "/storage/icfcode.xml");
 }
 
 ICFController::~ICFController()
@@ -282,10 +288,10 @@ QString ICFController::getBaseDir() const
 
 void ICFController::save()
 {
-    this->createFile(this->therapists, m_baseDir + "storage/therapists.xml");
-    this->createFile(this->patients, m_baseDir + "storage/patients.xml");
-    this->createFile(this->reports, m_baseDir + "storage/reports.xml");
-    this->createIcfCodeFile(m_baseDir + "storage/icfcode.xml");
+    this->createFile(this->therapists, m_baseDir + "/storage/therapists.xml");
+    this->createFile(this->patients, m_baseDir + "/storage/patients.xml");
+    this->createFile(this->reports, m_baseDir + "/storage/reports.xml");
+    this->createIcfCodeFile(m_baseDir + "/storage/icfcode.xml");
 }
 
 int ICFController::printReport(int repId)
