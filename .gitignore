@@ -1,4 +1,4 @@
-/xml/storage/*
-/xml/report.xml
+xml/storage/*.xml
+xml/*.xml
 ICF_Report.pro.user
 .directory
