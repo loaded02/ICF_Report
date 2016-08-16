@@ -1,0 +1,6 @@
+Variante 1)
+- xml mit xsl in Browser zu html + css parsen. Ueber browser drucken.
+
+Variante 2) 
+- xml mit xsltproc ueber Makefile in html + css parsen. Weiterhin mit xsltproc html -> fo und mit fop fo -> pdf parsen.
+'Befehl make pdf koennte in Prog eingebunden werden. fo Datei fehlt noch.'
