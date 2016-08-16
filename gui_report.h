@@ -40,6 +40,8 @@ public slots:
 private slots:
     void on_lineEditRepType_returnPressed();
 
+    void on_closeButton_clicked();
+
 private:
     /*Clears all forms that are currently shown*/
     void clearForm();

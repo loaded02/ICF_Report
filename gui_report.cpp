@@ -2,6 +2,7 @@
 #include "ui_gui_report.h"
 #include <QMessageBox>
 #include <QInputDialog>
+#include <QSettings>
 
 GUI_Report::GUI_Report(ICFController *icfController, QWidget *parent) :
     QDialog(parent),
@@ -74,9 +75,16 @@ void GUI_Report::on_cancelButton_clicked()
 
 void GUI_Report::on_deleteButton_clicked()
 {
+    QMessageBox msgBox;
+    msgBox.setText("Delete report.");
+    msgBox.setInformativeText("Do you really want to delete the report?");
+    msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    int ret = msgBox.exec();
+    if (ret == QMessageBox::Cancel) return;
     if (!m_icfController->removeReport(currentReportId)) {
         QMessageBox box;
-        box.setText("Report removed.");
+        box.setText("Report deleted.");
         box.exec();
         this->on_patientcB_currentIndexChanged(ui->patientcB->currentText());
     }
@@ -87,7 +95,8 @@ void GUI_Report::on_printButton_clicked()
     if (ui->reportcB->currentText() == "New Report") return;
     if (!m_icfController->printReport(ui->reportcB->currentText().toInt())) {
         QMessageBox box;
-        box.setText("Report printed.");
+        QSettings settings;
+        box.setText("Report printed to xml directory: " + settings.value("baseDir").toString());
         box.exec();
     }
 }
@@ -95,7 +104,9 @@ void GUI_Report::on_printButton_clicked()
 void GUI_Report::on_saveButton_clicked()
 {
     if (!saveReport()) {
-        this->close();
+        QMessageBox box;
+        box.setText("Report saved.");
+        box.exec();
     } else {
         QMessageBox box;
         box.setText("Change date, patient or therapist to save report.");
@@ -184,12 +195,18 @@ int GUI_Report::saveReport()
     else {
         Report* oldRep;
         if ((oldRep = m_icfController->findReport(currentReportId))) {
-            *oldRep = *report; //old becomes new Report
-            oldRep->setId(currentReportId);
-            QMessageBox box;
-            box.setText("Old Report overriden.");
-            box.exec();
-            return 0;
+            QMessageBox msgBox;
+            msgBox.setText("There is already a report for this patient and this date.");
+            msgBox.setInformativeText("Do you want to override the old report?");
+            msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+            msgBox.setDefaultButton(QMessageBox::Ok);
+            int ret = msgBox.exec();
+            if (ret == QMessageBox::Ok) {
+                *oldRep = *report; //old becomes new Report
+                oldRep->setId(currentReportId);
+                return 0;
+            }
+            return 1;
         }
     }
     return 1;
@@ -254,4 +271,9 @@ void GUI_Report::on_lineEditRepType_returnPressed()
         box.setText("Report Type changed.");
         box.exec();
     }
+}
+
+void GUI_Report::on_closeButton_clicked()
+{
+    close();
 }

@@ -57,7 +57,7 @@ void PrintWindow::createXmlReport(Report& rep) {
     QDomText freeTxt = doc.createTextNode(rep.getFreeText());
     free.appendChild(freeTxt);
 
-    QFile file(icfController->getBaseDir() + "report.xml");
+    QFile file(icfController->getBaseDir() + "/report.xml");
     if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
         return;
     QTextStream out(&file);

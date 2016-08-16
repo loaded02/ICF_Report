@@ -24,7 +24,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>292</width>
+        <width>287</width>
         <height>280</height>
        </rect>
       </property>
@@ -64,20 +64,6 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="refreshButton">
-       <property name="text">
-        <string>Refresh</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="closeButton">
-       <property name="text">
-        <string>Close</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="newButton">
        <property name="text">
         <string>New</string>
@@ -95,6 +81,20 @@
       <widget class="QPushButton" name="removeButton">
        <property name="text">
         <string>Remove</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="refreshButton">
+       <property name="text">
+        <string>Refresh</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="closeButton">
+       <property name="text">
+        <string>Close</string>
        </property>
       </widget>
      </item>

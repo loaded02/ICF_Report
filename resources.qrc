@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Built_with_Qt_RGB_logo_vertical.png</file>
+    </qresource>
+</RCC>

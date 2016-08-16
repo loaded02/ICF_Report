@@ -7,8 +7,9 @@
 #include <QDebug>
 #include <QMessageBox>
 #include "gui_report.h"
-#include <QFileDialog>
 #include <QSettings>
+#include <QPixmap>
+#include "gui_settings.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,8 +37,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    QMessageBox::about(this,"About ICF Report", "ICF Report is used to easily create short ICF Reports. It also includes a simple"
-                       " patient management system.\nCreated by loaded 2014");
+    QMessageBox box(QMessageBox::Question, "About ICF Report", "ICF Report is used to easily create short ICF Reports. It also includes a simple"
+                                        " patient management system.\nCreated by loaded 2014");
+    box.setIconPixmap(QPixmap(":/Built_with_Qt_RGB_logo_vertical.png"));
+    box.resize(600, 300);
+    box.exec();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -75,24 +79,21 @@ void MainWindow::on_actionManage_Patients_triggered()
     delete form;
 }
 
-void MainWindow::on_pushButtonrepNew_clicked()
+void MainWindow::on_pushButtonRepNew_clicked()
 {
     GUI_Report* repForm = new GUI_Report(icfController,this);
     repForm->exec();
     delete repForm;
 }
 
-void MainWindow::on_pushButtonRep_clicked()
-{
-
-}
-
 void MainWindow::on_actionSet_Xml_Directory_triggered()
 {
-    QString dir = QFileDialog::getExistingDirectory(this, tr("Select Directory"),
-                                                "/home",
-                                                QFileDialog::ShowDirsOnly
-                                                | QFileDialog::DontResolveSymlinks);
-    QSettings settings;
-    settings.setValue("baseDir",dir);
+    GUI_Settings dialog;
+    if (dialog.exec()) {
+        QSettings settings;
+        settings.setValue("baseDir",dialog.getDirectory());
+        QMessageBox box;
+        box.setText("Settings saved.");
+        box.exec();
+    }
 }

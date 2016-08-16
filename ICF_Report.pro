@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     printwindow.cpp \
     gui_showperson.cpp \
     gui_newperson.cpp \
-    gui_report.cpp
+    gui_report.cpp \
+    gui_settings.cpp
 
 HEADERS  += mainwindow.h \
     icfcontroller.h \
@@ -43,11 +44,16 @@ HEADERS  += mainwindow.h \
     printwindow.h \
     gui_showperson.h \
     gui_newperson.h \
-    gui_report.h
+    gui_report.h \
+    gui_settings.h
 
 FORMS    += mainwindow.ui \
     gui_function.ui \
     gui_functionform.ui \
     gui_showperson.ui \
     gui_newperson.ui \
-    gui_report.ui
+    gui_report.ui \
+    gui_settings.ui
+
+RESOURCES += \
+    resources.qrc

@@ -32,8 +32,7 @@ private slots:
     void closeEvent(QCloseEvent * event);
     void on_actionAbout_triggered();
     void on_actionSave_All_triggered();
-    void on_pushButtonrepNew_clicked();
-    void on_pushButtonRep_clicked();
+    void on_pushButtonRepNew_clicked();
     void on_actionManage_Therapists_triggered();
     void on_actionManage_Patients_triggered();
 
