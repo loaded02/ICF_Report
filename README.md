@@ -1,18 +1,24 @@
-ICF_Report
-==========
-This is a simple GUI-Programm, which is supposed to help creating a brief ICF Report. The ICF Report is used to describe a patient status, e.g. during a medical therapy. Check http://www.who.int/classifications/icf/en/ for more information about ICF.
+# ICF_Report
 
-Features:
-Manage multiple Patients and Therapists with diagnosises etc. Have for each patient multiple reports corresponding to its date. An easy to use GUI lets you create your specific reportform with varying numbers of ICF codes and details. The Programm supports saving content in XML structure on your harddisk for future use. The result will be a nice formatted output via printing to Paper or Pdf.
+This is a simple GUI-Programm, which is supposed to help creating a brief ICF Report.
+ The ICF Report is used to describe a patient status, e.g. during a medical therapy. 
+Check [WHO](http://www.who.int/classifications/icf/en/) for more information about ICF.
 
-BUILD:
------------------------------------------
-Qt Creator 3.0.1
-Based on Qt 5.2.1 (GCC 4.6.1, 64 bit)
-Ubuntu 13.10, 64 bit
+## Features:
+  *Manage multiple Patients and Therapists with diagnosises etc. 
+  *Have for each patient multiple reports corresponding to its date. 
+  *An easy to use GUI lets you create your specific reportform with varying numbers of ICF codes and details. 
+  *The Programm supports saving content in XML structure on your harddisk for future use. 
+  *The result will be a nice formatted output via printing to Pdf.
 
-1) Clone Repository
-2) mkdir build
-3) cd build
-2) qmake ../ICF_Report.pro -r -spec linux-g++
-3) make
+## BUILD:
+
+  *Qt Creator 3.0.1
+  *Based on Qt 5.2.1 (GCC 4.6.1, 64 bit)
+  *Ubuntu 13.10, 64 bit
+
+  *1) Clone Repository
+  *2) mkdir build
+  *3) cd build
+  *2) qmake ../ICF_Report.pro -r -spec linux-g++
+  *3) make
