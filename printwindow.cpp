@@ -5,6 +5,7 @@
 #include <QDebug>
 #include "patient.h"
 #include "therapist.h"
+#include "gui_printwindow.h"
 
 PrintWindow::PrintWindow(ICFController* icfController, QDialog *parent)
     :QDialog(parent), icfController(icfController)
@@ -20,13 +21,12 @@ int PrintWindow::printReport(int repId)
 {
     Report* report;
     if ((report = icfController->findReport(repId))) {
-        createXmlReport(*report);
-        return 0;
+        return createXmlReport(*report);
     }
     return 1;
 }
 
-void PrintWindow::createXmlReport(Report& rep) {
+int PrintWindow::createXmlReport(Report& rep) {
     QDomDocument doc;
     doc.insertBefore(doc.createProcessingInstruction("xml-stylesheet", "type=\"text/xsl\" href=\"layout/report.xsl\""),doc.documentElement());
     doc.insertBefore(doc.createProcessingInstruction("xml", "version=\"1.0\" encoding=\"utf-8\""),doc.documentElement());
@@ -59,11 +59,13 @@ void PrintWindow::createXmlReport(Report& rep) {
 
     QFile file(icfController->getBaseDir() + "/report.xml");
     if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text))
-        return;
+        return 1;
     QTextStream out(&file);
     const int Indent = 4;
     doc.save(out,Indent);
     file.close();
+    GUI_PrintWindow printDialog(icfController, this);
+    return !(printDialog.exec());
 }
 
 void PrintWindow::createXmlTherapist(Report& rep, QDomDocument& doc, QDomElement& root) {

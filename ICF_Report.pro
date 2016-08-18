@@ -4,8 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-QT       += xml
+QT       += core gui xml printsupport webkitwidgets
 QMAKE_CXXFLAGS += -std=c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -29,7 +28,8 @@ SOURCES += main.cpp\
     gui_showperson.cpp \
     gui_newperson.cpp \
     gui_report.cpp \
-    gui_settings.cpp
+    gui_settings.cpp \
+    gui_printwindow.cpp
 
 HEADERS  += mainwindow.h \
     icfcontroller.h \
@@ -45,7 +45,8 @@ HEADERS  += mainwindow.h \
     gui_showperson.h \
     gui_newperson.h \
     gui_report.h \
-    gui_settings.h
+    gui_settings.h \
+    gui_printwindow.h
 
 FORMS    += mainwindow.ui \
     gui_function.ui \
@@ -53,7 +54,8 @@ FORMS    += mainwindow.ui \
     gui_showperson.ui \
     gui_newperson.ui \
     gui_report.ui \
-    gui_settings.ui
+    gui_settings.ui \
+    gui_printwindow.ui
 
 RESOURCES += \
     resources.qrc

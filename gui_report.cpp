@@ -2,7 +2,6 @@
 #include "ui_gui_report.h"
 #include <QMessageBox>
 #include <QInputDialog>
-#include <QSettings>
 
 GUI_Report::GUI_Report(ICFController *icfController, QWidget *parent) :
     QDialog(parent),
@@ -95,8 +94,7 @@ void GUI_Report::on_printButton_clicked()
     if (ui->reportcB->currentText() == "New Report") return;
     if (!m_icfController->printReport(ui->reportcB->currentText().toInt())) {
         QMessageBox box;
-        QSettings settings;
-        box.setText("Report printed to xml directory: " + settings.value("baseDir").toString());
+        box.setText("Report printed.");
         box.exec();
     }
 }

@@ -23,8 +23,8 @@ public:
     ~GUI_ShowPerson();
 
 private slots:
-    void on_actionNew_Therapist_clicked();
-    void on_actionNew_Patient_clicked();
+    void onActionNew_Therapist_clicked();
+    void onActionNew_Patient_clicked();
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
     void on_closeButton_clicked();

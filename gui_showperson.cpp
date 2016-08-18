@@ -27,9 +27,9 @@ GUI_ShowPerson::GUI_ShowPerson(ICFController *controller, char art, QWidget *par
     ui->setupUi(this);
     this->fillListView();
     if (art == 'p') {
-        connect(ui->newButton,SIGNAL(clicked()),this,SLOT(on_actionNew_Patient_clicked()));
+        connect(ui->newButton,SIGNAL(clicked()),this,SLOT(onActionNew_Patient_clicked()));
     } else if (art == 't') {
-        connect(ui->newButton,SIGNAL(clicked()),this,SLOT(on_actionNew_Therapist_clicked()));
+        connect(ui->newButton,SIGNAL(clicked()),this,SLOT(onActionNew_Therapist_clicked()));
     } else {
         std::cerr << "Art ist weder p noch t" << std::endl;
     }
@@ -40,7 +40,7 @@ GUI_ShowPerson::~GUI_ShowPerson()
     delete ui;
 }
 
-void GUI_ShowPerson::on_actionNew_Therapist_clicked()
+void GUI_ShowPerson::onActionNew_Therapist_clicked()
 {
     GUI_NewPerson* therapist = new GUI_NewPerson(this);
     therapist->therapistAppearance();
@@ -50,7 +50,7 @@ void GUI_ShowPerson::on_actionNew_Therapist_clicked()
     delete therapist;
 }
 
-void GUI_ShowPerson::on_actionNew_Patient_clicked()
+void GUI_ShowPerson::onActionNew_Patient_clicked()
 {
     GUI_NewPerson* patient = new GUI_NewPerson(this);
     if (patient->exec())

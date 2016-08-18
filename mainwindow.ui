@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>ICF Report Manager</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -24,10 +24,10 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>Manage Reports</string>
+       <string>Manage &amp;Reports</string>
       </property>
       <property name="shortcut">
-       <string comment="R"/>
+       <string/>
       </property>
       <property name="flat">
        <bool>false</bool>
@@ -46,10 +46,10 @@
        <string notr="true"/>
       </property>
       <property name="text">
-       <string>Manage Therapists</string>
+       <string>Manage &amp;Therapists</string>
       </property>
       <property name="shortcut">
-       <string comment="T"/>
+       <string/>
       </property>
       <property name="flat">
        <bool>false</bool>
@@ -68,10 +68,10 @@
        <string notr="true"/>
       </property>
       <property name="text">
-       <string>Manage Patients</string>
+       <string>Manage &amp;Patients</string>
       </property>
       <property name="shortcut">
-       <string comment="P"/>
+       <string/>
       </property>
       <property name="flat">
        <bool>false</bool>
@@ -91,16 +91,17 @@
    </property>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
-     <string>I&amp;nfo</string>
+     <string>Info</string>
     </property>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>Fi&amp;le</string>
+     <string>File</string>
     </property>
-    <addaction name="actionManage_Patients"/>
+    <addaction name="actionManage_Reports"/>
     <addaction name="actionManage_Therapists"/>
+    <addaction name="actionManage_Patients"/>
     <addaction name="actionSet_Xml_Directory"/>
     <addaction name="actionSave_All"/>
     <addaction name="actionExit"/>
@@ -122,23 +123,23 @@
     <string>&amp;About</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+A</string>
+    <string>Shift+A</string>
    </property>
   </action>
   <action name="actionManage_Therapists">
    <property name="text">
-    <string>&amp;Manage Therapists</string>
+    <string>Manage &amp;Therapists</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+T</string>
+    <string>Shift+T</string>
    </property>
   </action>
   <action name="actionManage_Patients">
    <property name="text">
-    <string>Manage Pat&amp;ients</string>
+    <string>Manage &amp;Patients</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+P</string>
+    <string>Shift+P</string>
    </property>
   </action>
   <action name="actionExit">
@@ -146,17 +147,31 @@
     <string>&amp;Exit</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+X</string>
+    <string>Shift+E</string>
    </property>
   </action>
   <action name="actionSave_All">
    <property name="text">
-    <string>Save &amp;All</string>
+    <string>&amp;Save All</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+S</string>
    </property>
   </action>
   <action name="actionSet_Xml_Directory">
    <property name="text">
-    <string>Set Xml Directory</string>
+    <string>Set &amp;Xml Directory</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+X</string>
+   </property>
+  </action>
+  <action name="actionManage_Reports">
+   <property name="text">
+    <string>Manage &amp;Reports</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+R</string>
    </property>
   </action>
  </widget>

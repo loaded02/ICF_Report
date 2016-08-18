@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionExit,SIGNAL(triggered()),this,SLOT(close()));
     connect(ui->pushButtonPat,SIGNAL(clicked()),this,SLOT(on_actionManage_Patients_triggered()));
     connect(ui->pushButtonTher,SIGNAL(clicked()),this,SLOT(on_actionManage_Therapists_triggered()));
+    connect(ui->pushButtonRepNew,SIGNAL(clicked(bool)),this,SLOT(on_actionManage_Reports_triggered()));
 }
 
 MainWindow::~MainWindow()
@@ -79,13 +80,6 @@ void MainWindow::on_actionManage_Patients_triggered()
     delete form;
 }
 
-void MainWindow::on_pushButtonRepNew_clicked()
-{
-    GUI_Report* repForm = new GUI_Report(icfController,this);
-    repForm->exec();
-    delete repForm;
-}
-
 void MainWindow::on_actionSet_Xml_Directory_triggered()
 {
     GUI_Settings dialog;
@@ -96,4 +90,11 @@ void MainWindow::on_actionSet_Xml_Directory_triggered()
         box.setText("Settings saved.");
         box.exec();
     }
+}
+
+void MainWindow::on_actionManage_Reports_triggered()
+{
+    GUI_Report* repForm = new GUI_Report(icfController,this);
+    repForm->exec();
+    delete repForm;
 }

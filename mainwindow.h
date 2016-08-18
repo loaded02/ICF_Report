@@ -32,11 +32,10 @@ private slots:
     void closeEvent(QCloseEvent * event);
     void on_actionAbout_triggered();
     void on_actionSave_All_triggered();
-    void on_pushButtonRepNew_clicked();
     void on_actionManage_Therapists_triggered();
     void on_actionManage_Patients_triggered();
-
     void on_actionSet_Xml_Directory_triggered();
+    void on_actionManage_Reports_triggered();
 
 private:
     Ui::MainWindow *ui;

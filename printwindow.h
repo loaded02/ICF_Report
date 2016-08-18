@@ -20,7 +20,7 @@ public:
     ~PrintWindow();
     int printReport(int repId);
 private:
-    void createXmlReport(Report &rep);
+    int createXmlReport(Report &rep);
     void createXmlTherapist(Report &rep, QDomDocument &doc, QDomElement &root);
     void createXmlPatient(Report &rep, QDomDocument &doc, QDomElement &root);
     void createXmlFunction(Report& rep, QDomDocument& doc, QDomElement& root);
