@@ -36,6 +36,6 @@ install:
 before_script:
  - mkdir build
  - cd build
- - make ..
+ - qmake ../ICF_Report.pro
 script:
 - make -j4 && make all ARGS="-V"
