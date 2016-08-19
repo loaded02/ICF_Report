@@ -13,6 +13,8 @@ Check [WHO](http://www.who.int/classifications/icf/en/) for more information abo
 
 ## BUILD:
 
+on Travis-CI https://travis-ci.org/loaded02/ICF_Report.svg?branch=master
+
   * Qt Creator 3.0.1
   * Based on Qt 5.2.1 (GCC 4.6.1, 64 bit)
   * Ubuntu 13.10, 64 bit
