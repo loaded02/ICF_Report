@@ -27,5 +27,9 @@ deploy:
   api_key:
     secure: QRsCstKmkfIUTSIYQ3n2tmeXUnjJUJYdaG+mPLp5JNkjaDsCxiF2FHZnvzlg1wLciO72ww8NckW/JMjgE5szt6W8iefVmYjAj2c/U+TwChGaFPrLOu+ydQ33PVhs/F6hfdAFUIalU1WCSGtG+WJw2DgPDZP3LzMf0WE32URxLKi1hus35xpfWnVWjALf8Wg9hZMBdIj+C5VPyvD5IwMuhtYfTuBkyE2LvG5n1zLz+lKZ28Ejhxq0xVYshB/lXZKIBGtuVLZCqnZeQuhyu6Di4UjJl440XSik2vwUOliEBCyRorEQzlKDAyXl7zrZYQVloSM3ljExQbcaf7TSMdqk1GTT/EKjDkOK5uk4G5xhHsyetVOAYUO6hcmHpddzuy6Qbl0Qx8iQ9yUZNrWPuo+rRHhdhWYyq1E0f/UmER67wu6R62ahlHLH9JoYzn3qkwindWOflCBB38tSYGOEmVwohtTs3AqmG0IQAp9XnKO0TBi4d7xuTK8EYzZESh/IG8NN2jcJUv7W4i5iChrtsaD78wPF5EomZEwOE8bT2UADTya3UHNBWfy61lj6h+1rUjfhpkpJBtAGGc3d0OocntncjkMq8k1H7uen2vSXKJu9EG2mb/oJ79ri1EmCQuH0jhlbhUPWj2yg8i1puLcP0hxs+ikBK0o4j2uU717xH7Yr9bo=
   file: ICF_Report
+  skip_cleanup: true
   on:
+    tags: true
     repo: loaded02/ICF_Report
+    branch: master
+    condition: $CONFIG = release && ${TRAVIS_OS_NAME} = linux
