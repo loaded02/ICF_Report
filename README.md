@@ -17,7 +17,7 @@ Check [WHO](http://www.who.int/classifications/icf/en/) for more information abo
   * Based on Qt 5.2.1 (GCC 4.6.1, 64 bit)
   * Ubuntu 13.10, 64 bit
 
-  0. apt-get install qt55base, qt55tools, qt55script, qt55webkit, xsltproc
+  0. apt-get install qt55base qt55tools qt55script qt55webkit xsltproc
   1. Clone Repository
   2. mkdir build
   3. cd build
