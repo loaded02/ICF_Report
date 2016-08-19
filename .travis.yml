@@ -29,7 +29,6 @@ deploy:
   file: ICF_Report
   skip_cleanup: true
   on:
-    #tags: true
     repo: loaded02/ICF_Report
     branch: master
-    condition: $CONFIG = release
+    #tags: true
