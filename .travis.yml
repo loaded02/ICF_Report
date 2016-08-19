@@ -36,9 +36,7 @@ before_install:
 # Install dependencies
 install:
  - sudo apt-get -y install qt55[QTPACKAGE]
- - QT_WITHOUT_DOTS=qt$(echo $QT_VERSION | grep -oP "[^\.]*" | tr -d '\n' | tr '[:upper:]' '[:lower]')
- - QT_PKG_PREFIX=$(echo $QT_WITHOUT_DOTS | cut -c1-4)
- - sudo apt-get install ${QT_PKG_PREFIX}base ${QT_PKG_PREFIX}svg ${QT_PKG_PREFIX}tools ${QT_PKG_PREFIX}webkit
+ - sudo apt-get install qt55webkit
 # - source travis/prepare.sh # installs qt and cmake. need to source because some env vars are set from there
 
 # Actual work
