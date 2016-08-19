@@ -2,6 +2,7 @@
 # General set up
 language: cpp
 cache: apt
+sudo: required
 
 # Build matrix set up
 compiler:
