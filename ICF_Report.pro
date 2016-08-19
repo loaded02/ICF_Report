@@ -6,6 +6,7 @@
 
 QT       += core gui xml printsupport webkitwidgets
 QMAKE_CXXFLAGS += -std=c++11
+CONFIG   += release #debug
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
