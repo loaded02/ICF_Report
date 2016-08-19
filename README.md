@@ -1,4 +1,4 @@
-# ICF_Report
+# ICF_Report [![Build Status](https://travis-ci.org/loaded02/ICF_Report.svg?branch=master)](https://travis-ci.org/loaded02/ICF_Report)
 
 This is a simple GUI-Programm, which is supposed to help creating a brief ICF Report.
  The ICF Report is used to describe a patient status, e.g. during a medical therapy. 
@@ -12,8 +12,6 @@ Check [WHO](http://www.who.int/classifications/icf/en/) for more information abo
   * The result will be a nice formatted output via printing to Pdf.
 
 ## BUILD:
-
-on Travis-CI  [![Build Status](https://travis-ci.org/loaded02/ICF_Report.svg?branch=master)](https://travis-ci.org/loaded02/ICF_Report)
 
   * Qt Creator 3.0.1
   * Based on Qt 5.2.1 (GCC 4.6.1, 64 bit)
