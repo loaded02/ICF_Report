@@ -13,7 +13,7 @@ Check [WHO](http://www.who.int/classifications/icf/en/) for more information abo
 
 ## BUILD:
 
-on Travis-CI [Build Status](https://travis-ci.org/loaded02/ICF_Report.svg?branch=master)
+on Travis-CI [![Build Status](https://travis-ci.org/loaded02/ICF_Report.svg?branch=master)](https://travis-ci.org/loaded02/ICF_Report)
 
   * Qt Creator 3.0.1
   * Based on Qt 5.2.1 (GCC 4.6.1, 64 bit)
