@@ -1,4 +1,4 @@
-STYLESHEETS_DIR = /home/mhilberg/Downloads/testCheckout/ICF_Report/xml/stylesheet
+STYLESHEETS_DIR = ./stylesheet
 FILENAME = report
 
 all: html pdf
