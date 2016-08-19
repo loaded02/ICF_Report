@@ -1,7 +1,7 @@
 
 # General set up
 language: cpp
-cache: apt
+#cache: apt
 sudo: required
 dist: trusty
 
@@ -29,14 +29,20 @@ matrix:
     - os: osx
       env: QT_VERSION=5.6
 
+before_install:
+  - sudo add-apt-repository --yes ppa:beineri/opt-qt551-trusty
+  - sudo apt-get update -qq
+
 # Install dependencies
 install:
- - source travis/prepare.sh # installs qt and cmake. need to source because some env vars are set from there
+ - sudo apt-get -y install qt55[QTPACKAGE]
+# - source travis/prepare.sh # installs qt and cmake. need to source because some env vars are set from there
 
 # Actual work
 before_script:
+ - source /opt/qt55/bin/qt55-env.sh
  - mkdir build
  - cd build
- - qmake ../ICF_Report.pro -r -spec linux-g++
+ - /opt/qt55/bin/qmake ../ICF_Report.pro -r -spec linux-g++
 script:
 - make -j4 && make all ARGS="-V"
