@@ -10,7 +10,7 @@
         <link rel="stylesheet" media="print" type="text/css" href="stylesheet/xhtml/browser.css"/>
     </head>
 <!-- HTML HEADER -->
-    <body>
+    <body><div class="main">
         <table class="header">
             <tr>
                 <td>
@@ -179,7 +179,7 @@
             </p>
         <!-- FOOTER -->
         <p class="sig"><xsl:value-of select="therapist/office"/></p>
-  </body>
+  </div></body>
 </html>
   </xsl:template>
   

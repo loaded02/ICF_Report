@@ -240,7 +240,7 @@ void GUI_Report::fillReportForm(Report *rep)
     ui->contextWidget->hideAll();
     for (int i=0; i<rep->sizeOfFunctions(); i++) {
         Function* actFunction = rep->getFunction(i);
-        GUI_FunctionForm* actForm;
+        GUI_FunctionForm* actForm = 0;
         switch (actFunction->getArt()) {
         case Function::function : actForm = ui->functionsWidget->setUnitVisible();
             break;

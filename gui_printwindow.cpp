@@ -39,5 +39,5 @@ void GUI_PrintWindow::accept()
 void GUI_PrintWindow::onProcessFinished(int status)
 {
     if (!status)
-        ui->webView->load(QUrl::fromLocalFile(icfController->getBaseDir() + "/report.xml"));
+        ui->webView->load(QUrl::fromLocalFile(icfController->getBaseDir() + "/report.html"));
 }

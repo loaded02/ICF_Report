@@ -8,7 +8,13 @@
 
 body {
     font-family:Tahoma,Helvetica,sans-serif;
-    width:19cm; /*Annahme: Rand macht der Browser beim Druck*/
+    width: 21cm; /*Annahme: Rand macht der Browser beim Druck*/
+    height: 29.7cm;
+    margin: 2cm 1cm 2cm 1cm;
+}
+
+div.main {
+   width: 19cm;
 }
 
 h1 {

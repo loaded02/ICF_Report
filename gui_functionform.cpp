@@ -123,7 +123,7 @@ void GUI_FunctionForm::resetInput()
     ui->lineEdit->clear();
     int btn = this->getValue();
     if (btn != -1) {
-        QRadioButton* selectedBtn;
+        QRadioButton* selectedBtn = 0;
         switch (btn) {
         case 0 : selectedBtn = ui->radioButton;
             break;
@@ -145,9 +145,11 @@ void GUI_FunctionForm::resetInput()
             break;
         default :;
         }
-        selectedBtn->setAutoExclusive(false);
-        selectedBtn->setChecked(false);
-        selectedBtn->setAutoExclusive(true);
+        if (selectedBtn) {
+            selectedBtn->setAutoExclusive(false);
+            selectedBtn->setChecked(false);
+            selectedBtn->setAutoExclusive(true);
+        }
     }
 }
 
