@@ -1,0 +1,14 @@
+Variante 1)
+- xml mit xsl in Browser zu html + css parsen. Ueber browser drucken.
+- einfach report.xml in browser oeffnen. 
+- Benutzt layout/ Ordner.
+
+Variante 2) 
+- xml mit xsltproc ueber Makefile in html + css parsen. 
+- Weiterhin mit xsltproc html -> fo und mit fop fo -> pdf parsen. (fo Datei fehlt noch)
+- Benutzt stylesheet/ Ordner
+
+Variante 3)
+- xml mit xsltproc ueber Makefile in html + css parsen. 
+- html + css in QWebView laden und ueber PrintDialog drucken
+- Benutzt stylesheet/ Ordner

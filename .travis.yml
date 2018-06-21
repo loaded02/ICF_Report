@@ -1,0 +1,34 @@
+language: cpp
+sudo: required
+dist: trusty
+compiler:
+- gcc
+os:
+- linux
+env:
+- QT_VERSION=5.4.2
+- QT_VERSION=5.5.1
+- QT_VERSION=5.6.1
+before_install:
+- sudo add-apt-repository --yes ppa:beineri/opt-qt551-trusty
+- sudo apt-get update -qq
+install:
+- sudo apt-get -y install qt55[QTPACKAGE]
+- sudo apt-get install qt55webkit
+before_script:
+- source /opt/qt55/bin/qt55-env.sh
+- mkdir build
+- cd build
+- "/opt/qt55/bin/qmake ../ICF_Report.pro -r -spec linux-g++"
+script:
+- make -j4 && make all ARGS="-V"
+deploy:
+  provider: releases
+  api_key:
+    secure: QRsCstKmkfIUTSIYQ3n2tmeXUnjJUJYdaG+mPLp5JNkjaDsCxiF2FHZnvzlg1wLciO72ww8NckW/JMjgE5szt6W8iefVmYjAj2c/U+TwChGaFPrLOu+ydQ33PVhs/F6hfdAFUIalU1WCSGtG+WJw2DgPDZP3LzMf0WE32URxLKi1hus35xpfWnVWjALf8Wg9hZMBdIj+C5VPyvD5IwMuhtYfTuBkyE2LvG5n1zLz+lKZ28Ejhxq0xVYshB/lXZKIBGtuVLZCqnZeQuhyu6Di4UjJl440XSik2vwUOliEBCyRorEQzlKDAyXl7zrZYQVloSM3ljExQbcaf7TSMdqk1GTT/EKjDkOK5uk4G5xhHsyetVOAYUO6hcmHpddzuy6Qbl0Qx8iQ9yUZNrWPuo+rRHhdhWYyq1E0f/UmER67wu6R62ahlHLH9JoYzn3qkwindWOflCBB38tSYGOEmVwohtTs3AqmG0IQAp9XnKO0TBi4d7xuTK8EYzZESh/IG8NN2jcJUv7W4i5iChrtsaD78wPF5EomZEwOE8bT2UADTya3UHNBWfy61lj6h+1rUjfhpkpJBtAGGc3d0OocntncjkMq8k1H7uen2vSXKJu9EG2mb/oJ79ri1EmCQuH0jhlbhUPWj2yg8i1puLcP0hxs+ikBK0o4j2uU717xH7Yr9bo=
+  file: ICF_Report
+  skip_cleanup: true
+  on:
+    repo: loaded02/ICF_Report
+    branch: master
+    tags: true #comment this line out if you want to deploy on github

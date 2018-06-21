@@ -1,0 +1,6 @@
+xml/storage/*.xml
+xml/*.xml
+xml/*.html
+xml/*.pdf
+ICF_Report.pro.user
+.directory
